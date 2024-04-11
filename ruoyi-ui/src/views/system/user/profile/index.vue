@@ -55,7 +55,7 @@
             <el-tab-pane label="修改密码" name="resetPwd">
               <resetPwd />
             </el-tab-pane>
-            <el-tab-pane label="第三方应用" name="thirdParty">
+            <el-tab-pane v-if="false" label="第三方应用" name="thirdParty">
               <thirdParty :auths="state.auths" />
             </el-tab-pane>
           </el-tabs>
