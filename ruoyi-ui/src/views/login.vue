@@ -72,7 +72,7 @@ const router = useRouter();
 const loginForm = ref<LoginData>({
   tenantId: '000000',
   username: 'admin',
-  password: 'admin123',
+  password: '123456',
   rememberMe: false,
   code: '',
   uuid: ''
