@@ -65,7 +65,7 @@
           <template #header>
             <el-row :gutter="10">
               <el-col :span="1.5">
-                <el-button type="primary" plain @click="handleAdd()" v-has-permi="['system:user:add']" icon="Plus">新增</el-button>
+                <el-button type="primary" plain @click="handleAdd()" v-has-permi="['system:user:add']" icon="Plus"> 新增 </el-button>
               </el-col>
               <el-col :span="1.5">
                 <el-button type="success" plain @click="handleUpdate()" :disabled="single" v-has-permi="['system:user:add']" icon="Edit">
@@ -81,8 +81,10 @@
                 <el-dropdown class="mt-[1px]">
                   <el-button plain type="info">
                     更多
-                    <el-icon class="el-icon--right"><arrow-down /></el-icon
-                  ></el-button>
+                    <el-icon class="el-icon--right">
+                      <arrow-down />
+                    </el-icon>
+                  </el-button>
                   <template #dropdown>
                     <el-dropdown-menu>
                       <el-dropdown-item @click="importTemplate" icon="Download">下载模板</el-dropdown-item>
@@ -210,8 +212,11 @@
           <el-col :span="12">
             <el-form-item label="状态">
               <el-radio-group v-model="form.status">
-                <el-radio v-for="dict in sys_normal_disable" :key="dict.value" :label="dict.value">{{
-                  dict.label }}</el-radio>
+                <el-radio v-for="dict in sys_normal_disable" :key="dict.value" :label="dict.value"
+                  >{{
+                    dict.label
+                  }}
+                </el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -280,9 +285,12 @@
         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
         <template #tip>
           <div class="text-center el-upload__tip">
-            <div class="el-upload__tip"><el-checkbox v-model="upload.updateSupport" />是否更新已经存在的用户数据</div>
+            <div class="el-upload__tip">
+              <el-checkbox v-model="upload.updateSupport" />
+              是否更新已经存在的用户数据
+            </div>
             <span>仅允许导入xls、xlsx格式文件。</span>
-            <el-link type="primary" :underline="false" style="font-size:12px;vertical-align: baseline;" @click="importTemplate">下载模板</el-link>
+            <el-link type="primary" :underline="false" style="font-size:12px;vertical-align: baseline;" @click="importTemplate">下载模板 </el-link>
           </div>
         </template>
       </el-upload>
@@ -298,17 +306,18 @@
 
 <script setup name="User" lang="ts">
 import api from "@/api/system/user"
-import { UserForm, UserQuery, UserVO } from '@/api/system/user/types';
-import { treeselect } from "@/api/system/dept";
-import { DeptVO } from "@/api/system/dept/types";
-import { RoleVO } from "@/api/system/role/types";
-import { PostVO } from "@/api/system/post/types";
-import { to } from "await-to-js";
-import { globalHeaders } from "@/utils/request";
+import {UserForm, UserQuery, UserVO} from '@/api/system/user/types';
+import {treeselect} from "@/api/system/dept";
+import {DeptVO} from "@/api/system/dept/types";
+import {RoleVO} from "@/api/system/role/types";
+import {PostVO} from "@/api/system/post/types";
+import {to} from "await-to-js";
+import {globalHeaders} from "@/utils/request";
+import {listMajor} from "@/api/base/major";
 
 const router = useRouter();
-const { proxy } = getCurrentInstance() as ComponentInternalInstance
-const { sys_normal_disable, sys_user_sex } = toRefs<any>(proxy?.useDict('sys_normal_disable', 'sys_user_sex'));
+const {proxy} = getCurrentInstance() as ComponentInternalInstance
+const {sys_normal_disable, sys_user_sex} = toRefs<any>(proxy?.useDict('sys_normal_disable', 'sys_user_sex'));
 
 const userList = ref<UserVO[]>();
 const loading = ref(true);
@@ -323,6 +332,7 @@ const deptOptions = ref<DeptVO[]>([]);
 const initPassword = ref<String>('');
 const postOptions = ref<PostVO[]>([]);
 const roleOptions = ref<RoleVO[]>([]);
+const majorArray = ref<any>([]);
 /*** 用户导入参数 */
 const upload = reactive<ImportOption>({
   // 是否显示弹出层（用户导入）
@@ -340,13 +350,13 @@ const upload = reactive<ImportOption>({
 })
 // 列显隐信息
 const columns = ref<FieldOption[]>([
-  { key: 0, label: `用户编号`, visible: false,children: [] },
-  { key: 1, label: `用户名称`, visible: true,children: [] },
-  { key: 2, label: `用户昵称`, visible: true,children: [] },
-  { key: 3, label: `部门`, visible: true,children: [] },
-  { key: 4, label: `手机号码`, visible: true,children: [] },
-  { key: 5, label: `状态`, visible: true,children: [] },
-  { key: 6, label: `创建时间`, visible: true,children: [] }
+  {key: 0, label: `用户编号`, visible: false, children: []},
+  {key: 1, label: `用户名称`, visible: true, children: []},
+  {key: 2, label: `用户昵称`, visible: true, children: []},
+  {key: 3, label: `部门`, visible: true, children: []},
+  {key: 4, label: `手机号码`, visible: true, children: []},
+  {key: 5, label: `状态`, visible: true, children: []},
+  {key: 6, label: `创建时间`, visible: true, children: []}
 ])
 
 
@@ -376,7 +386,7 @@ const initFormData: UserForm = {
   roleIds: []
 }
 const data = reactive<PageData<UserForm, UserQuery>>({
-  form: { ...initFormData },
+  form: {...initFormData},
   queryParams: {
     pageNum: 1,
     pageSize: 10,
@@ -386,17 +396,27 @@ const data = reactive<PageData<UserForm, UserQuery>>({
     deptId: ''
   },
   rules: {
-    userName: [{ required: true, message: "用户名称不能为空", trigger: "blur" }, { min: 2, max: 20, message: "用户名称长度必须介于 2 和 20 之间", trigger: "blur" }],
-    nickName: [{ required: true, message: "用户昵称不能为空", trigger: "blur" }],
-    password: [{ required: true, message: "用户密码不能为空", trigger: "blur" }, { min: 5, max: 20, message: "用户密码长度必须介于 5 和 20 之间", trigger: "blur" }],
-    roleIds: [{ required: true, message: "用户角色不能为空", trigger: "blur" }],
-    deptId: [{ required: true, message: "用户部门不能为空", trigger: "blur"}],
-    email: [{ type: "email", message: "请输入正确的邮箱地址", trigger: ["blur", "change"] }],
-    phonenumber: [{ pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/, message: "请输入正确的手机号码", trigger: "blur" }]
+    userName: [{required: true, message: "用户名称不能为空", trigger: "blur"}, {
+      min: 2,
+      max: 20,
+      message: "用户名称长度必须介于 2 和 20 之间",
+      trigger: "blur"
+    }],
+    nickName: [{required: true, message: "用户昵称不能为空", trigger: "blur"}],
+    password: [{required: true, message: "用户密码不能为空", trigger: "blur"}, {
+      min: 5,
+      max: 20,
+      message: "用户密码长度必须介于 5 和 20 之间",
+      trigger: "blur"
+    }],
+    roleIds: [{required: true, message: "用户角色不能为空", trigger: "blur"}],
+    deptId: [{required: true, message: "用户部门不能为空", trigger: "blur"}],
+    email: [{type: "email", message: "请输入正确的邮箱地址", trigger: ["blur", "change"]}],
+    phonenumber: [{pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/, message: "请输入正确的手机号码", trigger: "blur"}]
   }
 })
 
-const { queryParams, form, rules } = toRefs<PageData<UserForm, UserQuery>>(data)
+const {queryParams, form, rules} = toRefs<PageData<UserForm, UserQuery>>(data)
 
 /** 通过条件过滤节点  */
 const filterNode = (value: string, data: any) => {
@@ -405,7 +425,9 @@ const filterNode = (value: string, data: any) => {
 }
 /** 根据名称筛选部门树 */
 watchEffect(
-  () => { deptTreeRef.value?.filter(deptName.value); },
+  () => {
+    deptTreeRef.value?.filter(deptName.value);
+  },
   {
     flush: 'post' // watchEffect会在DOM挂载或者更新之前就会触发，此属性控制在DOM元素更新后运行
   }
@@ -416,6 +438,14 @@ const getTreeSelect = async () => {
   const res = await api.deptTreeSelect();
   deptOptions.value = res.data;
 };
+
+/** 查询专业数据 */
+const getMajorData = async () => {
+  const data = await listMajor()
+  for (let i in data.rows) {
+    majorArray.value.push({"majorId": data.rows[i].majorId, "majorName": data.rows[i].majorName})
+  }
+}
 
 /** 查询用户列表 */
 const getList = async () => {
@@ -511,8 +541,7 @@ const handleExport = () => {
 };
 /** 下载模板操作 */
 const importTemplate = () => {
-  proxy?.download("system/user/importTemplate", {
-  }, `user_template_${new Date().getTime()}.xlsx`);
+  proxy?.download("system/user/importTemplate", {}, `user_template_${new Date().getTime()}.xlsx`);
 }
 
 /**文件上传中处理 */
@@ -524,7 +553,7 @@ const handleFileSuccess = (response: any, file: UploadFile) => {
   upload.open = false;
   upload.isUploading = false;
   uploadRef.value?.handleRemove(file);
-  ElMessageBox.alert("<div style='overflow: auto;overflow-x: hidden;max-height: 70vh;padding: 10px 20px 0;'>" + response.msg + "</div>", "导入结果", { dangerouslyUseHTMLString: true });
+  ElMessageBox.alert("<div style='overflow: auto;overflow-x: hidden;max-height: 70vh;padding: 10px 20px 0;'>" + response.msg + "</div>", "导入结果", {dangerouslyUseHTMLString: true});
   getList();
 }
 
@@ -537,7 +566,7 @@ function submitFileForm() {
 const initTreeData = async () => {
   // 判断部门的数据是否存在，存在不获取，不存在则获取
   if (deptOptions.value === undefined) {
-    const { data } = await treeselect();
+    const {data} = await treeselect();
     deptOptions.value = data;
   }
 }
@@ -545,7 +574,7 @@ const initTreeData = async () => {
 
 /** 重置操作表单 */
 const reset = () => {
-  form.value = { ...initFormData };
+  form.value = {...initFormData};
   userFormRef.value?.resetFields();
 }
 /** 取消按钮 */
@@ -557,7 +586,7 @@ const cancel = () => {
 /** 新增按钮操作 */
 const handleAdd = async () => {
   reset();
-  const { data } = await api.getUser();
+  const {data} = await api.getUser();
   dialog.visible = true;
   dialog.title = "新增用户";
   await initTreeData();
@@ -569,7 +598,7 @@ const handleAdd = async () => {
 const handleUpdate = async (row?: UserForm) => {
   reset();
   const userId = row?.userId || ids.value[0]
-  const { data } = await api.getUser(userId)
+  const {data} = await api.getUser(userId)
   dialog.visible = true;
   dialog.title = "修改用户";
   await initTreeData();
@@ -615,6 +644,7 @@ const resetForm = () => {
 onMounted(() => {
   getTreeSelect() // 初始化部门数据
   getList() // 初始化列表数据
+  getMajorData() // 初始化专业数据
   proxy?.getConfigKey("sys.user.initPassword").then(response => {
     initPassword.value = response.data;
   });

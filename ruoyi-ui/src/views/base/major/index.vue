@@ -53,7 +53,8 @@
       <el-table v-loading="loading" :data="majorList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
         <el-table-column label="专业id" align="center" prop="majorId" v-if="false" />
-        <el-table-column label="部门id" align="center" prop="deptId" />
+        <el-table-column label="部门id" align="center" prop="deptId" v-if="false" />
+        <el-table-column label="部门名称" align="center" prop="deptName" />
         <el-table-column label="专业名称" align="center" prop="majorName" />
         <el-table-column label="专业年级" align="center" prop="majorGrade">
           <template #default="scope">
@@ -188,6 +189,13 @@ const getList = async () => {
   loading.value = true;
   const res = await listMajor(queryParams.value);
   majorList.value = res.rows;
+  majorList.value.forEach(major=>{
+    for (let i in deptArray.value) {
+      if (major.deptId === deptArray.value[i].deptId) {
+        major.deptName = deptArray.value[i].deptName;
+      }
+    }
+  })
   total.value = res.total;
   loading.value = false;
 }
@@ -290,7 +298,7 @@ const handleExport = () => {
 }
 
 onMounted(() => {
-  getDeptSelect();
-  getList();
+  getDeptSelect(); // 初始化部门数据
+  getList(); // 初始化列表数据
 });
 </script>

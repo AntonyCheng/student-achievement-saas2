@@ -10,6 +10,11 @@ export interface MajorVO {
   deptId: string | number;
 
   /**
+   * 部门名称
+   */
+  deptName: string;
+
+  /**
    * 专业名称
    */
   majorName: string;
