@@ -8,42 +8,32 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * 专业对象 t_major
+ * 竞赛类型对象 t_competition
  *
  * @author AntonyCheng
- * @date 2024-04-13
+ * @date 2024-04-15
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("t_major")
-public class Major extends TenantEntity {
+@TableName("t_competition")
+public class Competition extends TenantEntity {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     /**
-     * 专业id
+     * 竞赛id
      */
-    @TableId(value = "major_id")
-    private Long majorId;
+    @TableId(value = "competition_id")
+    private Long competitionId;
 
     /**
-     * 部门id
+     * 竞赛名称
      */
-    private Long deptId;
+    private String competitionName;
 
     /**
-     * 专业名称
-     */
-    private String majorName;
-
-    /**
-     * 专业年级
-     */
-    private String majorGrade;
-
-    /**
-     * 专业状态（0正常 1停用）
+     * 竞赛状态（0正常 1停用）
      */
     private String status;
 

@@ -2,7 +2,7 @@
   <div class="p-2">
     <el-row :gutter="20">
       <!-- 部门树 -->
-      <el-col :lg="4" :xs="24" style="">
+      <el-col :lg="5" :xs="24" style="">
         <el-card shadow="hover">
           <el-input v-model="deptName" placeholder="请输入部门名称" prefix-icon="Search" clearable />
           <el-tree
@@ -16,29 +16,30 @@
             highlight-current
             default-expand-all
             @node-click="handleNodeClick"
+            style="font-size: 13px"
           />
         </el-card>
       </el-col>
-      <el-col :lg="20" :xs="24">
+      <el-col :lg="19" :xs="24">
         <transition :enter-active-class="proxy?.animate.searchAnimate.enter" :leave-active-class="proxy?.animate.searchAnimate.leave">
           <div class="mb-[10px]" v-show="showSearch">
             <el-card shadow="hover">
               <el-form ref="queryFormRef" :model="queryParams" :inline="true" label-width="68px">
                 <el-form-item label="用户名称" prop="userName">
-                  <el-input v-model="queryParams.userName" placeholder="请输入用户名称" clearable style="width: 240px" @keyup.enter="handleQuery" />
+                  <el-input v-model="queryParams.userName" placeholder="请输入用户名称" clearable style="width: 140px" @keyup.enter="handleQuery" />
                 </el-form-item>
                 <el-form-item label="手机号码" prop="phonenumber">
                   <el-input
                     v-model="queryParams.phonenumber"
                     placeholder="请输入手机号码"
                     clearable
-                    style="width: 240px"
+                    style="width: 140px"
                     @keyup.enter="handleQuery"
                   />
                 </el-form-item>
 
                 <el-form-item label="状态" prop="status">
-                  <el-select v-model="queryParams.status" placeholder="用户状态" clearable style="width: 240px">
+                  <el-select v-model="queryParams.status" placeholder="用户状态" clearable style="width: 120px">
                     <el-option v-for="dict in sys_normal_disable" :key="dict.value" :label="dict.label" :value="dict.value" />
                   </el-select>
                 </el-form-item>
@@ -101,7 +102,15 @@
           <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
             <el-table-column type="selection" width="50" align="center" />
             <el-table-column label="用户编号" align="center" key="userId" prop="userId" v-if="columns[0].visible" />
-            <el-table-column label="用户名称" align="center" key="userName" prop="userName" v-if="columns[1].visible" :show-overflow-tooltip="true" />
+            <el-table-column
+              label="用户名称"
+              width="120"
+              align="center"
+              key="userName"
+              prop="userName"
+              v-if="columns[1].visible"
+              :show-overflow-tooltip="true"
+            />
             <el-table-column label="用户昵称" align="center" key="nickName" prop="nickName" v-if="columns[2].visible" :show-overflow-tooltip="true" />
             <el-table-column
               label="部门"
@@ -112,7 +121,7 @@
               :show-overflow-tooltip="true"
             />
             <el-table-column label="手机号码" align="center" key="phonenumber" prop="phonenumber" v-if="columns[4].visible" width="120" />
-            <el-table-column label="状态" align="center" key="status" v-if="columns[5].visible">
+            <el-table-column label="状态" width="100" align="center" key="status" v-if="columns[5].visible">
               <template #default="scope">
                 <el-switch v-model="scope.row.status" active-value="0" inactive-value="1" @change="handleStatusChange(scope.row)"></el-switch>
               </template>
@@ -313,7 +322,6 @@ import {RoleVO} from "@/api/system/role/types";
 import {PostVO} from "@/api/system/post/types";
 import {to} from "await-to-js";
 import {globalHeaders} from "@/utils/request";
-import {listMajor} from "@/api/base/major";
 
 const router = useRouter();
 const {proxy} = getCurrentInstance() as ComponentInternalInstance
@@ -329,7 +337,7 @@ const total = ref(0);
 const dateRange = ref<[DateModelType, DateModelType]>(['', '']);
 const deptName = ref('');
 const deptOptions = ref<DeptVO[]>([]);
-const initPassword = ref<String>('');
+const initPassword = ref<string>('');
 const postOptions = ref<PostVO[]>([]);
 const roleOptions = ref<RoleVO[]>([]);
 const majorArray = ref<any>([]);
@@ -438,14 +446,6 @@ const getTreeSelect = async () => {
   const res = await api.deptTreeSelect();
   deptOptions.value = res.data;
 };
-
-/** 查询专业数据 */
-const getMajorData = async () => {
-  const data = await listMajor()
-  for (let i in data.rows) {
-    majorArray.value.push({"majorId": data.rows[i].majorId, "majorName": data.rows[i].majorName})
-  }
-}
 
 /** 查询用户列表 */
 const getList = async () => {
@@ -644,7 +644,6 @@ const resetForm = () => {
 onMounted(() => {
   getTreeSelect() // 初始化部门数据
   getList() // 初始化列表数据
-  getMajorData() // 初始化专业数据
   proxy?.getConfigKey("sys.user.initPassword").then(response => {
     initPassword.value = response.data;
   });
