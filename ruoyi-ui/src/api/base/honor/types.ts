@@ -32,6 +32,11 @@ export interface HonorForm extends BaseEntity {
    */
   status?: string;
 
+  /**
+   * 备注
+   */
+  remark?: string;
+
 }
 
 export interface HonorQuery extends PageQuery {

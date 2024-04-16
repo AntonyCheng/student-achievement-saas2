@@ -48,6 +48,12 @@ public class CompetitionVo implements Serializable {
     private String status;
 
     /**
+     * 备注
+     */
+    @ExcelProperty(value = "备注")
+    private String remark;
+
+    /**
      * 创建时间
      */
     @ExcelProperty(value = "创建时间")

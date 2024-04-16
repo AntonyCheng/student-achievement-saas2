@@ -32,6 +32,11 @@ export interface CompetitionForm extends BaseEntity {
    */
   status?: string;
 
+  /**
+   * 备注
+   */
+  remark?: string;
+
 }
 
 export interface CompetitionQuery extends PageQuery {

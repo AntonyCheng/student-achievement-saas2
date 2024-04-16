@@ -38,5 +38,10 @@ public class HonorBo extends BaseEntity {
     @NotBlank(message = "荣誉状态（0正常 1停用）不能为空", groups = { AddGroup.class, EditGroup.class })
     private String status;
 
+    /**
+     * 备注
+     */
+    private String remark;
+
 
 }

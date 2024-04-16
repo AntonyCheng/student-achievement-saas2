@@ -52,6 +52,7 @@
             <dict-tag :options="sys_normal_disable" :value="scope.row.status"/>
           </template>
         </el-table-column>
+        <el-table-column label="备注" align="center" prop="remark" />
         <el-table-column label="创建时间" align="center" prop="createTime" width="180">
           <template #default="scope">
             <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d}') }}</span>
@@ -98,6 +99,9 @@
             ></el-option>
           </el-select>
         </el-form-item>
+        <el-form-item label="备注" prop="remark">
+          <el-input v-model="form.remark" type="textarea" placeholder="请输入备注" style="width: 100%" />
+        </el-form-item>
       </el-form>
       <template #footer>
         <div class="dialog-footer">
@@ -137,6 +141,7 @@ const initFormData: HonorForm = {
   honorId: undefined,
   honorName: undefined,
   status: undefined,
+  remark: undefined
 }
 const data = reactive<PageData<HonorForm, HonorQuery>>({
   form: {...initFormData},

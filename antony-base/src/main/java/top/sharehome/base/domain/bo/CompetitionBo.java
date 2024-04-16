@@ -38,5 +38,10 @@ public class CompetitionBo extends BaseEntity {
     @NotBlank(message = "竞赛状态（0正常 1停用）不能为空", groups = { AddGroup.class, EditGroup.class })
     private String status;
 
+    /**
+     * 备注
+     */
+    private String remark;
+
 
 }

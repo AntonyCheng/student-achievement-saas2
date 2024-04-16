@@ -38,5 +38,10 @@ public class AchievementBo extends BaseEntity {
     @NotBlank(message = "成果状态（0正常 1停用）不能为空", groups = { AddGroup.class, EditGroup.class })
     private String status;
 
+    /**
+     * 备注
+     */
+    private String remark;
+
 
 }

@@ -32,6 +32,11 @@ export interface AchievementForm extends BaseEntity {
    */
   status?: string;
 
+  /**
+   * 备注
+   */
+  remark?: string;
+
 }
 
 export interface AchievementQuery extends PageQuery {

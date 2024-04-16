@@ -43,5 +43,10 @@ public class Achievement extends TenantEntity {
     @TableLogic
     private String delFlag;
 
+    /**
+     * 备注
+     */
+    private String remark;
+
 
 }
