@@ -25,25 +25,28 @@
           <div class="mb-[10px]" v-show="showSearch">
             <el-card shadow="hover">
               <el-form ref="queryFormRef" :model="queryParams" :inline="true" label-width="68px">
-                <el-form-item label="用户名称" prop="userName">
-                  <el-input v-model="queryParams.userName" placeholder="请输入用户名称" clearable style="width: 140px" @keyup.enter="handleQuery" />
+                <el-form-item label="用户账号" prop="userName">
+                  <el-input v-model="queryParams.userName" placeholder="请输入用户账号" clearable style="width: 300px" @keyup.enter="handleQuery" />
+                </el-form-item>
+                <el-form-item label="用户姓名" prop="nickName">
+                  <el-input v-model="queryParams.nickName" placeholder="请输入用户姓名" clearable style="width: 300px" @keyup.enter="handleQuery" />
                 </el-form-item>
                 <el-form-item label="手机号码" prop="phonenumber">
                   <el-input
                     v-model="queryParams.phonenumber"
                     placeholder="请输入手机号码"
                     clearable
-                    style="width: 140px"
+                    style="width: 300px"
                     @keyup.enter="handleQuery"
                   />
                 </el-form-item>
 
-                <el-form-item label="状态" prop="status">
-                  <el-select v-model="queryParams.status" placeholder="用户状态" clearable style="width: 120px">
+                <el-form-item label="用户状态" prop="status">
+                  <el-select v-model="queryParams.status" placeholder="请选择用户状态" clearable style="width: 300px">
                     <el-option v-for="dict in sys_normal_disable" :key="dict.value" :label="dict.label" :value="dict.value" />
                   </el-select>
                 </el-form-item>
-                <el-form-item label="创建时间" style="width: 308px;">
+                <el-form-item label="创建时间" style="width: 400px;">
                   <el-date-picker
                     v-model="dateRange"
                     value-format="YYYY-MM-DD"
@@ -103,7 +106,7 @@
             <el-table-column type="selection" width="50" align="center" />
             <el-table-column label="用户编号" align="center" key="userId" prop="userId" v-if="columns[0].visible" />
             <el-table-column
-              label="用户名称"
+              label="用户账号"
               width="120"
               align="center"
               key="userName"
@@ -111,7 +114,7 @@
               v-if="columns[1].visible"
               :show-overflow-tooltip="true"
             />
-            <el-table-column label="用户昵称" align="center" key="nickName" prop="nickName" v-if="columns[2].visible" :show-overflow-tooltip="true" />
+            <el-table-column label="用户姓名" align="center" key="nickName" prop="nickName" v-if="columns[2].visible" :show-overflow-tooltip="true" />
             <el-table-column
               label="部门"
               align="center"
@@ -169,8 +172,8 @@
       <el-form :model="form" :rules="rules" ref="userFormRef" label-width="80px">
         <el-row>
           <el-col :span="12">
-            <el-form-item label="用户昵称" prop="nickName">
-              <el-input v-model="form.nickName" placeholder="请输入用户昵称" maxlength="30" />
+            <el-form-item label="用户姓名" prop="nickName">
+              <el-input v-model="form.nickName" placeholder="请输入用户姓名" maxlength="30" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -200,8 +203,8 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item v-if="form.userId == undefined" label="用户名称" prop="userName">
-              <el-input v-model="form.userName" placeholder="请输入用户名称" maxlength="30" />
+            <el-form-item v-if="form.userId == undefined" label="用户账号" prop="userName">
+              <el-input v-model="form.userName" placeholder="请输入用户账号" maxlength="30" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -340,7 +343,6 @@ const deptOptions = ref<DeptVO[]>([]);
 const initPassword = ref<string>('');
 const postOptions = ref<PostVO[]>([]);
 const roleOptions = ref<RoleVO[]>([]);
-const majorArray = ref<any>([]);
 /*** 用户导入参数 */
 const upload = reactive<ImportOption>({
   // 是否显示弹出层（用户导入）
@@ -359,8 +361,8 @@ const upload = reactive<ImportOption>({
 // 列显隐信息
 const columns = ref<FieldOption[]>([
   {key: 0, label: `用户编号`, visible: false, children: []},
-  {key: 1, label: `用户名称`, visible: true, children: []},
-  {key: 2, label: `用户昵称`, visible: true, children: []},
+  {key: 1, label: `用户账号`, visible: true, children: []},
+  {key: 2, label: `用户姓名`, visible: true, children: []},
   {key: 3, label: `部门`, visible: true, children: []},
   {key: 4, label: `手机号码`, visible: true, children: []},
   {key: 5, label: `状态`, visible: true, children: []},
@@ -399,18 +401,19 @@ const data = reactive<PageData<UserForm, UserQuery>>({
     pageNum: 1,
     pageSize: 10,
     userName: '',
+    nickName: '',
     phonenumber: '',
     status: '',
     deptId: ''
   },
   rules: {
-    userName: [{required: true, message: "用户名称不能为空", trigger: "blur"}, {
+    userName: [{required: true, message: "用户账号不能为空", trigger: "blur"}, {
       min: 2,
       max: 20,
-      message: "用户名称长度必须介于 2 和 20 之间",
+      message: "用户账号长度必须介于 2 和 20 之间",
       trigger: "blur"
     }],
-    nickName: [{required: true, message: "用户昵称不能为空", trigger: "blur"}],
+    nickName: [{required: true, message: "用户姓名不能为空", trigger: "blur"}],
     password: [{required: true, message: "用户密码不能为空", trigger: "blur"}, {
       min: 5,
       max: 20,

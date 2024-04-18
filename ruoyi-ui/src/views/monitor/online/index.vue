@@ -6,8 +6,8 @@
           <el-form-item label="登录地址" prop="ipaddr">
             <el-input v-model="queryParams.ipaddr" placeholder="请输入登录地址" clearable style="width: 200px" @keyup.enter="handleQuery" />
           </el-form-item>
-          <el-form-item label="用户名称" prop="userName">
-            <el-input v-model="queryParams.userName" placeholder="请输入用户名称" clearable style="width: 200px" @keyup.enter="handleQuery" />
+          <el-form-item label="用户账号" prop="userName">
+            <el-input v-model="queryParams.userName" placeholder="请输入用户账号" clearable style="width: 200px" @keyup.enter="handleQuery" />
           </el-form-item>
           <el-form-item>
             <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
@@ -28,7 +28,7 @@
           </template>
         </el-table-column>
         <el-table-column label="会话编号" align="center" prop="tokenId" :show-overflow-tooltip="true" />
-        <el-table-column label="登录名称" align="center" prop="userName" :show-overflow-tooltip="true" />
+        <el-table-column label="登录账号" align="center" prop="userName" :show-overflow-tooltip="true" />
         <el-table-column label="客户端" align="center" prop="clientKey" :show-overflow-tooltip="true" />
         <el-table-column label="设备类型" align="center">
           <template #default="scope">

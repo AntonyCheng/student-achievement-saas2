@@ -15,7 +15,7 @@ import java.io.Serial;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("t_achievement")
+@TableName("base_achievement")
 public class Achievement extends TenantEntity {
 
     @Serial

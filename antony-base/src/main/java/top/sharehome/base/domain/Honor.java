@@ -15,7 +15,7 @@ import java.io.Serial;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("t_honor")
+@TableName("base_honor")
 public class Honor extends TenantEntity {
 
     @Serial

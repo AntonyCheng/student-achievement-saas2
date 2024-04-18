@@ -96,8 +96,8 @@
         <el-form-item label="联系电话" prop="contactPhone">
           <el-input v-model="form.contactPhone" placeholder="请输入联系电话" />
         </el-form-item>
-        <el-form-item v-if="!form.id" label="用户名" prop="username">
-          <el-input v-model="form.username" placeholder="请输入系统用户名" maxlength="30" />
+        <el-form-item v-if="!form.id" label="用户账号" prop="username">
+          <el-input v-model="form.username" placeholder="请输入系统用户账号" maxlength="30" />
         </el-form-item>
         <el-form-item v-if="!form.id" label="用户密码" prop="password">
           <el-input type="password" v-model="form.password" placeholder="请输入系统用户密码" maxlength="20" />
@@ -201,8 +201,8 @@ const data = reactive<PageData<TenantForm, TenantQuery>>({
     contactPhone: [{ required: true, message: "联系电话不能为空", trigger: "blur" }],
     companyName: [{ required: true, message: "企业名称不能为空", trigger: "blur" }],
     username: [
-      { required: true, message: "用户名不能为空", trigger: "blur" },
-      { min: 2, max: 20, message: '用户名称长度必须介于 2 和 20 之间', trigger: 'blur' }
+      { required: true, message: "用户账号不能为空", trigger: "blur" },
+      { min: 2, max: 20, message: '用户账号长度必须介于 2 和 20 之间', trigger: 'blur' }
     ],
     password: [
       { required: true, message: "密码不能为空", trigger: "blur" },

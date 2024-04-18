@@ -1,6 +1,6 @@
 <template>
   <el-form ref="userRef" :model="userForm" :rules="rules" label-width="80px">
-    <el-form-item label="用户昵称" prop="nickName">
+    <el-form-item label="用户姓名" prop="nickName">
       <el-input v-model="userForm.nickName" maxlength="30" />
     </el-form-item>
     <el-form-item label="手机号码" prop="phonenumber">
@@ -35,7 +35,7 @@ const userForm = computed(() => props.user);
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
 const userRef = ref<ElFormInstance>();
 const rules = ref<ElFormRules>({
-  nickName: [{ required: true, message: "用户昵称不能为空", trigger: "blur" }],
+  nickName: [{ required: true, message: "用户姓名不能为空", trigger: "blur" }],
   email: [{ required: true, message: "邮箱地址不能为空", trigger: "blur" }, {
     type: "email",
     message: "请输入正确的邮箱地址",
