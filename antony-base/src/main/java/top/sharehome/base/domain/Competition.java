@@ -15,25 +15,25 @@ import java.io.Serial;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("base_competition")
+@TableName("base_competition_type")
 public class Competition extends TenantEntity {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     /**
-     * 竞赛id
+     * 竞赛类型id
      */
-    @TableId(value = "competition_id")
-    private Long competitionId;
+    @TableId(value = "competition_type_id")
+    private Long competitionTypeId;
 
     /**
-     * 竞赛名称
+     * 竞赛类型名称
      */
-    private String competitionName;
+    private String competitionTypeName;
 
     /**
-     * 竞赛状态（0正常 1停用）
+     * 竞赛类型状态（0正常 1停用）
      */
     private String status;
 

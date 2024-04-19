@@ -61,7 +61,7 @@ public class HonorServiceImpl implements IHonorService {
     private LambdaQueryWrapper<Honor> buildQueryWrapper(HonorBo bo) {
         Map<String, Object> params = bo.getParams();
         LambdaQueryWrapper<Honor> lqw = Wrappers.lambdaQuery();
-        lqw.like(StringUtils.isNotBlank(bo.getHonorName()), Honor::getHonorName, bo.getHonorName());
+        lqw.like(StringUtils.isNotBlank(bo.getHonorTypeName()), Honor::getHonorTypeName, bo.getHonorTypeName());
         lqw.eq(StringUtils.isNotBlank(bo.getStatus()), Honor::getStatus, bo.getStatus());
         return lqw;
     }
@@ -75,7 +75,7 @@ public class HonorServiceImpl implements IHonorService {
         validEntityBeforeSave(add);
         boolean flag = baseMapper.insert(add) > 0;
         if (flag) {
-            bo.setHonorId(add.getHonorId());
+            bo.setHonorTypeId(add.getHonorTypeId());
         }
         return flag;
     }

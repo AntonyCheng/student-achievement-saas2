@@ -61,7 +61,7 @@ public class CompetitionServiceImpl implements ICompetitionService {
     private LambdaQueryWrapper<Competition> buildQueryWrapper(CompetitionBo bo) {
         Map<String, Object> params = bo.getParams();
         LambdaQueryWrapper<Competition> lqw = Wrappers.lambdaQuery();
-        lqw.like(StringUtils.isNotBlank(bo.getCompetitionName()), Competition::getCompetitionName, bo.getCompetitionName());
+        lqw.like(StringUtils.isNotBlank(bo.getCompetitionTypeName()), Competition::getCompetitionTypeName, bo.getCompetitionTypeName());
         lqw.eq(StringUtils.isNotBlank(bo.getStatus()), Competition::getStatus, bo.getStatus());
         return lqw;
     }
@@ -75,7 +75,7 @@ public class CompetitionServiceImpl implements ICompetitionService {
         validEntityBeforeSave(add);
         boolean flag = baseMapper.insert(add) > 0;
         if (flag) {
-            bo.setCompetitionId(add.getCompetitionId());
+            bo.setCompetitionTypeId(add.getCompetitionTypeId());
         }
         return flag;
     }

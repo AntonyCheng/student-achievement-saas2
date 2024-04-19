@@ -61,7 +61,7 @@ public class AchievementServiceImpl implements IAchievementService {
     private LambdaQueryWrapper<Achievement> buildQueryWrapper(AchievementBo bo) {
         Map<String, Object> params = bo.getParams();
         LambdaQueryWrapper<Achievement> lqw = Wrappers.lambdaQuery();
-        lqw.like(StringUtils.isNotBlank(bo.getAchievementName()), Achievement::getAchievementName, bo.getAchievementName());
+        lqw.like(StringUtils.isNotBlank(bo.getAchievementTypeName()), Achievement::getAchievementTypeName, bo.getAchievementTypeName());
         lqw.eq(StringUtils.isNotBlank(bo.getStatus()), Achievement::getStatus, bo.getStatus());
         return lqw;
     }
@@ -75,7 +75,7 @@ public class AchievementServiceImpl implements IAchievementService {
         validEntityBeforeSave(add);
         boolean flag = baseMapper.insert(add) > 0;
         if (flag) {
-            bo.setAchievementId(add.getAchievementId());
+            bo.setAchievementTypeId(add.getAchievementTypeId());
         }
         return flag;
     }

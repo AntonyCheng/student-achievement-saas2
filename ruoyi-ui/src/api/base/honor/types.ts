@@ -1,16 +1,16 @@
 export interface HonorVO {
   /**
-   * 荣誉id
+   * 荣誉类型id
    */
-  honorId: string | number;
+  honorTypeId: string | number;
 
   /**
-   * 荣誉名称
+   * 荣誉类型名称
    */
-  honorName: string;
+  honorTypeName: string;
 
   /**
-   * 荣誉状态（0正常 1停用）
+   * 荣誉类型状态（0正常 1停用）
    */
   status: string;
 
@@ -18,17 +18,17 @@ export interface HonorVO {
 
 export interface HonorForm extends BaseEntity {
   /**
-   * 荣誉id
+   * 荣誉类型id
    */
-  honorId?: string | number;
+  honorTypeId?: string | number;
 
   /**
-   * 荣誉名称
+   * 荣誉类型名称
    */
-  honorName?: string;
+  honorTypeName?: string;
 
   /**
-   * 荣誉状态（0正常 1停用）
+   * 荣誉类型状态（0正常 1停用）
    */
   status?: string;
 
@@ -41,12 +41,12 @@ export interface HonorForm extends BaseEntity {
 
 export interface HonorQuery extends PageQuery {
   /**
-   * 荣誉名称
+   * 荣誉类型名称
    */
-  honorName?: string;
+  honorTypeName?: string;
 
   /**
-   * 荣誉状态（0正常 1停用）
+   * 荣誉类型状态（0正常 1停用）
    */
   status?: string;
 

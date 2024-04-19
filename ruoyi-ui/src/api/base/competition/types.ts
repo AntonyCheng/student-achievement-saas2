@@ -1,16 +1,16 @@
 export interface CompetitionVO {
   /**
-   * 竞赛id
+   * 竞赛类型id
    */
-  competitionId: string | number;
+  competitionTypeId: string | number;
 
   /**
-   * 竞赛名称
+   * 竞赛类型名称
    */
-  competitionName: string;
+  competitionTypeName: string;
 
   /**
-   * 竞赛状态（0正常 1停用）
+   * 竞赛类型状态（0正常 1停用）
    */
   status: string;
 
@@ -18,17 +18,17 @@ export interface CompetitionVO {
 
 export interface CompetitionForm extends BaseEntity {
   /**
-   * 竞赛id
+   * 竞赛类型id
    */
-  competitionId?: string | number;
+  competitionTypeId?: string | number;
 
   /**
-   * 竞赛名称
+   * 竞赛类型名称
    */
-  competitionName?: string;
+  competitionTypeName?: string;
 
   /**
-   * 竞赛状态（0正常 1停用）
+   * 竞赛类型状态（0正常 1停用）
    */
   status?: string;
 
@@ -41,12 +41,12 @@ export interface CompetitionForm extends BaseEntity {
 
 export interface CompetitionQuery extends PageQuery {
   /**
-   * 竞赛名称
+   * 竞赛类型名称
    */
-  competitionName?: string;
+  competitionTypeName?: string;
 
   /**
-   * 竞赛状态（0正常 1停用）
+   * 竞赛类型状态（0正常 1停用）
    */
   status?: string;
 

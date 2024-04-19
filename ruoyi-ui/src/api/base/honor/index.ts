@@ -18,11 +18,11 @@ export const listHonor = (query?: HonorQuery): AxiosPromise<HonorVO[]> => {
 
 /**
  * 查询荣誉类型详细
- * @param honorId
+ * @param honorTypeId
  */
-export const getHonor = (honorId: string | number): AxiosPromise<HonorVO> => {
+export const getHonor = (honorTypeId: string | number): AxiosPromise<HonorVO> => {
   return request({
-    url: '/base/honor/' + honorId,
+    url: '/base/honor/' + honorTypeId,
     method: 'get'
   });
 };
@@ -53,11 +53,11 @@ export const updateHonor = (data: HonorForm) => {
 
 /**
  * 删除荣誉类型
- * @param honorId
+ * @param honorTypeId
  */
-export const delHonor = (honorId: string | number | Array<string | number>) => {
+export const delHonor = (honorTypeId: string | number | Array<string | number>) => {
   return request({
-    url: '/base/honor/' + honorId,
+    url: '/base/honor/' + honorTypeId,
     method: 'delete'
   });
 };

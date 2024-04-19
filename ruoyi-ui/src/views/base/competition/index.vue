@@ -2,12 +2,12 @@
   <div class="p-2">
     <transition :enter-active-class="proxy?.animate.searchAnimate.enter" :leave-active-class="proxy?.animate.searchAnimate.leave">
       <div class="search" v-show="showSearch">
-        <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
-          <el-form-item label="竞赛名称" prop="competitionName">
-            <el-input v-model="queryParams.competitionName" placeholder="请输入竞赛名称" clearable style="width: 240px" @keyup.enter="handleQuery" />
+        <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="100px">
+          <el-form-item label="竞赛类型名称" prop="competitionTypeName">
+            <el-input v-model="queryParams.competitionTypeName" placeholder="请输入竞赛类型名称" clearable style="width: 240px" @keyup.enter="handleQuery" />
           </el-form-item>
-          <el-form-item label="竞赛状态" prop="status">
-            <el-select v-model="queryParams.status" placeholder="请选择竞赛状态" clearable>
+          <el-form-item label="竞赛类型状态" prop="status">
+            <el-select v-model="queryParams.status" placeholder="请选择竞赛类型状态" clearable>
               <el-option
                 v-for="dict in sys_normal_disable"
                 :key="dict.value"
@@ -45,9 +45,9 @@
 
       <el-table v-loading="loading" :data="competitionList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
-        <el-table-column label="竞赛id" align="center" prop="competitionId" v-if="false" />
-        <el-table-column label="竞赛名称" align="center" prop="competitionName" />
-        <el-table-column label="竞赛状态" align="center" prop="status">
+        <el-table-column label="竞赛类型id" align="center" prop="competitionTypeId" v-if="false" />
+        <el-table-column label="竞赛类型名称" align="center" prop="competitionTypeName" />
+        <el-table-column label="竞赛类型状态" align="center" prop="status">
           <template #default="scope">
             <dict-tag :options="sys_normal_disable" :value="scope.row.status"/>
           </template>
@@ -85,12 +85,12 @@
     </el-card>
     <!-- 添加或修改竞赛类型对话框 -->
     <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
-      <el-form ref="competitionFormRef" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="竞赛名称" prop="competitionName">
-          <el-input v-model="form.competitionName" placeholder="请输入竞赛名称" style="width: 100%" />
+      <el-form ref="competitionFormRef" :model="form" :rules="rules" label-width="110px">
+        <el-form-item label="竞赛类型名称" prop="competitionTypeName">
+          <el-input v-model="form.competitionTypeName" placeholder="请输入竞赛类型名称" style="width: 100%" />
         </el-form-item>
-        <el-form-item label="竞赛状态" prop="status">
-          <el-select v-model="form.status" placeholder="请选择竞赛状态" style="width: 100%">
+        <el-form-item label="竞赛类型状态" prop="status">
+          <el-select v-model="form.status" placeholder="请选择竞赛类型状态" style="width: 100%">
             <el-option
                 v-for="dict in sys_normal_disable"
                 :key="dict.value"
@@ -138,8 +138,8 @@ const dialog = reactive<DialogOption>({
 });
 
 const initFormData: CompetitionForm = {
-  competitionId: undefined,
-  competitionName: undefined,
+  competitionTypeId: undefined,
+  competitionTypeName: undefined,
   status: undefined,
   remark: undefined
 }
@@ -148,20 +148,20 @@ const data = reactive<PageData<CompetitionForm, CompetitionQuery>>({
   queryParams: {
     pageNum: 1,
     pageSize: 10,
-    competitionName: undefined,
+    competitionTypeName: undefined,
     status: undefined,
     params: {
     }
   },
   rules: {
-    competitionId: [
-      { required: true, message: "竞赛id不能为空", trigger: "blur" }
+    competitionTypeId: [
+      { required: true, message: "竞赛类型id不能为空", trigger: "blur" }
     ],
-    competitionName: [
-      { required: true, message: "竞赛名称不能为空", trigger: "blur" }
+    competitionTypeName: [
+      { required: true, message: "竞赛类型名称不能为空", trigger: "blur" }
     ],
     status: [
-      { required: true, message: "竞赛状态不能为空", trigger: "change" }
+      { required: true, message: "竞赛类型状态不能为空", trigger: "change" }
     ],
   }
 });
@@ -203,7 +203,7 @@ const resetQuery = () => {
 
 /** 多选框选中数据 */
 const handleSelectionChange = (selection: CompetitionVO[]) => {
-  ids.value = selection.map(item => item.competitionId);
+  ids.value = selection.map(item => item.competitionTypeId);
   single.value = selection.length != 1;
   multiple.value = !selection.length;
 }
@@ -224,7 +224,7 @@ const handleUpdate = (row?: CompetitionVO) => {
   dialog.title = "修改竞赛类型";
   nextTick(async () => {
     reset();
-    const _competitionId = row?.competitionId || ids.value[0]
+    const _competitionId = row?.competitionTypeId || ids.value[0]
     const res = await getCompetition(_competitionId);
     loading.value = false;
     Object.assign(form.value, res.data);
@@ -236,7 +236,7 @@ const submitForm = () => {
   competitionFormRef.value?.validate(async (valid: boolean) => {
     if (valid) {
       buttonLoading.value = true;
-      if (form.value.competitionId) {
+      if (form.value.competitionTypeId) {
         await updateCompetition(form.value).finally(() =>  buttonLoading.value = false);
       } else {
         await addCompetition(form.value).finally(() =>  buttonLoading.value = false);
@@ -250,7 +250,7 @@ const submitForm = () => {
 
 /** 删除按钮操作 */
 const handleDelete = async (row?: CompetitionVO) => {
-  const _competitionIds = row?.competitionId || ids.value;
+  const _competitionIds = row?.competitionTypeId || ids.value;
   await proxy?.$modal.confirm('是否确认删除竞赛类型编号为"' + _competitionIds + '"的数据项？').finally(() => loading.value = false);
   await delCompetition(_competitionIds);
   proxy?.$modal.msgSuccess("删除成功");

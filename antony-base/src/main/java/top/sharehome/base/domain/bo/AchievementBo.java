@@ -21,21 +21,21 @@ import jakarta.validation.constraints.*;
 public class AchievementBo extends BaseEntity {
 
     /**
-     * 成果id
+     * 成果类型id
      */
-    @NotNull(message = "成果id不能为空", groups = { EditGroup.class })
-    private Long achievementId;
+    @NotNull(message = "成果类型id不能为空", groups = { EditGroup.class })
+    private Long achievementTypeId;
 
     /**
-     * 成果名称
+     * 成果类型名称
      */
-    @NotBlank(message = "成果名称不能为空", groups = { AddGroup.class, EditGroup.class })
-    private String achievementName;
+    @NotBlank(message = "成果类型名称不能为空", groups = { AddGroup.class, EditGroup.class })
+    private String achievementTypeName;
 
     /**
-     * 成果状态（0正常 1停用）
+     * 成果类型状态（0正常 1停用）
      */
-    @NotBlank(message = "成果状态（0正常 1停用）不能为空", groups = { AddGroup.class, EditGroup.class })
+    @NotBlank(message = "成果类型状态（0正常 1停用）不能为空", groups = { AddGroup.class, EditGroup.class })
     private String status;
 
     /**

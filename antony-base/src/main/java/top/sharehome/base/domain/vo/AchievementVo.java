@@ -29,21 +29,21 @@ public class AchievementVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 成果id
+     * 成果类型id
      */
-    @ExcelProperty(value = "成果id")
-    private Long achievementId;
+    @ExcelProperty(value = "成果类型id")
+    private Long achievementTypeId;
 
     /**
-     * 成果名称
+     * 成果类型名称
      */
-    @ExcelProperty(value = "成果名称")
-    private String achievementName;
+    @ExcelProperty(value = "成果类型名称")
+    private String achievementTypeName;
 
     /**
-     * 成果状态（0正常 1停用）
+     * 成果类型状态（0正常 1停用）
      */
-    @ExcelProperty(value = "成果状态", converter = ExcelDictConvert.class)
+    @ExcelProperty(value = "成果类型状态", converter = ExcelDictConvert.class)
     @ExcelDictFormat(dictType = "sys_normal_disable")
     private String status;
 

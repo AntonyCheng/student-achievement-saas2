@@ -15,25 +15,25 @@ import java.io.Serial;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("base_honor")
+@TableName("base_honor_type")
 public class Honor extends TenantEntity {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     /**
-     * 荣誉id
+     * 荣誉类型id
      */
-    @TableId(value = "honor_id")
-    private Long honorId;
+    @TableId(value = "honor_type_id")
+    private Long honorTypeId;
 
     /**
-     * 荣誉名称
+     * 荣誉类型名称
      */
-    private String honorName;
+    private String honorTypeName;
 
     /**
-     * 荣誉状态（0正常 1停用）
+     * 荣誉类型状态（0正常 1停用）
      */
     private String status;
 

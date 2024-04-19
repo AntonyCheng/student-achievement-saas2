@@ -18,11 +18,11 @@ export const listCompetition = (query?: CompetitionQuery): AxiosPromise<Competit
 
 /**
  * 查询竞赛类型详细
- * @param competitionId
+ * @param competitionTypeId
  */
-export const getCompetition = (competitionId: string | number): AxiosPromise<CompetitionVO> => {
+export const getCompetition = (competitionTypeId: string | number): AxiosPromise<CompetitionVO> => {
   return request({
-    url: '/base/competition/' + competitionId,
+    url: '/base/competition/' + competitionTypeId,
     method: 'get'
   });
 };
@@ -53,11 +53,11 @@ export const updateCompetition = (data: CompetitionForm) => {
 
 /**
  * 删除竞赛类型
- * @param competitionId
+ * @param competitionTypeId
  */
-export const delCompetition = (competitionId: string | number | Array<string | number>) => {
+export const delCompetition = (competitionTypeId: string | number | Array<string | number>) => {
   return request({
-    url: '/base/competition/' + competitionId,
+    url: '/base/competition/' + competitionTypeId,
     method: 'delete'
   });
 };

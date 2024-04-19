@@ -1,16 +1,16 @@
 export interface AchievementVO {
   /**
-   * 成果id
+   * 成果类型id
    */
-  achievementId: string | number;
+  achievementTypeId: string | number;
 
   /**
-   * 成果名称
+   * 成果类型名称
    */
-  achievementName: string;
+  achievementTypeName: string;
 
   /**
-   * 成果状态（0正常 1停用）
+   * 成果类型状态（0正常 1停用）
    */
   status: string;
 
@@ -18,17 +18,17 @@ export interface AchievementVO {
 
 export interface AchievementForm extends BaseEntity {
   /**
-   * 成果id
+   * 成果类型id
    */
-  achievementId?: string | number;
+  achievementTypeId?: string | number;
 
   /**
-   * 成果名称
+   * 成果类型名称
    */
-  achievementName?: string;
+  achievementTypeName?: string;
 
   /**
-   * 成果状态（0正常 1停用）
+   * 成果类型状态（0正常 1停用）
    */
   status?: string;
 
@@ -41,12 +41,12 @@ export interface AchievementForm extends BaseEntity {
 
 export interface AchievementQuery extends PageQuery {
   /**
-   * 成果名称
+   * 成果类型名称
    */
-  achievementName?: string;
+  achievementTypeName?: string;
 
   /**
-   * 成果状态（0正常 1停用）
+   * 成果类型状态（0正常 1停用）
    */
   status?: string;
 

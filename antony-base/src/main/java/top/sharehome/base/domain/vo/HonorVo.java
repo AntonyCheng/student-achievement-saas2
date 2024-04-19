@@ -29,21 +29,21 @@ public class HonorVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 荣誉id
+     * 荣誉类型id
      */
-    @ExcelProperty(value = "荣誉id")
-    private Long honorId;
+    @ExcelProperty(value = "荣誉类型id")
+    private Long honorTypeId;
 
     /**
-     * 荣誉名称
+     * 荣誉类型名称
      */
-    @ExcelProperty(value = "荣誉名称")
-    private String honorName;
+    @ExcelProperty(value = "荣誉类型名称")
+    private String honorTypeName;
 
     /**
-     * 荣誉状态（0正常 1停用）
+     * 荣誉类型状态（0正常 1停用）
      */
-    @ExcelProperty(value = "荣誉状态", converter = ExcelDictConvert.class)
+    @ExcelProperty(value = "荣誉类型状态", converter = ExcelDictConvert.class)
     @ExcelDictFormat(dictType = "sys_normal_disable")
     private String status;
 

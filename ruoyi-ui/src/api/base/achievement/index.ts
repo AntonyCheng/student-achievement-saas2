@@ -18,11 +18,11 @@ export const listAchievement = (query?: AchievementQuery): AxiosPromise<Achievem
 
 /**
  * 查询成果类型详细
- * @param achievementId
+ * @param achievementTypeId
  */
-export const getAchievement = (achievementId: string | number): AxiosPromise<AchievementVO> => {
+export const getAchievement = (achievementTypeId: string | number): AxiosPromise<AchievementVO> => {
   return request({
-    url: '/base/achievement/' + achievementId,
+    url: '/base/achievement/' + achievementTypeId,
     method: 'get'
   });
 };
@@ -53,11 +53,11 @@ export const updateAchievement = (data: AchievementForm) => {
 
 /**
  * 删除成果类型
- * @param achievementId
+ * @param achievementTypeId
  */
-export const delAchievement = (achievementId: string | number | Array<string | number>) => {
+export const delAchievement = (achievementTypeId: string | number | Array<string | number>) => {
   return request({
-    url: '/base/achievement/' + achievementId,
+    url: '/base/achievement/' + achievementTypeId,
     method: 'delete'
   });
 };

@@ -2,12 +2,12 @@
   <div class="p-2">
     <transition :enter-active-class="proxy?.animate.searchAnimate.enter" :leave-active-class="proxy?.animate.searchAnimate.leave">
       <div class="search" v-show="showSearch">
-        <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
-          <el-form-item label="荣誉名称" prop="honorName">
-            <el-input v-model="queryParams.honorName" placeholder="请输入荣誉名称" clearable style="width: 240px" @keyup.enter="handleQuery" />
+        <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="100px">
+          <el-form-item label="荣誉类型名称" prop="honorTypeName">
+            <el-input v-model="queryParams.honorTypeName" placeholder="请输入荣誉类型名称" clearable style="width: 240px" @keyup.enter="handleQuery" />
           </el-form-item>
-          <el-form-item label="荣誉状态" prop="status">
-            <el-select v-model="queryParams.status" placeholder="请选择荣誉状态" clearable>
+          <el-form-item label="荣誉类型状态" prop="status">
+            <el-select v-model="queryParams.status" placeholder="请选择荣誉类型状态" clearable>
               <el-option
                 v-for="dict in sys_normal_disable"
                 :key="dict.value"
@@ -45,9 +45,9 @@
 
       <el-table v-loading="loading" :data="honorList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
-        <el-table-column label="荣誉id" align="center" prop="honorId" v-if="false" />
-        <el-table-column label="荣誉名称" align="center" prop="honorName" />
-        <el-table-column label="荣誉状态" align="center" prop="status">
+        <el-table-column label="荣誉类型id" align="center" prop="honorTypeId" v-if="false" />
+        <el-table-column label="荣誉类型名称" align="center" prop="honorTypeName" />
+        <el-table-column label="荣誉类型状态" align="center" prop="status">
           <template #default="scope">
             <dict-tag :options="sys_normal_disable" :value="scope.row.status"/>
           </template>
@@ -85,12 +85,12 @@
     </el-card>
     <!-- 添加或修改荣誉类型对话框 -->
     <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
-      <el-form ref="honorFormRef" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="荣誉名称" prop="honorName">
-          <el-input v-model="form.honorName" placeholder="请输入荣誉名称" style="width: 100%" />
+      <el-form ref="honorFormRef" :model="form" :rules="rules" label-width="110px">
+        <el-form-item label="荣誉类型名称" prop="honorName">
+          <el-input v-model="form.honorTypeName" placeholder="请输入荣誉类型名称" style="width: 100%" />
         </el-form-item>
-        <el-form-item label="荣誉状态" prop="status">
-          <el-select v-model="form.status" placeholder="请选择荣誉状态" style="width: 100%">
+        <el-form-item label="荣誉类型状态" prop="status">
+          <el-select v-model="form.status" placeholder="请选择荣誉类型状态" style="width: 100%">
             <el-option
                 v-for="dict in sys_normal_disable"
                 :key="dict.value"
@@ -138,8 +138,8 @@ const dialog = reactive<DialogOption>({
 });
 
 const initFormData: HonorForm = {
-  honorId: undefined,
-  honorName: undefined,
+  honorTypeId: undefined,
+  honorTypeName: undefined,
   status: undefined,
   remark: undefined
 }
@@ -148,20 +148,20 @@ const data = reactive<PageData<HonorForm, HonorQuery>>({
   queryParams: {
     pageNum: 1,
     pageSize: 10,
-    honorName: undefined,
+    honorTypeName: undefined,
     status: undefined,
     params: {
     }
   },
   rules: {
-    honorId: [
-      { required: true, message: "荣誉id不能为空", trigger: "blur" }
+    honorTypeId: [
+      { required: true, message: "荣誉类型id不能为空", trigger: "blur" }
     ],
-    honorName: [
-      { required: true, message: "荣誉名称不能为空", trigger: "blur" }
+    honorTypeName: [
+      { required: true, message: "荣誉类型名称不能为空", trigger: "blur" }
     ],
     status: [
-      { required: true, message: "荣誉状态不能为空", trigger: "change" }
+      { required: true, message: "荣誉类型状态不能为空", trigger: "change" }
     ],
   }
 });
@@ -203,7 +203,7 @@ const resetQuery = () => {
 
 /** 多选框选中数据 */
 const handleSelectionChange = (selection: HonorVO[]) => {
-  ids.value = selection.map(item => item.honorId);
+  ids.value = selection.map(item => item.honorTypeId);
   single.value = selection.length != 1;
   multiple.value = !selection.length;
 }
@@ -224,7 +224,7 @@ const handleUpdate = (row?: HonorVO) => {
   dialog.title = "修改荣誉类型";
   nextTick(async () => {
     reset();
-    const _honorId = row?.honorId || ids.value[0]
+    const _honorId = row?.honorTypeId || ids.value[0]
     const res = await getHonor(_honorId);
     loading.value = false;
     Object.assign(form.value, res.data);
@@ -236,7 +236,7 @@ const submitForm = () => {
   honorFormRef.value?.validate(async (valid: boolean) => {
     if (valid) {
       buttonLoading.value = true;
-      if (form.value.honorId) {
+      if (form.value.honorTypeId) {
         await updateHonor(form.value).finally(() =>  buttonLoading.value = false);
       } else {
         await addHonor(form.value).finally(() =>  buttonLoading.value = false);
@@ -250,7 +250,7 @@ const submitForm = () => {
 
 /** 删除按钮操作 */
 const handleDelete = async (row?: HonorVO) => {
-  const _honorIds = row?.honorId || ids.value;
+  const _honorIds = row?.honorTypeId || ids.value;
   await proxy?.$modal.confirm('是否确认删除荣誉类型编号为"' + _honorIds + '"的数据项？').finally(() => loading.value = false);
   await delHonor(_honorIds);
   proxy?.$modal.msgSuccess("删除成功");

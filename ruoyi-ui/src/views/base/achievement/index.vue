@@ -2,12 +2,12 @@
   <div class="p-2">
     <transition :enter-active-class="proxy?.animate.searchAnimate.enter" :leave-active-class="proxy?.animate.searchAnimate.leave">
       <div class="search" v-show="showSearch">
-        <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
-          <el-form-item label="成果名称" prop="achievementName">
-            <el-input v-model="queryParams.achievementName" placeholder="请输入成果名称" clearable style="width: 240px" @keyup.enter="handleQuery" />
+        <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="100px">
+          <el-form-item label="成果类型名称" prop="achievementTypeName">
+            <el-input v-model="queryParams.achievementTypeName" placeholder="请输入成果类型名称" clearable style="width: 240px" @keyup.enter="handleQuery" />
           </el-form-item>
-          <el-form-item label="成果状态" prop="status">
-            <el-select v-model="queryParams.status" placeholder="请选择成果状态" clearable>
+          <el-form-item label="成果类型状态" prop="status">
+            <el-select v-model="queryParams.status" placeholder="请选择成果类型状态" clearable>
               <el-option
                 v-for="dict in sys_normal_disable"
                 :key="dict.value"
@@ -45,9 +45,9 @@
 
       <el-table v-loading="loading" :data="achievementList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
-        <el-table-column label="成果id" align="center" prop="achievementId" v-if="false" />
-        <el-table-column label="成果名称" align="center" prop="achievementName" />
-        <el-table-column label="成果状态" align="center" prop="status">
+        <el-table-column label="成果类型id" align="center" prop="achievementTypeId" v-if="false" />
+        <el-table-column label="成果类型名称" align="center" prop="achievementTypeName" />
+        <el-table-column label="成果类型状态" align="center" prop="status">
           <template #default="scope">
             <dict-tag :options="sys_normal_disable" :value="scope.row.status" />
           </template>
@@ -85,12 +85,12 @@
     </el-card>
     <!-- 添加或修改成果类型对话框 -->
     <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
-      <el-form ref="achievementFormRef" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="成果名称" prop="achievementName">
-          <el-input v-model="form.achievementName" placeholder="请输入成果名称" style="width: 100%" />
+      <el-form ref="achievementFormRef" :model="form" :rules="rules" label-width="110px">
+        <el-form-item label="成果类型名称" prop="achievementTypeName">
+          <el-input v-model="form.achievementTypeName" placeholder="请输入成果类型名称" style="width: 100%" />
         </el-form-item>
-        <el-form-item label="成果状态" prop="status">
-          <el-select v-model="form.status" placeholder="请选择成果状态" style="width: 100%">
+        <el-form-item label="成果类型状态" prop="status">
+          <el-select v-model="form.status" placeholder="请选择成果类型状态" style="width: 100%">
             <el-option
                 v-for="dict in sys_normal_disable"
                 :key="dict.value"
@@ -138,8 +138,8 @@ const dialog = reactive<DialogOption>({
 });
 
 const initFormData: AchievementForm = {
-  achievementId: undefined,
-  achievementName: undefined,
+  achievementTypeId: undefined,
+  achievementTypeName: undefined,
   status: undefined,
   remark: undefined
 }
@@ -148,20 +148,20 @@ const data = reactive<PageData<AchievementForm, AchievementQuery>>({
   queryParams: {
     pageNum: 1,
     pageSize: 10,
-    achievementName: undefined,
+    achievementTypeName: undefined,
     status: undefined,
     params: {
     }
   },
   rules: {
-    achievementId: [
-      { required: true, message: "成果id不能为空", trigger: "blur" }
+    achievementTypeId: [
+      { required: true, message: "成果类型id不能为空", trigger: "blur" }
     ],
-    achievementName: [
-      { required: true, message: "成果名称不能为空", trigger: "blur" }
+    achievementTypeName: [
+      { required: true, message: "成果类型名称不能为空", trigger: "blur" }
     ],
     status: [
-      { required: true, message: "成果状态不能为空", trigger: "change" }
+      { required: true, message: "成果类型状态不能为空", trigger: "change" }
     ],
   }
 });
@@ -203,7 +203,7 @@ const resetQuery = () => {
 
 /** 多选框选中数据 */
 const handleSelectionChange = (selection: AchievementVO[]) => {
-  ids.value = selection.map(item => item.achievementId);
+  ids.value = selection.map(item => item.achievementTypeId);
   single.value = selection.length != 1;
   multiple.value = !selection.length;
 }
@@ -224,7 +224,7 @@ const handleUpdate = (row?: AchievementVO) => {
   dialog.title = "修改成果类型";
   nextTick(async () => {
     reset();
-    const _achievementId = row?.achievementId || ids.value[0]
+    const _achievementId = row?.achievementTypeId || ids.value[0]
     const res = await getAchievement(_achievementId);
     loading.value = false;
     Object.assign(form.value, res.data);
@@ -236,7 +236,7 @@ const submitForm = () => {
   achievementFormRef.value?.validate(async (valid: boolean) => {
     if (valid) {
       buttonLoading.value = true;
-      if (form.value.achievementId) {
+      if (form.value.achievementTypeId) {
         await updateAchievement(form.value).finally(() =>  buttonLoading.value = false);
       } else {
         await addAchievement(form.value).finally(() =>  buttonLoading.value = false);
@@ -250,7 +250,7 @@ const submitForm = () => {
 
 /** 删除按钮操作 */
 const handleDelete = async (row?: AchievementVO) => {
-  const _achievementIds = row?.achievementId || ids.value;
+  const _achievementIds = row?.achievementTypeId || ids.value;
   await proxy?.$modal.confirm('是否确认删除成果类型编号为"' + _achievementIds + '"的数据项？').finally(() => loading.value = false);
   await delAchievement(_achievementIds);
   proxy?.$modal.msgSuccess("删除成功");

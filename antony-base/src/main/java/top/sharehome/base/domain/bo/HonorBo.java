@@ -21,21 +21,21 @@ import jakarta.validation.constraints.*;
 public class HonorBo extends BaseEntity {
 
     /**
-     * 荣誉id
+     * 荣誉类型id
      */
-    @NotNull(message = "荣誉id不能为空", groups = { EditGroup.class })
-    private Long honorId;
+    @NotNull(message = "荣誉类型id不能为空", groups = { EditGroup.class })
+    private Long honorTypeId;
 
     /**
-     * 荣誉名称
+     * 荣誉类型名称
      */
-    @NotBlank(message = "荣誉名称不能为空", groups = { AddGroup.class, EditGroup.class })
-    private String honorName;
+    @NotBlank(message = "荣誉类型名称不能为空", groups = { AddGroup.class, EditGroup.class })
+    private String honorTypeName;
 
     /**
-     * 荣誉状态（0正常 1停用）
+     * 荣誉类型状态（0正常 1停用）
      */
-    @NotBlank(message = "荣誉状态（0正常 1停用）不能为空", groups = { AddGroup.class, EditGroup.class })
+    @NotBlank(message = "荣誉类型状态（0正常 1停用）不能为空", groups = { AddGroup.class, EditGroup.class })
     private String status;
 
     /**

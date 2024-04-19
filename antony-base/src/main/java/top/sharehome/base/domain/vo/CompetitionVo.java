@@ -29,21 +29,21 @@ public class CompetitionVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 竞赛id
+     * 竞赛类型id
      */
-    @ExcelProperty(value = "竞赛id")
-    private Long competitionId;
+    @ExcelProperty(value = "竞赛类型id")
+    private Long competitionTypeId;
 
     /**
-     * 竞赛名称
+     * 竞赛类型名称
      */
-    @ExcelProperty(value = "竞赛名称")
-    private String competitionName;
+    @ExcelProperty(value = "竞赛类型名称")
+    private String competitionTypeName;
 
     /**
-     * 竞赛状态（0正常 1停用）
+     * 竞赛类型状态（0正常 1停用）
      */
-    @ExcelProperty(value = "竞赛状态", converter = ExcelDictConvert.class)
+    @ExcelProperty(value = "竞赛类型状态", converter = ExcelDictConvert.class)
     @ExcelDictFormat(dictType = "sys_normal_disable")
     private String status;
 

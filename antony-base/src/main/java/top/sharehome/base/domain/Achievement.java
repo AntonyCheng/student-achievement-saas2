@@ -15,25 +15,25 @@ import java.io.Serial;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("base_achievement")
+@TableName("base_achievement_type")
 public class Achievement extends TenantEntity {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     /**
-     * 成果id
+     * 成果类型id
      */
-    @TableId(value = "achievement_id")
-    private Long achievementId;
+    @TableId(value = "achievement_type_id")
+    private Long achievementTypeId;
 
     /**
-     * 成果名称
+     * 成果类型名称
      */
-    private String achievementName;
+    private String achievementTypeName;
 
     /**
-     * 成果状态（0正常 1停用）
+     * 成果类型状态（0正常 1停用）
      */
     private String status;
 

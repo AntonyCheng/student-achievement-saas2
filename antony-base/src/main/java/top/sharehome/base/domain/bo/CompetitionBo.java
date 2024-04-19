@@ -21,21 +21,21 @@ import jakarta.validation.constraints.*;
 public class CompetitionBo extends BaseEntity {
 
     /**
-     * 竞赛id
+     * 竞赛类型id
      */
-    @NotNull(message = "竞赛id不能为空", groups = { EditGroup.class })
-    private Long competitionId;
+    @NotNull(message = "竞赛类型id不能为空", groups = { EditGroup.class })
+    private Long competitionTypeId;
 
     /**
-     * 竞赛名称
+     * 竞赛类型名称
      */
-    @NotBlank(message = "竞赛名称不能为空", groups = { AddGroup.class, EditGroup.class })
-    private String competitionName;
+    @NotBlank(message = "竞赛类型名称不能为空", groups = { AddGroup.class, EditGroup.class })
+    private String competitionTypeName;
 
     /**
-     * 竞赛状态（0正常 1停用）
+     * 竞赛类型状态（0正常 1停用）
      */
-    @NotBlank(message = "竞赛状态（0正常 1停用）不能为空", groups = { AddGroup.class, EditGroup.class })
+    @NotBlank(message = "竞赛类型状态（0正常 1停用）不能为空", groups = { AddGroup.class, EditGroup.class })
     private String status;
 
     /**
