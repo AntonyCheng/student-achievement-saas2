@@ -3,7 +3,7 @@
     <div class="index-text">
       <div class="center-box">
         <h1 style="color: #FFFFFF;font-size: 40px;">基于云原生的学生在校经历管理SaaS系统</h1>
-        <div style="color: #FFFFFF;font-size: 18px;">基于 Spring Boot 3、Spring Cloud Alibaba 2022、Vue.js 3 以及 Element-Plus 构建</div>
+        <div style="color: #FFFFFF;font-size: 18px;">基于Java17、Spring Boot 3、Spring Cloud Alibaba 2022、Vue 3 以及 Element-Plus 构建</div>
       </div>
     </div>
     <div class="index-bg">

@@ -376,6 +376,7 @@
         <module>ruoyi-common</module>
         <module>ruoyi-example</module>
         <module>antony-base</module>
+        <module>antony-business</module>
     </modules>
     <packaging>pom</packaging>
 
