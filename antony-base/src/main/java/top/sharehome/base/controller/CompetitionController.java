@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.*;
 import cn.dev33.satoken.annotation.SaCheckPermission;
+import org.dromara.common.core.constant.UserConstants;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.Validated;
 import org.dromara.common.idempotent.annotation.RepeatSubmit;
@@ -17,6 +18,8 @@ import org.dromara.common.core.validate.AddGroup;
 import org.dromara.common.core.validate.EditGroup;
 import org.dromara.common.log.enums.BusinessType;
 import org.dromara.common.excel.utils.ExcelUtil;
+import top.sharehome.base.domain.bo.AchievementBo;
+import top.sharehome.base.domain.vo.AchievementVo;
 import top.sharehome.base.domain.vo.CompetitionVo;
 import top.sharehome.base.domain.bo.CompetitionBo;
 import top.sharehome.base.service.ICompetitionService;
@@ -44,6 +47,17 @@ public class CompetitionController extends BaseController {
     @GetMapping("/list")
     public TableDataInfo<CompetitionVo> list(CompetitionBo bo, PageQuery pageQuery) {
         return competitionService.queryPageList(bo, pageQuery);
+    }
+
+    /**
+     * 查询有效竞赛类型列表
+     */
+    @SaCheckPermission("base:competition:list")
+    @GetMapping("/list/available")
+    public R<List<CompetitionVo>> listAvailable(){
+        CompetitionBo bo = new CompetitionBo();
+        bo.setStatus(UserConstants.COMPETITION_NORMAL);
+        return R.ok(competitionService.queryList(bo));
     }
 
     /**

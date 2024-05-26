@@ -38,6 +38,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 用户信息
@@ -95,8 +96,19 @@ public class SysUserController extends BaseController {
      * 获取导入模板
      */
     @PostMapping("/importTemplate")
-    public void importTemplate(HttpServletResponse response) {
-        ExcelUtil.exportExcel(new ArrayList<>(), "用户数据", SysUserImportVo.class, response);
+    public R<Void> importTemplate(HttpServletResponse response, Long deptId) {
+        ArrayList<SysUserImportVo> list = new ArrayList<>();
+        String deptName = null;
+        if (Objects.nonNull(deptId)) {
+            SysDeptVo sysDeptVo = deptService.selectDeptById(deptId);
+            if (Objects.isNull(sysDeptVo)) {
+                return R.fail("该部门不存在");
+            }
+            list.add(new SysUserImportVo(deptId));
+            deptName = sysDeptVo.getDeptName();
+        }
+        ExcelUtil.exportExcel(list, Objects.isNull(deptName) ? "" : deptName + "用户数据", SysUserImportVo.class, response);
+        return null;
     }
 
     /**
@@ -146,6 +158,16 @@ public class SysUserController extends BaseController {
             userInfoVo.setPostIds(postService.selectPostListByUserId(userId));
         }
         return R.ok(userInfoVo);
+    }
+
+    /**
+     * 根据用户昵称获取用户列表
+     */
+    @SaCheckPermission("system:user:query")
+    @GetMapping(value = {"/list/{nickName}"})
+    public R<List<SysUserNickNameVo>> listByNickName(@PathVariable(value = "nickName") String nickName) {
+        List<SysUserNickNameVo> userVoList = userService.selectUserListByNickName(nickName);
+        return R.ok(userVoList);
     }
 
     /**

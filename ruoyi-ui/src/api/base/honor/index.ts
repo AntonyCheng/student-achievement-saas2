@@ -17,6 +17,16 @@ export const listHonor = (query?: HonorQuery): AxiosPromise<HonorVO[]> => {
 };
 
 /**
+ * 查询有效荣誉类型列表
+ */
+export const listHonorAvailable = () => {
+  return request({
+    url: '/base/honor/list/available',
+    method: 'get'
+  });
+};
+
+/**
  * 查询荣誉类型详细
  * @param honorTypeId
  */

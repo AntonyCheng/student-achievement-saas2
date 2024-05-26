@@ -1,19 +1,22 @@
 <template>
   <div class="home">
-    <div class="index-text">
-      <div class="center-box">
-        <h1 style="color: #FFFFFF;font-size: 40px;">基于云原生的学生在校经历管理SaaS系统</h1>
-        <div style="color: #FFFFFF;font-size: 18px;">基于Java17、Spring Boot 3、Spring Cloud Alibaba 2022、Vue 3 以及 Element-Plus 构建</div>
-      </div>
-    </div>
     <div class="index-bg">
-      <el-image class="bg" :src="indexBackground" fit="cover" />
+      <div class="index-text">
+        <div class="center-box">
+          <img src="src/assets/logo/logo.png" width="150" />
+          <h1 style="color: #FFFFFF;font-size: 40px;font-weight: bold;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
+            基于云原生的学生在校经历管理SaaS系统
+          </h1>
+          <div style="color: #FFFFFF;font-size: 20px;font-weight: bold;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
+            基于Java17、Spring Boot 3、Spring Cloud Alibaba 2022、Vue 3 以及 Element-Plus 构建
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup name="Index" lang="ts">
-import indexBackground from '@/assets/images/index-background.jpg'
 import {initWebSocket} from '@/utils/websocket';
 
 onMounted(() => {
@@ -40,13 +43,7 @@ onMounted(() => {
 
 .index-bg {
   height: 100%;
-  position: absolute;
-  bottom: 0;
-  z-index: -1;
-
-  .bg {
-    height: 100%;
-    width: auto;
-  }
+  background-image: url("../assets/images/index-background.jpg");
+  background-size: cover;
 }
 </style>

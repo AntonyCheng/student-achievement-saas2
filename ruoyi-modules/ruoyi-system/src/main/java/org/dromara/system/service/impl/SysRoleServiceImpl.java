@@ -79,7 +79,8 @@ public class SysRoleServiceImpl implements ISysRoleService {
             .like(StringUtils.isNotBlank(bo.getRoleKey()), "r.role_key", bo.getRoleKey())
             .between(params.get("beginTime") != null && params.get("endTime") != null,
                 "r.create_time", params.get("beginTime"), params.get("endTime"))
-            .orderByAsc("r.role_sort").orderByAsc("r.create_time");;
+            .orderByAsc("r.role_sort").orderByAsc("r.create_time");
+        ;
         return wrapper;
     }
 
@@ -482,5 +483,17 @@ public class SysRoleServiceImpl implements ISysRoleService {
                 }
             }
         });
+    }
+
+    /**
+     * 通过角色名称获取角色信息（联动批量加入用户功能）
+     *
+     * @param roleName 角色名称
+     * @return 角色信息
+     */
+    @Override
+    public SysRoleVo selectRoleByName(String roleName) {
+        return baseMapper.selectVoOne(new LambdaQueryWrapper<SysRole>()
+            .eq(SysRole::getRoleName, roleName));
     }
 }

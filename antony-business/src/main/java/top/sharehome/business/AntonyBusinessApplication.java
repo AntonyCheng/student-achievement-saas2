@@ -17,6 +17,6 @@ public class AntonyBusinessApplication {
         SpringApplication application = new SpringApplication(AntonyBusinessApplication.class);
         application.setApplicationStartup(new BufferingApplicationStartup(2048));
         application.run(args);
-        System.out.println("(♥◠‿◠)ﾉﾞ  基础数据模块启动成功   ლ(´ڡ`ლ)ﾞ  ");
+        System.out.println("(♥◠‿◠)ﾉﾞ  业务数据模块启动成功   ლ(´ڡ`ლ)ﾞ  ");
     }
 }

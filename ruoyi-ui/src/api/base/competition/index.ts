@@ -17,6 +17,16 @@ export const listCompetition = (query?: CompetitionQuery): AxiosPromise<Competit
 };
 
 /**
+ * 查询有效竞赛类型列表
+ */
+export const listCompetitionAvailable = () => {
+  return request({
+    url: '/base/competition/list/available',
+    method: 'get'
+  });
+};
+
+/**
  * 查询竞赛类型详细
  * @param competitionTypeId
  */

@@ -91,7 +91,7 @@
                   </el-button>
                   <template #dropdown>
                     <el-dropdown-menu>
-                      <el-dropdown-item @click="importTemplate" icon="Download">下载模板</el-dropdown-item>
+                      <el-dropdown-item @click="handleExportTemplate" icon="Download">下载模板</el-dropdown-item>
                       <el-dropdown-item @click="handleImport" icon="Top"> 导入数据</el-dropdown-item>
                       <el-dropdown-item @click="handleExport" icon="Download"> 导出数据</el-dropdown-item>
                     </el-dropdown-menu>
@@ -302,7 +302,7 @@
               是否更新已经存在的用户数据
             </div>
             <span>仅允许导入xls、xlsx格式文件。</span>
-            <el-link type="primary" :underline="false" style="font-size:12px;vertical-align: baseline;" @click="importTemplate">下载模板 </el-link>
+            <el-link type="primary" :underline="false" style="font-size:12px;vertical-align: baseline;" @click="exportTemplate">下载模板 </el-link>
           </div>
         </template>
       </el-upload>
@@ -310,6 +310,36 @@
         <div class="dialog-footer">
           <el-button type="primary" @click="submitFileForm">确 定</el-button>
           <el-button @click="upload.open = false">取 消</el-button>
+        </div>
+      </template>
+    </el-dialog>
+
+    <!-- 导出模板对话框 -->
+    <el-dialog :title="exportTemplate.title" v-model="exportTemplate.open" width="400px" append-to-body>
+      <el-form ref="exportTemplateFormRef" label-width="125px">
+        <el-row>
+          <el-col :span="24">
+            <el-form-item label="所选模板部门" prop="deptId">
+              <el-tree-select
+                v-model="exportTemplate.deptId"
+                :data="deptOptions"
+                :props="{ value: 'id', label: 'label', children: 'children' }"
+                value-key="id"
+                placeholder="请选择所选模板部门"
+                check-strictly
+                clearable
+              />
+            </el-form-item>
+            <div style="text-align: center;font-size: 12px">
+              <span>如果没有选择部门，就表示没有默认的部门提示</span>
+            </div>
+          </el-col>
+        </el-row>
+      </el-form>
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button type="primary" @click="submitExportTemplate">确 定</el-button>
+          <el-button @click="exportTemplate.open = false">取 消</el-button>
         </div>
       </template>
     </el-dialog>
@@ -358,6 +388,19 @@ const upload = reactive<ImportOption>({
   // 上传的地址
   url: import.meta.env.VITE_APP_BASE_API + "/system/user/importData"
 })
+/*** 导出模板参数 */
+const exportTemplate = reactive({
+  // 是否显示弹出层
+  open: false,
+  // 弹出层标题
+  title: "",
+  // 需要导出模板的部门id
+  deptId: undefined,
+  // 设置导出的请求头部
+  headers: globalHeaders(),
+  // 导出模板的地址
+  url: import.meta.env.VITE_APP_BASE_API + "/system/user/importData"
+})
 // 列显隐信息
 const columns = ref<FieldOption[]>([
   {key: 0, label: `用户编号`, visible: false, children: []},
@@ -373,6 +416,7 @@ const columns = ref<FieldOption[]>([
 const deptTreeRef = ref<ElTreeInstance>();
 const queryFormRef = ref<ElFormInstance>();
 const userFormRef = ref<ElFormInstance>();
+const exportTemplateFormRef = ref<ElFormInstance>();
 const uploadRef = ref<ElUploadInstance>();
 const formDialogRef = ref<ElDialogInstance>();
 
@@ -536,16 +580,17 @@ const handleImport = () => {
   upload.title = "用户导入";
   upload.open = true;
 }
+/** 导出模板按钮操作 */
+const handleExportTemplate = () => {
+  exportTemplate.title = "导出模板";
+  exportTemplate.open = true;
+}
 /** 导出按钮操作 */
 const handleExport = () => {
   proxy?.download("system/user/export", {
     ...queryParams.value,
   }, `user_${new Date().getTime()}.xlsx`);
 };
-/** 下载模板操作 */
-const importTemplate = () => {
-  proxy?.download("system/user/importTemplate", {}, `user_template_${new Date().getTime()}.xlsx`);
-}
 
 /**文件上传中处理 */
 const handleFileUploadProgress = () => {
@@ -563,6 +608,12 @@ const handleFileSuccess = (response: any, file: UploadFile) => {
 /** 提交上传文件 */
 function submitFileForm() {
   uploadRef.value?.submit();
+}
+/** 提交导出模板信息 */
+function submitExportTemplate() {
+  proxy?.download("system/user/importTemplate", {"deptId":exportTemplate.deptId}, `user_template_${new Date().getTime()}.xlsx`);
+  exportTemplate.open = false
+  exportTemplate.deptId = undefined
 }
 
 /** 初始化部门数据 */

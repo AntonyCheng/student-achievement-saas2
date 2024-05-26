@@ -4,34 +4,71 @@
       <div class="search" v-show="showSearch">
         <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
           <el-form-item label="成果类型id" prop="achievementTypeId">
-            <el-input v-model="queryParams.achievementTypeId" placeholder="请输入成果类型id" clearable style="width: 240px" @keyup.enter="handleQuery" />
+            <el-input
+              v-model="queryParams.achievementTypeId"
+              placeholder="请输入成果类型id"
+              clearable
+              style="width: 240px"
+              @keyup.enter="handleQuery"
+            />
           </el-form-item>
-          <el-form-item label="成果第一作者id" prop="achievementStudentId">
-            <el-input v-model="queryParams.achievementStudentId" placeholder="请输入成果第一作者id" clearable style="width: 240px" @keyup.enter="handleQuery" />
+          <el-form-item label="第一作者id" prop="achievementStudentId">
+            <el-input
+              v-model="queryParams.achievementStudentId"
+              placeholder="请输入第一作者id"
+              clearable
+              style="width: 240px"
+              @keyup.enter="handleQuery"
+            />
           </el-form-item>
-          <el-form-item label="成果第一指导老师id" prop="achievementTeacherId">
-            <el-input v-model="queryParams.achievementTeacherId" placeholder="请输入成果第一指导老师id" clearable style="width: 240px" @keyup.enter="handleQuery" />
+          <el-form-item label="第一指导老师id" prop="achievementTeacherId">
+            <el-input
+              v-model="queryParams.achievementTeacherId"
+              placeholder="请输入第一指导老师id"
+              clearable
+              style="width: 240px"
+              @keyup.enter="handleQuery"
+            />
           </el-form-item>
-          <el-form-item label="成果其他作者id JSON" prop="achievementOtherStudentIds">
-            <el-input v-model="queryParams.achievementOtherStudentIds" placeholder="请输入成果其他作者id JSON" clearable style="width: 240px" @keyup.enter="handleQuery" />
+          <el-form-item label="其他作者id JSON" prop="achievementOtherStudentIds">
+            <el-input
+              v-model="queryParams.achievementOtherStudentIds"
+              placeholder="请输入其他作者id JSON"
+              clearable
+              style="width: 240px"
+              @keyup.enter="handleQuery"
+            />
           </el-form-item>
-          <el-form-item label="成果其他指导老师id JSON" prop="achievementOtherTeacherIds">
-            <el-input v-model="queryParams.achievementOtherTeacherIds" placeholder="请输入成果其他指导老师id JSON" clearable style="width: 240px" @keyup.enter="handleQuery" />
+          <el-form-item label="其他指导老师id JSON" prop="achievementOtherTeacherIds">
+            <el-input
+              v-model="queryParams.achievementOtherTeacherIds"
+              placeholder="请输入其他指导老师id JSON"
+              clearable
+              style="width: 240px"
+              @keyup.enter="handleQuery"
+            />
           </el-form-item>
-          <el-form-item label="成果作证材料URL" prop="achievementEvidenceUrl">
-            <el-input v-model="queryParams.achievementEvidenceUrl" placeholder="请输入成果作证材料URL" clearable style="width: 240px" @keyup.enter="handleQuery" />
+          <el-form-item label="作证材料URL" prop="achievementEvidenceUrl">
+            <el-input
+              v-model="queryParams.achievementEvidenceUrl"
+              placeholder="请输入成果作证材料URL"
+              clearable
+              style="width: 240px"
+              @keyup.enter="handleQuery"
+            />
           </el-form-item>
           <el-form-item label="成果审核反馈" prop="achievementFeedback">
-            <el-input v-model="queryParams.achievementFeedback" placeholder="请输入成果审核反馈" clearable style="width: 240px" @keyup.enter="handleQuery" />
+            <el-input
+              v-model="queryParams.achievementFeedback"
+              placeholder="请输入成果审核反馈"
+              clearable
+              style="width: 240px"
+              @keyup.enter="handleQuery"
+            />
           </el-form-item>
           <el-form-item label="成果状态" prop="status">
             <el-select v-model="queryParams.status" placeholder="请选择成果状态" clearable>
-              <el-option
-                v-for="dict in business_experience_type"
-                :key="dict.value"
-                :label="dict.label"
-                :value="dict.value"
-              />
+              <el-option v-for="dict in business_experience_type" :key="dict.value" :label="dict.label" :value="dict.value" />
             </el-select>
           </el-form-item>
           <el-form-item>
@@ -49,10 +86,14 @@
             <el-button type="primary" plain icon="Plus" @click="handleAdd" v-hasPermi="['business:achievement:add']">新增</el-button>
           </el-col>
           <el-col :span="1.5">
-            <el-button type="success" plain icon="Edit" :disabled="single" @click="handleUpdate()" v-hasPermi="['business:achievement:edit']">修改</el-button>
+            <el-button type="success" plain icon="Edit" :disabled="single" @click="handleUpdate()" v-hasPermi="['business:achievement:edit']"
+              >修改</el-button
+            >
           </el-col>
           <el-col :span="1.5">
-            <el-button type="danger" plain icon="Delete" :disabled="multiple" @click="handleDelete()" v-hasPermi="['business:achievement:remove']">删除</el-button>
+            <el-button type="danger" plain icon="Delete" :disabled="multiple" @click="handleDelete()" v-hasPermi="['business:achievement:remove']"
+              >删除</el-button
+            >
           </el-col>
           <el-col :span="1.5">
             <el-button type="warning" plain icon="Download" @click="handleExport" v-hasPermi="['business:achievement:export']">导出</el-button>
@@ -73,7 +114,7 @@
         <el-table-column label="成果审核反馈" align="center" prop="achievementFeedback" />
         <el-table-column label="成果状态" align="center" prop="status">
           <template #default="scope">
-            <dict-tag :options="business_experience_type" :value="scope.row.status"/>
+            <dict-tag :options="business_experience_type" :value="scope.row.status" />
           </template>
         </el-table-column>
         <el-table-column label="创建时间" align="center" prop="createTime" width="180">
@@ -94,13 +135,7 @@
         </el-table-column>
       </el-table>
 
-      <pagination
-          v-show="total>0"
-          :total="total"
-          v-model:page="queryParams.pageNum"
-          v-model:limit="queryParams.pageSize"
-          @pagination="getList"
-      />
+      <pagination v-show="total>0" :total="total" v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize" @pagination="getList" />
     </el-card>
     <!-- 添加或修改成果对话框 -->
     <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
@@ -115,16 +150,16 @@
           <el-input v-model="form.achievementTeacherId" placeholder="请输入成果第一指导老师id" />
         </el-form-item>
         <el-form-item label="成果其他作者id JSON" prop="achievementOtherStudentIds">
-            <el-input v-model="form.achievementOtherStudentIds" type="textarea" placeholder="请输入内容" />
+          <el-input v-model="form.achievementOtherStudentIds" type="textarea" placeholder="请输入内容" />
         </el-form-item>
         <el-form-item label="成果其他指导老师id JSON" prop="achievementOtherTeacherIds">
-            <el-input v-model="form.achievementOtherTeacherIds" type="textarea" placeholder="请输入内容" />
+          <el-input v-model="form.achievementOtherTeacherIds" type="textarea" placeholder="请输入内容" />
         </el-form-item>
         <el-form-item label="成果作证材料URL" prop="achievementEvidenceUrl">
           <el-input v-model="form.achievementEvidenceUrl" placeholder="请输入成果作证材料URL" />
         </el-form-item>
         <el-form-item label="备注" prop="remark">
-            <el-input v-model="form.remark" type="textarea" placeholder="请输入内容" />
+          <el-input v-model="form.remark" type="textarea" placeholder="请输入内容" />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -140,6 +175,7 @@
 <script setup name="Achievement" lang="ts">
 import { listAchievement, getAchievement, delAchievement, addAchievement, updateAchievement } from '@/api/business/achievement';
 import { AchievementVO, AchievementQuery, AchievementForm } from '@/api/business/achievement/types';
+import {listByNickName} from "@/api/system/user";
 
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
 const { business_experience_type } = toRefs<any>(proxy?.useDict('business_experience_type'));
@@ -312,5 +348,6 @@ const handleExport = () => {
 
 onMounted(() => {
   getList();
+  listByNickName("王")
 });
 </script>

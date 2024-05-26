@@ -1,6 +1,7 @@
 package org.dromara.system.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.lang.generator.SnowflakeGenerator;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
@@ -28,6 +29,7 @@ import org.dromara.system.domain.SysUserRole;
 import org.dromara.system.domain.bo.SysUserBo;
 import org.dromara.system.domain.vo.SysPostVo;
 import org.dromara.system.domain.vo.SysRoleVo;
+import org.dromara.system.domain.vo.SysUserNickNameVo;
 import org.dromara.system.domain.vo.SysUserVo;
 import org.dromara.system.mapper.*;
 import org.dromara.system.service.ISysUserService;
@@ -35,9 +37,11 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 用户 业务层处理
@@ -508,9 +512,20 @@ public class SysUserServiceImpl implements ISysUserService {
         userRoleMapper.delete(new LambdaQueryWrapper<SysUserRole>().in(SysUserRole::getUserId, ids));
         // 删除用户与岗位表
         userPostMapper.delete(new LambdaQueryWrapper<SysUserPost>().in(SysUserPost::getUserId, ids));
+        // 由于该系统用户ID就是学号或者工号，一旦删除就是逻辑删除，但是物理表上还是有该ID，再次添加相同用户就会主键重复，所以每次删除用户之后把学号或者工号改为雪花算法结果
+        long snowflake = new SnowflakeGenerator().next();
+        int valid = 0;
+        List<Long> newIds = new ArrayList<>();
+        for (Long id : ids) {
+            int update = baseMapper.update(new LambdaUpdateWrapper<SysUser>()
+                .set(SysUser::getUserId, ++snowflake)
+                .eq(SysUser::getUserId, id));
+            newIds.add(snowflake);
+            valid += update;
+        }
         // 防止更新失败导致的数据删除
-        int flag = baseMapper.deleteBatchIds(ids);
-        if (flag < 1) {
+        int flag = baseMapper.deleteBatchIds(newIds);
+        if (flag < 1 || flag != valid) {
             throw new ServiceException("删除用户失败!");
         }
         return flag;
@@ -528,6 +543,32 @@ public class SysUserServiceImpl implements ISysUserService {
         lqw.eq(SysUser::getDeptId, deptId);
         lqw.orderByAsc(SysUser::getUserId);
         return baseMapper.selectVoList(lqw);
+    }
+
+    /**
+     * 通过用户昵称查询所有用户
+     *
+     * @param nickName
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public List<SysUserNickNameVo> selectUserListByNickName(String nickName) {
+        SysUserBo sysUserBo = new SysUserBo();
+        sysUserBo.setNickName(nickName);
+        sysUserBo.setStatus("0");
+        List<SysUserVo> resList = baseMapper.selectUserList(this.buildQueryWrapper(sysUserBo));
+        return resList.stream().map(sysUserVo -> {
+            SysUserNickNameVo sysUserNickNameVo = new SysUserNickNameVo();
+            sysUserNickNameVo.setUserId(sysUserVo.getUserId());
+            sysUserNickNameVo.setNickName(sysUserVo.getNickName());
+            sysUserNickNameVo.setDeptName(sysUserVo.getDept().getDeptName());
+            sysUserNickNameVo.setPhonenumber(sysUserVo.getPhonenumber());
+            List<SysRoleVo> sysRoleVos = roleMapper.selectRolePermissionByUserId(sysUserVo.getUserId());
+            String roles = sysRoleVos.stream().map(SysRoleVo::getRoleName).collect(Collectors.joining(","));
+            sysUserNickNameVo.setRoleNames(roles);
+            return sysUserNickNameVo;
+        }).collect(Collectors.toList());
     }
 
     @Cacheable(cacheNames = CacheNames.SYS_USER_NAME, key = "#userId")

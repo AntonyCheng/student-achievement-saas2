@@ -135,4 +135,37 @@ public class SysDictDataServiceImpl implements ISysDictDataService {
         throw new ServiceException("操作失败");
     }
 
+    /**
+     * 根据Label和Value查询信息
+     *
+     * @param label 字典标签
+     * @param value 字典数值
+     * @return 字典数据
+     */
+    @Override
+    public SysDictDataVo selectDictDataByLabelAndValue(String label, String value) {
+        SysDictData sysDictData = baseMapper.selectOne(new LambdaQueryWrapper<SysDictData>()
+            .eq(SysDictData::getDictLabel, label)
+            .eq(SysDictData::getDictValue, value));
+        SysDictDataVo sysDictDataVo = new SysDictDataVo();
+        sysDictDataVo.setDictCode(sysDictData.getDictCode());
+        sysDictDataVo.setDictSort(sysDictData.getDictSort());
+        sysDictDataVo.setDictLabel(sysDictData.getDictLabel());
+        sysDictDataVo.setDictValue(sysDictData.getDictValue());
+        sysDictDataVo.setDictType(sysDictData.getDictType());
+        sysDictDataVo.setCssClass(sysDictData.getCssClass());
+        sysDictDataVo.setListClass(sysDictData.getListClass());
+        sysDictDataVo.setIsDefault(sysDictData.getIsDefault());
+        sysDictDataVo.setRemark(sysDictData.getRemark());
+        sysDictDataVo.setCreateTime(sysDictData.getCreateTime());
+        return sysDictDataVo;
+    }
+
+    @Override
+    public void deleteDictDataByLabelAndValue(String label, String value) {
+        baseMapper.delete(new LambdaQueryWrapper<SysDictData>()
+            .eq(SysDictData::getDictLabel, label)
+            .eq(SysDictData::getDictValue, value));
+    }
+
 }

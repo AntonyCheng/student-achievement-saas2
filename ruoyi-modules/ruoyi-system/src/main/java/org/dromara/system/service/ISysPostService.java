@@ -103,4 +103,12 @@ public interface ISysPostService {
      * @return 结果
      */
     int updatePost(SysPostBo bo);
+
+    /**
+     * 通过岗位名称获取岗位信息（联动批量加入用户功能）
+     *
+     * @param postName 角色名称
+     * @return 角色信息
+     */
+    SysPostVo selectPostByName(String postName);
 }

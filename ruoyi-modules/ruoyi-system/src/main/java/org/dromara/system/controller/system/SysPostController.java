@@ -1,6 +1,8 @@
 package org.dromara.system.controller.system;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.dromara.common.core.constant.UserConstants;
 import org.dromara.common.core.domain.R;
 import org.dromara.common.excel.utils.ExcelUtil;
@@ -9,11 +11,12 @@ import org.dromara.common.log.enums.BusinessType;
 import org.dromara.common.mybatis.core.page.PageQuery;
 import org.dromara.common.mybatis.core.page.TableDataInfo;
 import org.dromara.common.web.core.BaseController;
+import org.dromara.system.domain.bo.SysDictDataBo;
 import org.dromara.system.domain.bo.SysPostBo;
+import org.dromara.system.domain.vo.SysDictDataVo;
 import org.dromara.system.domain.vo.SysPostVo;
+import org.dromara.system.service.ISysDictDataService;
 import org.dromara.system.service.ISysPostService;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +34,7 @@ import java.util.List;
 public class SysPostController extends BaseController {
 
     private final ISysPostService postService;
+    private final ISysDictDataService dictDataService;
 
     /**
      * 获取岗位列表
@@ -75,6 +79,14 @@ public class SysPostController extends BaseController {
         } else if (!postService.checkPostCodeUnique(post)) {
             return R.fail("新增岗位'" + post.getPostName() + "'失败，岗位编码已存在");
         }
+        SysDictDataBo bo = new SysDictDataBo();
+        bo.setDictType("sys_post_type");
+        bo.setDictSort(0);
+        bo.setDictLabel(post.getPostName());
+        bo.setDictValue(post.getPostCode());
+        bo.setListClass("default");
+        bo.setRemark(post.getRemark());
+        dictDataService.insertDictData(bo);
         return toAjax(postService.insertPost(post));
     }
 
@@ -93,6 +105,15 @@ public class SysPostController extends BaseController {
             && postService.countUserPostById(post.getPostId()) > 0) {
             return R.fail("该岗位下存在已分配用户，不能禁用!");
         }
+        SysPostVo sysPostVo = postService.selectPostById(post.getPostId());
+        SysDictDataVo sysDictDataVo = dictDataService.selectDictDataByLabelAndValue(sysPostVo.getPostName(), sysPostVo.getPostCode());
+        SysDictDataBo bo = new SysDictDataBo();
+        bo.setDictCode(sysDictDataVo.getDictCode());
+        bo.setDictType("sys_post_type");
+        bo.setDictLabel(post.getPostName());
+        bo.setDictValue(post.getPostCode());
+        bo.setRemark(post.getRemark());
+        dictDataService.updateDictData(bo);
         return toAjax(postService.updatePost(post));
     }
 
@@ -105,6 +126,20 @@ public class SysPostController extends BaseController {
     @Log(title = "岗位管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{postIds}")
     public R<Void> remove(@PathVariable Long[] postIds) {
+        SysDictDataBo dictData = new SysDictDataBo();
+        dictData.setDictType("sys_post_type");
+        List<SysDictDataVo> sysDictDataVos = dictDataService.selectDictDataList(dictData);
+        Long[] codes = new Long[postIds.length];
+        int i = 0;
+        for (Long postId : postIds) {
+            SysPostVo sysPostVo = postService.selectPostById(postId);
+            for (SysDictDataVo sysDictDataVo : sysDictDataVos) {
+                if (sysDictDataVo.getDictValue().equals(sysPostVo.getPostCode())) {
+                    codes[i++] = sysDictDataVo.getDictCode();
+                }
+            }
+        }
+        dictDataService.deleteDictDataByIds(codes);
         return toAjax(postService.deletePostByIds(postIds));
     }
 

@@ -33,6 +33,36 @@ public interface UserConstants {
     String USER_DISABLE = "1";
 
     /**
+     * 成果正常状态
+     */
+    String ACHIEVEMENT_NORMAL = "0";
+
+    /**
+     * 成果停用状态
+     */
+    String ACHIEVEMENT_DISABLE = "1";
+
+    /**
+     * 竞赛正常状态
+     */
+    String COMPETITION_NORMAL = "0";
+
+    /**
+     * 竞赛停用状态
+     */
+    String COMPETITION_DISABLE = "1";
+
+    /**
+     * 荣誉正常状态
+     */
+    String HONOR_NORMAL = "0";
+
+    /**
+     * 荣誉停用状态
+     */
+    String HONOR_DISABLE = "1";
+
+    /**
      * 角色正常状态
      */
     String ROLE_NORMAL = "0";

@@ -64,4 +64,21 @@ public interface ISysDictDataService {
      * @return 结果
      */
     List<SysDictDataVo> updateDictData(SysDictDataBo bo);
+
+
+    /**
+     * 根据Label和Value查询信息【联动岗位和角色模块】
+     *
+     * @param label 字典标签
+     * @param value 字典数值
+     * @return 字典数据
+     */
+    SysDictDataVo selectDictDataByLabelAndValue(String label, String value);
+
+    /**
+     * 根据Label和Value查询信息【联动角色模块】
+     * @param label 字典标签
+     * @param value 字典数值
+     */
+    void deleteDictDataByLabelAndValue(String label, String value);
 }

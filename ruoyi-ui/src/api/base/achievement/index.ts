@@ -17,6 +17,16 @@ export const listAchievement = (query?: AchievementQuery): AxiosPromise<Achievem
 };
 
 /**
+ * 查询有效成果类型列表
+ */
+export const listAchievementAvailable = () => {
+  return request({
+    url: '/base/achievement/list/available',
+    method: 'get'
+  });
+};
+
+/**
  * 查询成果类型详细
  * @param achievementTypeId
  */

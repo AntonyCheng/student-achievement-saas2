@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.*;
 import cn.dev33.satoken.annotation.SaCheckPermission;
+import org.dromara.common.core.constant.UserConstants;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.Validated;
 import org.dromara.common.idempotent.annotation.RepeatSubmit;
@@ -17,6 +18,8 @@ import org.dromara.common.core.validate.AddGroup;
 import org.dromara.common.core.validate.EditGroup;
 import org.dromara.common.log.enums.BusinessType;
 import org.dromara.common.excel.utils.ExcelUtil;
+import top.sharehome.base.domain.bo.CompetitionBo;
+import top.sharehome.base.domain.vo.CompetitionVo;
 import top.sharehome.base.domain.vo.HonorVo;
 import top.sharehome.base.domain.bo.HonorBo;
 import top.sharehome.base.service.IHonorService;
@@ -44,6 +47,17 @@ public class HonorController extends BaseController {
     @GetMapping("/list")
     public TableDataInfo<HonorVo> list(HonorBo bo, PageQuery pageQuery) {
         return honorService.queryPageList(bo, pageQuery);
+    }
+
+    /**
+     * 查询有效荣誉类型列表
+     */
+    @SaCheckPermission("base:honor:list")
+    @GetMapping("/list/available")
+    public R<List<HonorVo>> listAvailable(){
+        HonorBo bo = new HonorBo();
+        bo.setStatus(UserConstants.HONOR_NORMAL);
+        return R.ok(honorService.queryList(bo));
     }
 
     /**

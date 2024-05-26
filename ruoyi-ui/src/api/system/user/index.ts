@@ -2,7 +2,7 @@ import { DeptVO } from '../dept/types';
 import { RoleVO } from '../role/types';
 import request from '../../../utils/request';
 import { AxiosPromise } from 'axios';
-import { UserForm, UserQuery, UserVO, UserInfoVO } from './types';
+import { UserForm, UserQuery, UserVO, UserInfoVO, UserByNickName } from './types';
 import { parseStrEmpty } from '../../../utils/ruoyi';
 
 /**
@@ -14,6 +14,16 @@ export const listUser = (query: UserQuery): AxiosPromise<UserVO[]> => {
     url: '/system/user/list',
     method: 'get',
     params: query
+  });
+};
+
+/**
+ * 根据用户昵称获取用户列表
+ */
+export const listByNickName = (nickName?: string): AxiosPromise<UserByNickName> => {
+  return request({
+    url: '/system/user/list/' + nickName,
+    method: 'get'
   });
 };
 

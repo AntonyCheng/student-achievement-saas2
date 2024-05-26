@@ -24,6 +24,17 @@ export interface UserQuery extends PageQuery {
 }
 
 /**
+ * 根据用户昵称查询用户对象类型
+ */
+export interface UserByNickName {
+  userId: string | number;
+  nickName: string;
+  phonenumber: string;
+  deptName: string;
+  roleNames: string;
+}
+
+/**
  * 用户返回对象
  */
 export interface UserVO extends BaseEntity {

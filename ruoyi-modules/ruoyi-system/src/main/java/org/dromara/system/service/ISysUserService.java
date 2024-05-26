@@ -3,6 +3,7 @@ package org.dromara.system.service;
 import org.dromara.common.mybatis.core.page.PageQuery;
 import org.dromara.common.mybatis.core.page.TableDataInfo;
 import org.dromara.system.domain.bo.SysUserBo;
+import org.dromara.system.domain.vo.SysUserNickNameVo;
 import org.dromara.system.domain.vo.SysUserVo;
 
 import java.util.List;
@@ -226,4 +227,11 @@ public interface ISysUserService {
      */
     List<SysUserVo> selectUserListByDept(Long deptId);
 
+    /**
+     * 通过用户昵称查询所有用户
+     *
+     * @param nickName
+     * @return
+     */
+    List<SysUserNickNameVo> selectUserListByNickName(String nickName);
 }

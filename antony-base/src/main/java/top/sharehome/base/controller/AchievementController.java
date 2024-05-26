@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.*;
 import cn.dev33.satoken.annotation.SaCheckPermission;
+import org.dromara.common.core.constant.UserConstants;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.Validated;
 import org.dromara.common.idempotent.annotation.RepeatSubmit;
@@ -44,6 +45,17 @@ public class AchievementController extends BaseController {
     @GetMapping("/list")
     public TableDataInfo<AchievementVo> list(AchievementBo bo, PageQuery pageQuery) {
         return achievementService.queryPageList(bo, pageQuery);
+    }
+
+    /**
+     * 查询有效成果类型列表
+     */
+    @SaCheckPermission("base:achievement:list")
+    @GetMapping("/list/available")
+    public R<List<AchievementVo>> listAvailable(){
+        AchievementBo bo = new AchievementBo();
+        bo.setStatus(UserConstants.ACHIEVEMENT_NORMAL);
+        return R.ok(achievementService.queryList(bo));
     }
 
     /**

@@ -185,4 +185,16 @@ public class SysPostServiceImpl implements ISysPostService {
         SysPost post = MapstructUtils.convert(bo, SysPost.class);
         return baseMapper.updateById(post);
     }
+
+    /**
+     * 通过岗位名称获取岗位信息（联动批量加入用户功能）
+     *
+     * @param postName 角色名称
+     * @return 角色信息
+     */
+    @Override
+    public SysPostVo selectPostByName(String postName) {
+        return baseMapper.selectVoOne(new LambdaQueryWrapper<SysPost>()
+            .eq(SysPost::getPostName, postName));
+    }
 }

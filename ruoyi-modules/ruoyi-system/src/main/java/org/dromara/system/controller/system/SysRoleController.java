@@ -1,28 +1,32 @@
 package org.dromara.system.controller.system;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
+import com.google.common.base.Objects;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.dromara.common.core.domain.R;
-import org.dromara.common.web.core.BaseController;
 import org.dromara.common.excel.utils.ExcelUtil;
 import org.dromara.common.log.annotation.Log;
 import org.dromara.common.log.enums.BusinessType;
 import org.dromara.common.mybatis.core.page.PageQuery;
 import org.dromara.common.mybatis.core.page.TableDataInfo;
+import org.dromara.common.web.core.BaseController;
 import org.dromara.system.domain.SysUserRole;
 import org.dromara.system.domain.bo.SysDeptBo;
+import org.dromara.system.domain.bo.SysDictDataBo;
 import org.dromara.system.domain.bo.SysRoleBo;
 import org.dromara.system.domain.bo.SysUserBo;
 import org.dromara.system.domain.vo.DeptTreeSelectVo;
+import org.dromara.system.domain.vo.SysDictDataVo;
 import org.dromara.system.domain.vo.SysRoleVo;
 import org.dromara.system.domain.vo.SysUserVo;
 import org.dromara.system.service.ISysDeptService;
+import org.dromara.system.service.ISysDictDataService;
 import org.dromara.system.service.ISysRoleService;
 import org.dromara.system.service.ISysUserService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -39,6 +43,7 @@ public class SysRoleController extends BaseController {
     private final ISysRoleService roleService;
     private final ISysUserService userService;
     private final ISysDeptService deptService;
+    private final ISysDictDataService dictDataService;
 
     /**
      * 获取角色信息列表
@@ -85,6 +90,14 @@ public class SysRoleController extends BaseController {
         } else if (!roleService.checkRoleKeyUnique(role)) {
             return R.fail("新增角色'" + role.getRoleName() + "'失败，角色权限已存在");
         }
+        SysDictDataBo bo = new SysDictDataBo();
+        bo.setDictType("sys_role_type");
+        bo.setDictSort(0);
+        bo.setDictLabel(role.getRoleName());
+        bo.setDictValue(role.getRoleKey());
+        bo.setListClass("default");
+        bo.setRemark(role.getRemark());
+        dictDataService.insertDictData(bo);
         return toAjax(roleService.insertRole(role));
 
     }
@@ -103,7 +116,15 @@ public class SysRoleController extends BaseController {
         } else if (!roleService.checkRoleKeyUnique(role)) {
             return R.fail("修改角色'" + role.getRoleName() + "'失败，角色权限已存在");
         }
-
+        SysRoleVo sysRoleVo = roleService.selectRoleById(role.getRoleId());
+        SysDictDataVo sysDictDataVo = dictDataService.selectDictDataByLabelAndValue(sysRoleVo.getRoleName(), sysRoleVo.getRoleKey());
+        SysDictDataBo bo = new SysDictDataBo();
+        bo.setDictCode(sysDictDataVo.getDictCode());
+        bo.setDictType("sys_role_type");
+        bo.setDictLabel(role.getRoleName());
+        bo.setDictValue(role.getRoleKey());
+        bo.setRemark(role.getRemark());
+        dictDataService.updateDictData(bo);
         if (roleService.updateRole(role) > 0) {
             roleService.cleanOnlineUserByRole(role.getRoleId());
             return R.ok();
@@ -132,6 +153,20 @@ public class SysRoleController extends BaseController {
     public R<Void> changeStatus(@RequestBody SysRoleBo role) {
         roleService.checkRoleAllowed(role);
         roleService.checkRoleDataScope(role.getRoleId());
+        if (Objects.equal(role.getStatus(), "1")) {
+            SysRoleVo sysRoleVo = roleService.selectRoleById(role.getRoleId());
+            dictDataService.deleteDictDataByLabelAndValue(sysRoleVo.getRoleName(),sysRoleVo.getRoleKey());
+        } else if (Objects.equal(role.getStatus(), "0")) {
+            SysRoleVo sysRoleVo = roleService.selectRoleById(role.getRoleId());
+            SysDictDataBo bo = new SysDictDataBo();
+            bo.setDictType("sys_role_type");
+            bo.setDictSort(0);
+            bo.setDictLabel(sysRoleVo.getRoleName());
+            bo.setDictValue(sysRoleVo.getRoleKey());
+            bo.setListClass("default");
+            bo.setRemark(sysRoleVo.getRemark());
+            dictDataService.insertDictData(bo);
+        }
         return toAjax(roleService.updateRoleStatus(role.getRoleId(), role.getStatus()));
     }
 
@@ -144,6 +179,20 @@ public class SysRoleController extends BaseController {
     @Log(title = "角色管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{roleIds}")
     public R<Void> remove(@PathVariable Long[] roleIds) {
+        SysDictDataBo dictData = new SysDictDataBo();
+        dictData.setDictType("sys_role_type");
+        List<SysDictDataVo> sysDictDataVos = dictDataService.selectDictDataList(dictData);
+        Long[] codes = new Long[roleIds.length];
+        int i = 0;
+        for (Long roleId : roleIds) {
+            SysRoleVo sysRoleVo = roleService.selectRoleById(roleId);
+            for (SysDictDataVo sysDictDataVo : sysDictDataVos) {
+                if (sysDictDataVo.getDictValue().equals(sysRoleVo.getRoleKey())) {
+                    codes[i++] = sysDictDataVo.getDictCode();
+                }
+            }
+        }
+        dictDataService.deleteDictDataByIds(codes);
         return toAjax(roleService.deleteRoleByIds(roleIds));
     }
 

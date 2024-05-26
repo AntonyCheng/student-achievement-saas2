@@ -5,6 +5,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.crypto.digest.BCrypt;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
+import lombok.extern.slf4j.Slf4j;
 import org.dromara.common.core.exception.ServiceException;
 import org.dromara.common.core.utils.SpringUtils;
 import org.dromara.common.core.utils.ValidatorUtils;
@@ -12,16 +13,19 @@ import org.dromara.common.excel.core.ExcelListener;
 import org.dromara.common.excel.core.ExcelResult;
 import org.dromara.common.satoken.utils.LoginHelper;
 import org.dromara.system.domain.bo.SysUserBo;
+import org.dromara.system.domain.vo.SysPostVo;
+import org.dromara.system.domain.vo.SysRoleVo;
 import org.dromara.system.domain.vo.SysUserImportVo;
 import org.dromara.system.domain.vo.SysUserVo;
-import org.dromara.system.service.ISysConfigService;
+import org.dromara.system.service.ISysPostService;
+import org.dromara.system.service.ISysRoleService;
 import org.dromara.system.service.ISysUserService;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 /**
  * 系统用户自定义导入
+ * 密码初始化为用户序号（工号/学号）
  *
  * @author Lion Li
  */
@@ -29,8 +33,8 @@ import java.util.List;
 public class SysUserImportListener extends AnalysisEventListener<SysUserImportVo> implements ExcelListener<SysUserImportVo> {
 
     private final ISysUserService userService;
-
-    private final String password;
+    private final ISysRoleService roleService;
+    private final ISysPostService postService;
 
     private final Boolean isUpdateSupport;
 
@@ -42,9 +46,9 @@ public class SysUserImportListener extends AnalysisEventListener<SysUserImportVo
     private final StringBuilder failureMsg = new StringBuilder();
 
     public SysUserImportListener(Boolean isUpdateSupport) {
-        String initPassword = SpringUtils.getBean(ISysConfigService.class).selectConfigByKey("sys.user.initPassword");
         this.userService = SpringUtils.getBean(ISysUserService.class);
-        this.password = BCrypt.hashpw(initPassword);
+        this.roleService = SpringUtils.getBean(ISysRoleService.class);
+        this.postService = SpringUtils.getBean(ISysPostService.class);
         this.isUpdateSupport = isUpdateSupport;
         this.operUserId = LoginHelper.getUserId();
     }
@@ -52,12 +56,17 @@ public class SysUserImportListener extends AnalysisEventListener<SysUserImportVo
     @Override
     public void invoke(SysUserImportVo userVo, AnalysisContext context) {
         SysUserVo sysUser = this.userService.selectUserByUserName(userVo.getUserName());
+        SysRoleVo roleVo = this.roleService.selectRoleByName(userVo.getRole());
+        SysPostVo postVo = this.postService.selectPostByName(userVo.getPost());
         try {
             // 验证是否存在这个用户
             if (ObjectUtil.isNull(sysUser)) {
                 SysUserBo user = BeanUtil.toBean(userVo, SysUserBo.class);
+                user.setRoleIds(new Long[]{roleVo.getRoleId()});
+                user.setPostIds(new Long[]{postVo.getPostId()});
                 ValidatorUtils.validate(user);
-                user.setPassword(password);
+                // 设置密码为这个用户的序号（学号/工号）
+                user.setPassword(BCrypt.hashpw(String.valueOf(userVo.getUserId())));
                 user.setCreateBy(operUserId);
                 userService.insertUser(user);
                 successNum++;
@@ -65,6 +74,8 @@ public class SysUserImportListener extends AnalysisEventListener<SysUserImportVo
             } else if (isUpdateSupport) {
                 Long userId = sysUser.getUserId();
                 SysUserBo user = BeanUtil.toBean(userVo, SysUserBo.class);
+                user.setRoleIds(new Long[]{roleVo.getRoleId()});
+                user.setPostIds(new Long[]{postVo.getPostId()});
                 user.setUserId(userId);
                 ValidatorUtils.validate(user);
                 userService.checkUserAllowed(user.getUserId());
