@@ -39,6 +39,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * 用户信息
@@ -167,7 +169,7 @@ public class SysUserController extends BaseController {
     @GetMapping(value = {"/list/{nickName}"})
     public R<List<SysUserNickNameVo>> listByNickName(@PathVariable(value = "nickName") String nickName) {
         List<SysUserNickNameVo> userVoList = userService.selectUserListByNickName(nickName);
-        return R.ok(userVoList);
+        return R.ok(userVoList.stream().filter(sysUserNickNameVo -> sysUserNickNameVo.getUserId() != 1).collect(Collectors.toList()));
     }
 
     /**

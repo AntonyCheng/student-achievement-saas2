@@ -3,7 +3,7 @@ import { RoleVO } from '../role/types';
 import request from '../../../utils/request';
 import { AxiosPromise } from 'axios';
 import { UserForm, UserQuery, UserVO, UserInfoVO, UserByNickName } from './types';
-import { parseStrEmpty } from '../../../utils/ruoyi';
+import { parseStrEmpty } from '@/utils/ruoyi';
 
 /**
  * 查询用户列表
@@ -20,7 +20,7 @@ export const listUser = (query: UserQuery): AxiosPromise<UserVO[]> => {
 /**
  * 根据用户昵称获取用户列表
  */
-export const listByNickName = (nickName?: string): AxiosPromise<UserByNickName> => {
+export const listByNickName = (nickName?: string): AxiosPromise<UserByNickName[]> => {
   return request({
     url: '/system/user/list/' + nickName,
     method: 'get'

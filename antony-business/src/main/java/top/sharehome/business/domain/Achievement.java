@@ -8,10 +8,10 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * 成果对象 business_achievement
+ * 在校成果管理对象 business_achievement
  *
  * @author AntonyCheng
- * @date 2024-04-21
+ * @date 2024-05-27
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -28,37 +28,47 @@ public class Achievement extends TenantEntity {
     private Long achievementId;
 
     /**
-     * 成果类型id
+     * 成果类型
      */
     private Long achievementTypeId;
 
     /**
-     * 成果第一作者id
+     * 成果名称
+     */
+    private String achievementName;
+
+    /**
+     * 第一作者
      */
     private Long achievementStudentId;
 
     /**
-     * 成果第一指导老师id
+     * 第一作者所属部门
+     */
+    private Long achievementStudentDeptId;
+
+    /**
+     * 第一指导老师
      */
     private Long achievementTeacherId;
 
     /**
-     * 成果其他作者id JSON
+     * 其他成员
      */
     private String achievementOtherStudentIds;
 
     /**
-     * 成果其他指导老师id JSON
+     * 其他老师
      */
     private String achievementOtherTeacherIds;
 
     /**
-     * 成果作证材料URL
+     * 佐证材料
      */
     private String achievementEvidenceUrl;
 
     /**
-     * 成果审核反馈
+     * 审核反馈
      */
     private String achievementFeedback;
 

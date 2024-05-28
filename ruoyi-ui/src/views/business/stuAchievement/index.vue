@@ -95,17 +95,12 @@
       <template #header>
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
-            <el-button type="success" plain icon="Edit" :disabled="single" @click="handleUpdate()" v-hasPermi="['business:achievement:edit']"
-              >详情
+            <el-button type="success" plain icon="Edit" :disabled="single" @click="handleUpdate()" v-hasPermi="['business:stuAchievement:edit']"
+              >修改
             </el-button>
           </el-col>
           <el-col :span="1.5">
-            <el-button type="danger" plain icon="Delete" :disabled="multiple" @click="handleDelete()" v-hasPermi="['business:achievement:remove']"
-              >删除
-            </el-button>
-          </el-col>
-          <el-col :span="1.5">
-            <el-button type="warning" plain icon="Download" @click="handleExport" v-hasPermi="['business:achievement:export']">导出 </el-button>
+            <el-button type="warning" plain icon="Download" @click="handleExport" v-hasPermi="['business:stuAchievement:export']">导出 </el-button>
           </el-col>
           <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
         </el-row>
@@ -145,22 +140,20 @@
         </el-table-column>
         <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
           <template #default="scope">
-            <el-tooltip content="详情" placement="top">
-              <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['business:achievement:edit']"></el-button>
-            </el-tooltip>
-            <el-tooltip content="删除" placement="top">
-              <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['business:achievement:remove']"></el-button>
+            <el-tooltip content="修改" placement="top">
+              <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['business:stuAchievement:edit']"></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
       </el-table>
+
       <pagination v-show="total>0" :total="total" v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize" @pagination="getList" />
     </el-card>
-    <!-- 查看详情在校成果管理对话框 -->
+    <!-- 修改在校成果管理对话框 -->
     <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
       <el-form ref="achievementFormRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="成果类型" prop="achievementTypeId">
-          <el-select v-model="form.achievementTypeId" placeholder="请选择成果类型" clearable style="width: 100%;" disabled>
+          <el-select v-model="form.achievementTypeId" placeholder="无" disabled clearable style="width: 100%;">
             <el-option v-for="dict in types" :key="dict.achievementTypeId" :label="dict.achievementTypeName" :value="dict.achievementTypeId" />
           </el-select>
         </el-form-item>
@@ -176,24 +169,22 @@
         <el-form-item label="其他老师" prop="achievementOtherTeacherNames">
           <el-input v-model="form.achievementOtherTeacherNames" placeholder="无" disabled />
         </el-form-item>
-        <el-form-item label="佐证材料" prop="achievementEvidenceUrl">
-          <el-button type="success" link @click="download(form.achievementEvidenceUrl);">点我下载</el-button>
-        </el-form-item>
         <el-form-item label="审核反馈" prop="achievementFeedback">
-          <el-input v-model="form.achievementFeedback" type="textarea" placeholder="请输入内容" disabled />
+          <el-input v-model="form.achievementFeedback" type="textarea" placeholder="请输入内容" />
         </el-form-item>
         <el-form-item label="成果状态" prop="status">
-          <el-select v-model="form.status" placeholder="请选择成果状态" clearable style="width: 100%;" disabled>
+          <el-select v-model="form.status" placeholder="请选择成果状态" clearable style="width: 100%;">
             <el-option v-for="dict in business_experience_type" :key="dict.value" :label="dict.label" :value="dict.value" />
           </el-select>
         </el-form-item>
         <el-form-item label="备注" prop="remark">
-          <el-input v-model="form.remark" type="textarea" placeholder="请输入内容" disabled />
+          <el-input v-model="form.remark" type="textarea" disabled placeholder="请输入内容" />
         </el-form-item>
       </el-form>
       <template #footer>
         <div class="dialog-footer">
-          <el-button type="primary" @click="cancel">确 定</el-button>
+          <el-button :loading="buttonLoading" type="primary" @click="submitForm">确 定</el-button>
+          <el-button @click="cancel">取 消</el-button>
         </div>
       </template>
     </el-dialog>
@@ -204,9 +195,9 @@
 import {
   listAchievement,
   getAchievement,
-  delAchievement,
-} from '@/api/business/achievement';
-import {AchievementVO, AchievementQuery, AchievementForm} from '@/api/business/achievement/types';
+  updateAchievement,
+} from '@/api/business/stuAchievement';
+import {AchievementVO, AchievementQuery, AchievementForm} from '@/api/business/stuAchievement/types';
 import {listAchievementAvailable} from "@/api/base/achievement";
 import {AchievementVO as AchievementTypeVO} from "@/api/base/achievement/types";
 import {UserByNickName} from "@/api/system/user/types";
@@ -216,6 +207,7 @@ const {proxy} = getCurrentInstance() as ComponentInternalInstance;
 const {business_experience_type} = toRefs<any>(proxy?.useDict('business_experience_type'));
 
 const achievementList = ref<AchievementVO[]>([]);
+const buttonLoading = ref(false);
 const loading = ref(true);
 const showSearch = ref(true);
 const ids = ref<Array<string | number>>([]);
@@ -229,7 +221,6 @@ const teachers = ref<UserByNickName[]>([]);
 const membersAddEdit = ref<UserByNickName[]>([]);
 const teacherAddEdit = ref<UserByNickName[]>([]);
 const teachersAddEdit = ref<UserByNickName[]>([]);
-
 const queryFormRef = ref<ElFormInstance>();
 const achievementFormRef = ref<ElFormInstance>();
 
@@ -258,6 +249,15 @@ const initFormData: AchievementForm = {
   status: undefined,
   remark: undefined
 }
+/** 自定义校验成果状态 */
+const validateStatus = (rule: any, value: any, callback: any) => {
+  if (value === '0') {
+    callback(new Error('请修改审核状态'))
+  } else {
+    callback()
+  }
+}
+
 const data = reactive<PageData<AchievementForm, AchievementQuery>>({
   form: {...initFormData},
   queryParams: {
@@ -276,6 +276,12 @@ const data = reactive<PageData<AchievementForm, AchievementQuery>>({
   rules: {
     achievementId: [
       {required: true, message: "成果id不能为空", trigger: "blur"}
+    ],
+    achievementFeedback: [
+      {required: true, message: "审核反馈不能为空", trigger: "blur"}
+    ],
+    status: [
+      {required: true, validator: validateStatus, trigger: "blur"}
     ]
   }
 });
@@ -359,7 +365,8 @@ const handleSelectionChange = (selection: AchievementVO[]) => {
 const handleUpdate = (row?: AchievementVO) => {
   loading.value = true
   dialog.visible = true;
-  dialog.title = "在校成果详情";
+  dialog.title = "修改在校成果管理";
+  // fileList.value = []
   nextTick(async () => {
     reset();
     const _achievementId = row?.achievementId || ids.value[0]
@@ -369,18 +376,31 @@ const handleUpdate = (row?: AchievementVO) => {
   });
 }
 
-/** 删除按钮操作 */
-const handleDelete = async (row?: AchievementVO) => {
-  const _achievementIds = row?.achievementId || ids.value;
-  await proxy?.$modal.confirm('是否确认删除在校成果管理编号为"' + _achievementIds + '"的数据项？').finally(() => loading.value = false);
-  await delAchievement(_achievementIds);
-  proxy?.$modal.msgSuccess("删除成功");
-  await getList();
+/** 提交按钮 */
+const submitForm = () => {
+  achievementFormRef.value?.validate(async (valid: boolean) => {
+    if (valid) {
+      buttonLoading.value = true;
+      const data = JSON.parse(JSON.stringify(form.value))
+      if (Array.isArray(data.achievementOtherStudentIds) && data.achievementOtherStudentIds.length != 0) {
+        data.achievementOtherStudentIds = data.achievementOtherStudentIds.join(",")
+      }
+      if (Array.isArray(data.achievementOtherTeacherIds) && data.achievementOtherTeacherIds.length != 0) {
+        data.achievementOtherTeacherIds = data.achievementOtherTeacherIds.join(",")
+      }
+      if (form.value.achievementId) {
+        await updateAchievement(data).finally(() => buttonLoading.value = false);
+      }
+      proxy?.$modal.msgSuccess("修改成功");
+      dialog.visible = false;
+      await getList();
+    }
+  });
 }
 
 /** 导出按钮操作 */
 const handleExport = () => {
-  proxy?.download('business/achievement/export', {
+  proxy?.download('business/achievement/stu/export', {
     ...queryParams.value
   }, `achievement_${new Date().getTime()}.xlsx`)
 }

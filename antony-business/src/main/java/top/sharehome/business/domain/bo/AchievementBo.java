@@ -10,10 +10,10 @@ import lombok.EqualsAndHashCode;
 import jakarta.validation.constraints.*;
 
 /**
- * 成果业务对象 business_achievement
+ * 在校成果管理业务对象 business_achievement
  *
  * @author AntonyCheng
- * @date 2024-04-21
+ * @date 2024-05-27
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -27,45 +27,56 @@ public class AchievementBo extends BaseEntity {
     private Long achievementId;
 
     /**
-     * 成果类型id
+     * 成果类型
      */
-    @NotNull(message = "成果类型id不能为空", groups = { AddGroup.class, EditGroup.class })
+    @NotNull(message = "成果类型不能为空", groups = { AddGroup.class, EditGroup.class })
     private Long achievementTypeId;
 
     /**
-     * 成果第一作者id
+     * 成果名称
      */
-    @NotNull(message = "成果第一作者id不能为空", groups = { AddGroup.class, EditGroup.class })
+    @NotNull(message = "成果名称不能为空", groups = { AddGroup.class, EditGroup.class })
+    private String achievementName;
+
+    /**
+     * 第一作者
+     */
+//    @NotNull(message = "第一作者不能为空", groups = { AddGroup.class, EditGroup.class })
     private Long achievementStudentId;
 
     /**
-     * 成果第一指导老师id
+     * 第一作者所属部门
      */
-    @NotNull(message = "成果第一指导老师id不能为空", groups = { AddGroup.class, EditGroup.class })
+//    @NotNull(message = "第一作者所属部门不能为空", groups = { AddGroup.class, EditGroup.class })
+    private Long achievementStudentDeptId;
+
+    /**
+     * 第一指导老师
+     */
+    @NotNull(message = "第一指导老师不能为空", groups = { AddGroup.class })
     private Long achievementTeacherId;
 
     /**
-     * 成果其他作者id JSON
+     * 其他成员
      */
-    @NotBlank(message = "成果其他作者id JSON不能为空", groups = { AddGroup.class, EditGroup.class })
+//    @NotBlank(message = "其他成员不能为空", groups = { AddGroup.class, EditGroup.class })
     private String achievementOtherStudentIds;
 
     /**
-     * 成果其他指导老师id JSON
+     * 其他老师
      */
-    @NotBlank(message = "成果其他指导老师id JSON不能为空", groups = { AddGroup.class, EditGroup.class })
+//    @NotBlank(message = "其他老师不能为空", groups = { AddGroup.class, EditGroup.class })
     private String achievementOtherTeacherIds;
 
     /**
-     * 成果作证材料URL
+     * 佐证材料
      */
-    @NotBlank(message = "成果作证材料URL不能为空", groups = { AddGroup.class, EditGroup.class })
+    @NotBlank(message = "佐证材料不能为空", groups = { AddGroup.class, EditGroup.class })
     private String achievementEvidenceUrl;
 
     /**
-     * 成果审核反馈
+     * 审核反馈
      */
-    @NotBlank(message = "成果审核反馈不能为空", groups = { AddGroup.class, EditGroup.class })
     private String achievementFeedback;
 
     /**

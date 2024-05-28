@@ -53,7 +53,10 @@
     </el-form>
     <!--  底部  -->
     <div class="el-login-footer">
-      <span>Copyright © 2023-2024 <a href="https://github.com/AntonyCheng" target="_blank" style="color: #b5f694">AntonyCheng</a> All Rights Reserved.</span>
+      <span
+        >Copyright © 2023-2024 <a href="https://github.com/AntonyCheng" target="_blank" style="color: #b5f694">AntonyCheng</a> All Rights
+        Reserved.</span
+      >
     </div>
   </div>
 </template>
@@ -71,8 +74,8 @@ const router = useRouter();
 
 const loginForm = ref<LoginData>({
   tenantId: '000000',
-  username: 'admin',
-  password: '123456',
+  username: '',
+  password: '',
   rememberMe: false,
   code: '',
   uuid: ''

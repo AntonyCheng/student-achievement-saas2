@@ -157,16 +157,6 @@ export interface AchievementForm extends BaseEntity {
   achievementEvidenceUrl?: string | number;
 
   /**
-   * 审核反馈
-   */
-  achievementFeedback?: string;
-
-  /**
-   * 成果状态（0待审核 1审核通过 2审核不通过）
-   */
-  status?: string;
-
-  /**
    * 备注
    */
   remark?: string;

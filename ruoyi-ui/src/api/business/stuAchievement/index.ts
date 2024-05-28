@@ -1,6 +1,6 @@
 import request from '@/utils/request';
 import { AxiosPromise } from 'axios';
-import { AchievementVO, AchievementForm, AchievementQuery } from '@/api/business/achievement/types';
+import { AchievementVO, AchievementForm, AchievementQuery } from '@/api/business/stuAchievement/types';
 
 /**
  * 查询在校成果管理列表
@@ -9,7 +9,7 @@ import { AchievementVO, AchievementForm, AchievementQuery } from '@/api/business
  */
 export const listAchievement = (query?: AchievementQuery): AxiosPromise<AchievementVO[]> => {
   return request({
-    url: '/business/achievement/list',
+    url: '/business/achievement/stu/list',
     method: 'get',
     params: query
   });
@@ -21,18 +21,19 @@ export const listAchievement = (query?: AchievementQuery): AxiosPromise<Achievem
  */
 export const getAchievement = (achievementId: string | number): AxiosPromise<AchievementVO> => {
   return request({
-    url: '/business/achievement/' + achievementId,
+    url: '/business/achievement/stu/' + achievementId,
     method: 'get'
   });
 };
 
 /**
- * 删除在校成果管理
- * @param achievementId
+ * 修改在校成果管理
+ * @param data
  */
-export const delAchievement = (achievementId: string | number | Array<string | number>) => {
+export const updateAchievement = (data: AchievementForm) => {
   return request({
-    url: '/business/achievement/' + achievementId,
-    method: 'delete'
+    url: '/business/achievement/stu',
+    method: 'put',
+    data: data
   });
 };

@@ -1,24 +1,24 @@
 package top.sharehome.business.domain.vo;
 
-import top.sharehome.business.domain.Achievement;
+import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
 import com.alibaba.excel.annotation.ExcelProperty;
-import org.dromara.common.excel.annotation.ExcelDictFormat;
-import org.dromara.common.excel.convert.ExcelDictConvert;
 import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
+import org.dromara.common.excel.annotation.ExcelDictFormat;
+import org.dromara.common.excel.convert.ExcelDictConvert;
+import top.sharehome.business.domain.Achievement;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 
 
-
 /**
- * 成果视图对象 business_achievement
+ * 在校成果管理视图对象 business_achievement
  *
  * @author AntonyCheng
- * @date 2024-04-21
+ * @date 2024-05-27
  */
 @Data
 @ExcelIgnoreUnannotated
@@ -37,43 +37,91 @@ public class AchievementVo implements Serializable {
     /**
      * 成果类型id
      */
-    @ExcelProperty(value = "成果类型id")
+    @ExcelIgnore
     private Long achievementTypeId;
 
     /**
-     * 成果第一作者id
+     * 成果类型
      */
-    @ExcelProperty(value = "成果第一作者id")
+    @ExcelProperty(value = "成果类型")
+    private String achievementTypeName;
+
+    /**
+     * 成果名称
+     */
+    @ExcelProperty(value = "成果名称")
+    private String achievementName;
+
+    /**
+     * 第一作者id
+     */
+    @ExcelIgnore
     private Long achievementStudentId;
 
     /**
-     * 成果第一指导老师id
+     * 第一作者
      */
-    @ExcelProperty(value = "成果第一指导老师id")
+    @ExcelProperty(value = "第一作者")
+    private String achievementStudentName;
+
+    /**
+     * 第一作者所属部门id
+     */
+    @ExcelIgnore
+    private Long achievementStudentDeptId;
+
+    /**
+     * 第一作者所属部门
+     */
+    @ExcelProperty(value = "所属部门")
+    private String achievementStudentDeptName;
+
+    /**
+     * 第一指导老师id
+     */
+    @ExcelIgnore
     private Long achievementTeacherId;
 
     /**
-     * 成果其他作者id JSON
+     * 第一指导老师
      */
-    @ExcelProperty(value = "成果其他作者id JSON")
+    @ExcelProperty(value = "第一指导老师")
+    private String achievementTeacherName;
+
+    /**
+     * 其他成员id JSON
+     */
+    @ExcelIgnore
     private String achievementOtherStudentIds;
 
     /**
-     * 成果其他指导老师id JSON
+     * 其他成员 String
      */
-    @ExcelProperty(value = "成果其他指导老师id JSON")
+    @ExcelProperty(value = "其他成员")
+    private String achievementOtherStudentNames;
+
+    /**
+     * 其他老师id JSON
+     */
+    @ExcelIgnore
     private String achievementOtherTeacherIds;
 
     /**
-     * 成果作证材料URL
+     * 其他老师 String
      */
-    @ExcelProperty(value = "成果作证材料URL")
+    @ExcelProperty(value = "其他老师")
+    private String achievementOtherTeacherNames;
+
+    /**
+     * 佐证材料
+     */
+    @ExcelProperty(value = "佐证材料")
     private String achievementEvidenceUrl;
 
     /**
-     * 成果审核反馈
+     * 审核反馈
      */
-    @ExcelProperty(value = "成果审核反馈")
+    @ExcelProperty(value = "审核反馈")
     private String achievementFeedback;
 
     /**
