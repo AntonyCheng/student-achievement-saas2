@@ -80,7 +80,7 @@ public class AchievementController extends BaseController {
     @PostMapping("/my/export")
     public void myExport(AchievementBo bo, HttpServletResponse response) {
         List<AchievementVo> list = achievementService.queryMyList(bo);
-        ExcelUtil.exportExcel(list, "在校成果管理", AchievementVo.class, response);
+        ExcelUtil.exportExcel(list, "我的成果", AchievementVo.class, response);
     }
 
     @SaCheckPermission("business:stuAchievement:export")
@@ -88,7 +88,7 @@ public class AchievementController extends BaseController {
     @PostMapping("/stu/export")
     public void stuExport(AchievementBo bo, HttpServletResponse response) {
         List<AchievementVo> list = achievementService.queryStuList(bo);
-        ExcelUtil.exportExcel(list, "在校成果管理", AchievementVo.class, response);
+        ExcelUtil.exportExcel(list, "学生成果", AchievementVo.class, response);
     }
 
     @SaCheckPermission("business:achievement:export")
@@ -96,7 +96,7 @@ public class AchievementController extends BaseController {
     @PostMapping("/export")
     public void export(AchievementBo bo, HttpServletResponse response) {
         List<AchievementVo> list = achievementService.queryList(bo);
-        ExcelUtil.exportExcel(list, "在校成果管理", AchievementVo.class, response);
+        ExcelUtil.exportExcel(list, "成果管理", AchievementVo.class, response);
     }
 
     /**

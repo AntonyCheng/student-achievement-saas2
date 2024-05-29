@@ -3,7 +3,7 @@
     <div class="index-bg">
       <div class="index-text">
         <div class="center-box">
-          <img src="src/assets/logo/logo.png" width="150" />
+          <img src="@/assets/logo/logo.png" width="150" />
           <h1 style="color: #FFFFFF;font-size: 40px;font-weight: bold;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
             基于云原生的学生在校经历管理SaaS系统
           </h1>

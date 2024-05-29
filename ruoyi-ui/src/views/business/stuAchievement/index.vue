@@ -11,19 +11,19 @@
           <el-form-item label="成果名称" prop="achievementName">
             <el-input v-model="queryParams.achievementName" placeholder="请输入成果名称" clearable style="width: 240px" @keyup.enter="handleQuery" />
           </el-form-item>
-          <el-form-item label="指导老师" prop="achievementTeacherId">
+          <el-form-item label="第一作者" prop="achievementStudentId">
             <el-select
-              v-model="queryParams.achievementTeacherId"
+              v-model="queryParams.achievementStudentId"
               clearable
               filterable
               remote
               reserve-keyword
-              placeholder="请搜索第一指导老师"
-              :remote-method="(query) => getUserByNickName(query,'teacher')"
+              placeholder="请搜索第一作者"
+              :remote-method="(query) => getUserByNickName(query,'student')"
               :loading="loading"
               style="width: 240px"
             >
-              <el-option v-for="item in teacher" :key="item.userId" :label="item.nickName" :value="item.userId">
+              <el-option v-for="item in student" :key="item.userId" :label="item.nickName" :value="item.userId">
                 <span style="float: left">{{ item.nickName }}</span>
                 <el-divider direction="vertical" />
                 <span style="float: right;color: var(--el-text-color-secondary);font-size: 13px;">
@@ -215,8 +215,8 @@ const single = ref(true);
 const multiple = ref(true);
 const total = ref(0);
 const types = ref<AchievementTypeVO[]>([]);
+const student = ref<UserByNickName[]>([]);
 const members = ref<UserByNickName[]>([]);
-const teacher = ref<UserByNickName[]>([]);
 const teachers = ref<UserByNickName[]>([]);
 const membersAddEdit = ref<UserByNickName[]>([]);
 const teacherAddEdit = ref<UserByNickName[]>([]);
@@ -314,10 +314,10 @@ const getTypeList = async () => {
 const getUserByNickName = async (nickname: string, type: string) => {
   if (nickname) {
     const res = await listByNickName(nickname);
-    if (type === "members") {
+    if (type === "student") {
+      student.value = res.data
+    } else if (type === "members") {
       members.value = res.data
-    } else if (type === "teacher") {
-      teacher.value = res.data
     } else if (type === "teachers") {
       teachers.value = res.data
     } else if (type === "membersAddEdit") {

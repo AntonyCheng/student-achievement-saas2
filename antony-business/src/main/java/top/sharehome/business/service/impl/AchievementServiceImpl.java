@@ -301,11 +301,11 @@ public class AchievementServiceImpl implements IAchievementService {
         Map<String, Object> params = bo.getParams();
         LambdaQueryWrapper<Achievement> lqw = Wrappers.lambdaQuery();
         lqw.eq(Achievement::getAchievementTeacherId, LoginHelper.getUserId())
-            .and(ObjectUtils.anyNotNull(bo.getAchievementTypeId(), bo.getAchievementName(), bo.getAchievementTeacherId(), bo.getAchievementOtherStudentIds(), bo.getAchievementOtherTeacherIds()),
+            .and(ObjectUtils.anyNotNull(bo.getAchievementTypeId(), bo.getAchievementName(), bo.getAchievementStudentId(), bo.getAchievementOtherStudentIds(), bo.getAchievementOtherTeacherIds()),
                 qw -> {
                     qw.eq(bo.getAchievementTypeId() != null, Achievement::getAchievementTypeId, bo.getAchievementTypeId());
                     qw.eq(bo.getAchievementStudentDeptId() != null, Achievement::getAchievementStudentDeptId, bo.getAchievementStudentDeptId());
-                    qw.eq(bo.getAchievementTeacherId() != null, Achievement::getAchievementTeacherId, bo.getAchievementTeacherId());
+                    qw.eq(bo.getAchievementStudentId() != null, Achievement::getAchievementStudentId, bo.getAchievementStudentId());
                     qw.like(bo.getAchievementName() != null, Achievement::getAchievementName, bo.getAchievementName());
                     if (StringUtils.isNotBlank(bo.getAchievementOtherStudentIds())) {
                         String[] split = bo.getAchievementOtherStudentIds().split(",");
@@ -335,34 +335,35 @@ public class AchievementServiceImpl implements IAchievementService {
     private LambdaQueryWrapper<Achievement> buildQueryWrapper(AchievementBo bo) {
         Map<String, Object> params = bo.getParams();
         LambdaQueryWrapper<Achievement> lqw = Wrappers.lambdaQuery();
-        lqw.and(ObjectUtils.anyNotNull(bo.getAchievementTypeId(), bo.getAchievementName(), bo.getAchievementTeacherId(), bo.getAchievementOtherStudentIds(), bo.getAchievementOtherTeacherIds()),
-                qw -> {
-                    qw.eq(bo.getAchievementTypeId() != null, Achievement::getAchievementTypeId, bo.getAchievementTypeId());
-                    qw.eq(bo.getAchievementStudentDeptId() != null, Achievement::getAchievementStudentDeptId, bo.getAchievementStudentDeptId());
-                    qw.eq(bo.getAchievementTeacherId() != null, Achievement::getAchievementTeacherId, bo.getAchievementTeacherId());
-                    qw.like(bo.getAchievementName() != null, Achievement::getAchievementName, bo.getAchievementName());
-                    if (StringUtils.isNotBlank(bo.getAchievementOtherStudentIds())) {
-                        String[] split = bo.getAchievementOtherStudentIds().split(",");
-                        if (split.length == 1) {
-                            qw.like(Achievement::getAchievementOtherStudentIds, bo.getAchievementOtherStudentIds());
-                        } else {
-                            for (String s : split) {
-                                qw.like(Achievement::getAchievementOtherStudentIds, s);
-                            }
+        lqw.and(ObjectUtils.anyNotNull(bo.getAchievementTypeId(), bo.getAchievementName(), bo.getAchievementStudentId(), bo.getAchievementTeacherId(), bo.getAchievementOtherStudentIds(), bo.getAchievementOtherTeacherIds()),
+            qw -> {
+                qw.eq(bo.getAchievementTypeId() != null, Achievement::getAchievementTypeId, bo.getAchievementTypeId());
+                qw.eq(bo.getAchievementStudentId() != null, Achievement::getAchievementStudentId, bo.getAchievementStudentId());
+                qw.eq(bo.getAchievementStudentDeptId() != null, Achievement::getAchievementStudentDeptId, bo.getAchievementStudentDeptId());
+                qw.eq(bo.getAchievementTeacherId() != null, Achievement::getAchievementTeacherId, bo.getAchievementTeacherId());
+                qw.like(bo.getAchievementName() != null, Achievement::getAchievementName, bo.getAchievementName());
+                if (StringUtils.isNotBlank(bo.getAchievementOtherStudentIds())) {
+                    String[] split = bo.getAchievementOtherStudentIds().split(",");
+                    if (split.length == 1) {
+                        qw.like(Achievement::getAchievementOtherStudentIds, bo.getAchievementOtherStudentIds());
+                    } else {
+                        for (String s : split) {
+                            qw.like(Achievement::getAchievementOtherStudentIds, s);
                         }
                     }
-                    if (StringUtils.isNotBlank(bo.getAchievementOtherTeacherIds())) {
-                        String[] split = bo.getAchievementOtherTeacherIds().split(",");
-                        if (split.length == 1) {
-                            qw.like(Achievement::getAchievementOtherTeacherIds, bo.getAchievementOtherTeacherIds());
-                        } else {
-                            for (String s : split) {
-                                qw.like(Achievement::getAchievementOtherTeacherIds, s);
-                            }
+                }
+                if (StringUtils.isNotBlank(bo.getAchievementOtherTeacherIds())) {
+                    String[] split = bo.getAchievementOtherTeacherIds().split(",");
+                    if (split.length == 1) {
+                        qw.like(Achievement::getAchievementOtherTeacherIds, bo.getAchievementOtherTeacherIds());
+                    } else {
+                        for (String s : split) {
+                            qw.like(Achievement::getAchievementOtherTeacherIds, s);
                         }
                     }
-                    qw.eq(StringUtils.isNotBlank(bo.getStatus()), Achievement::getStatus, bo.getStatus());
-                });
+                }
+                qw.eq(StringUtils.isNotBlank(bo.getStatus()), Achievement::getStatus, bo.getStatus());
+            });
         return lqw;
     }
 
@@ -416,7 +417,7 @@ public class AchievementServiceImpl implements IAchievementService {
         if (!Objects.equals(entity.getAchievementStudentId(), LoginHelper.getUserId())) {
             return "你不是第一作者，无法修改";
         }
-        if (!StringUtils.equals(entity.getStatus(), "0")) {
+        if (Objects.nonNull(entity.getStatus()) && !StringUtils.equals(entity.getStatus(), "0")) {
             return "该数据已经审核完成，无法重复修改";
         }
         List<String> errorTeacherNames = new ArrayList<>();
@@ -477,7 +478,7 @@ public class AchievementServiceImpl implements IAchievementService {
             return "你不是第一指导老师，无法修改";
         }
         Achievement achievement = baseMapper.selectById(entity.getAchievementId());
-        if (!StringUtils.equals(achievement.getStatus(), "0")) {
+        if (Objects.nonNull(entity.getStatus()) && !StringUtils.equals(achievement.getStatus(), "0")) {
             return "该数据已经审核完成，无法重复修改";
         }
         return null;
