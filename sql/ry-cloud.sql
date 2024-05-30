@@ -130,14 +130,69 @@ CREATE TABLE `business_achievement`  (
 -- ----------------------------
 -- Records of business_achievement
 -- ----------------------------
-INSERT INTO `business_achievement` VALUES (1795103436057284610, '000000', 1780827338343714817, '基于云原生的学生在校经历管理系统设计和实现', 1, 100, 1778704505606098945, '1795267781160538113', '', 'http://127.0.0.1:9000/student-achievement-saas2/2024/05/28/8820d4bcfaeb4c2eb9ec5e1435a7791c.docx', '审核四次！审核完毕', '1', '0', 100, 1, '2024-05-27 22:43:05', 1778704505606098945, '2024-05-28 21:36:59', '信息');
-INSERT INTO `business_achievement` VALUES (1795269191591706625, '000000', 1780830750233858050, '基于区块链的Python课程思政资源共享平台', 1, 100, 1795347195890188289, '1795267781160538113,1795267655155257346', '1795348860601057281', 'http://127.0.0.1:9000/student-achievement-saas2/2024/05/28/5b362ba7d46a42458521ab5b03fd171a.jpg', NULL, '0', '0', 100, 1, '2024-05-28 09:41:44', 1, '2024-05-28 15:07:57', NULL);
-INSERT INTO `business_achievement` VALUES (1795272308781662209, '000000', 1780827338343714817, '毕业论文', 1, 100, 1778704505606098945, '', '', 'http://127.0.0.1:9000/student-achievement-saas2/2024/05/28/a43b0fec18fc4f1284d82e09ad09b7be.docx', NULL, '0', '0', 100, 1, '2024-05-28 09:54:08', 1, '2024-05-28 17:25:23', NULL);
-INSERT INTO `business_achievement` VALUES (1795365590463303681, '000000', 1780828579203387393, '某某某科研项目', 1795267781160538113, 1779760160337100802, 1795347195890188289, '1', '1778704505606098945', 'http://127.0.0.1:9000/student-achievement-saas2/2024/05/28/f18edf2bc0db414f94c3f7368e9a7e7e.jpg', '审核通过', '1', '0', 1779760160337100802, 1795267781160538113, '2024-05-28 16:04:48', 1795347195890188289, '2024-05-28 21:41:52', NULL);
-INSERT INTO `business_achievement` VALUES (1795392251250524162, '000000', 1780827338343714817, 'XXX学术论文', 1, 100, 1778704505606098945, '1778704704135090177', '1795347195890188289', 'http://127.0.0.1:9000/student-achievement-saas2/2024/05/28/8dd06a84bec5424fbc699c676e467d13.docx', NULL, '0', '0', 100, 1, '2024-05-28 17:50:44', 1, '2024-05-28 17:50:44', NULL);
-INSERT INTO `business_achievement` VALUES (1795401814217506817, '000000', 1780829767541985282, 'XXX系统设计和实现说明书', 1795267655155257346, 1779760160337100802, 1795347195890188289, '1778704704135090177', '1795348860601057281', 'http://127.0.0.1:9000/student-achievement-saas2/2024/05/28/dc8bceaa09254af595776fc89acd464d.docx', '审核不通过！', '2', '0', 1779760160337100802, 1795267655155257346, '2024-05-28 18:28:44', 1795347195890188289, '2024-05-28 21:41:35', NULL);
-INSERT INTO `business_achievement` VALUES (1795415740376334337, '000000', 1780830750233858050, '你好！专利或软著', 1, 100, 1795347195890188289, '1795346948350754817', NULL, 'http://127.0.0.1:9000/student-achievement-saas2/2024/05/28/d74d5b56ebd74140a8f2a0cfd0d78b6c.docx', NULL, '0', '0', 100, 1, '2024-05-28 19:24:04', 1, '2024-05-28 19:24:04', NULL);
-INSERT INTO `business_achievement` VALUES (1795424435688620033, '000000', 1780827338343714817, '基于XXX的论文', 1, 100, 1795347195890188289, '1778704704135090177', NULL, 'http://127.0.0.1:9000/student-achievement-saas2/2024/05/28/8c8637d098cb46988d4d07dd20cb1ae8.docx', NULL, '0', '0', 100, 1, '2024-05-28 19:58:38', 1, '2024-05-28 19:58:38', NULL);
+INSERT INTO `business_achievement` VALUES (1795652064844861442, '000000', 1780827338343714817, '基于XXX的系统设计与实现', 202051000000, 1795621147950690306, 1795647419825238018, '202051000003', '1795647614944260098', 'http://127.0.0.1:9000/student-achievement-saas2/2024/05/29/f9ab0dfd1eb14c08949442102d58db10.zip', '信息正确，审核通过！', '1', '0', 1795621147950690306, 202051000000, '2024-05-29 11:03:09', 1795647419825238018, '2024-05-29 11:12:01', '这是基于XXX的系统设计与实现学术论文的相关信息，请王老师进行审核！');
+
+-- ----------------------------
+-- Table structure for business_competition
+-- ----------------------------
+DROP TABLE IF EXISTS `business_competition`;
+CREATE TABLE `business_competition`  (
+  `competition_id` bigint NOT NULL COMMENT '竞赛id',
+  `tenant_id` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '租户编号',
+  `competition_type_id` bigint NULL DEFAULT NULL COMMENT '竞赛类型id',
+  `competition_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '竞赛名称',
+  `competition_student_id` bigint NULL DEFAULT NULL COMMENT '竞赛第一作者id',
+  `competition_student_dept_id` bigint NULL DEFAULT NULL COMMENT '竞赛第一作者所属部门id',
+  `competition_teacher_id` bigint NULL DEFAULT NULL COMMENT '竞赛第一指导老师id',
+  `competition_other_student_ids` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '竞赛其他作者id JSON',
+  `competition_other_teacher_ids` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '竞赛其他指导老师id JSON',
+  `competition_evidence_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '竞赛作证材料URL',
+  `competition_feedback` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '竞赛审核反馈',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '0' COMMENT '竞赛状态（0待审核 1审核通过 2审核不通过）',
+  `del_flag` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
+  `create_dept` bigint NULL DEFAULT NULL COMMENT '创建部门',
+  `create_by` bigint NULL DEFAULT NULL COMMENT '创建者',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` bigint NULL DEFAULT NULL COMMENT '更新者',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`competition_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of business_competition
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for business_honor
+-- ----------------------------
+DROP TABLE IF EXISTS `business_honor`;
+CREATE TABLE `business_honor`  (
+  `honor_id` bigint NOT NULL COMMENT '荣誉id',
+  `tenant_id` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '租户编号',
+  `honor_type_id` bigint NULL DEFAULT NULL COMMENT '荣誉类型id',
+  `honor_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '荣誉名称',
+  `honor_student_id` bigint NULL DEFAULT NULL COMMENT '荣誉第一作者id',
+  `honor_student_dept_id` bigint NULL DEFAULT NULL COMMENT '荣誉第一作者所属部门id',
+  `honor_teacher_id` bigint NULL DEFAULT NULL COMMENT '荣誉第一指导老师id',
+  `honor_other_student_ids` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '荣誉其他作者id JSON',
+  `honor_other_teacher_ids` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '荣誉其他指导老师id JSON',
+  `honor_evidence_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '荣誉作证材料URL',
+  `honor_feedback` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '荣誉审核反馈',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '0' COMMENT '荣誉状态（0待审核 1审核通过 2审核不通过）',
+  `del_flag` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
+  `create_dept` bigint NULL DEFAULT NULL COMMENT '创建部门',
+  `create_by` bigint NULL DEFAULT NULL COMMENT '创建者',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` bigint NULL DEFAULT NULL COMMENT '更新者',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`honor_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of business_honor
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for gen_table
@@ -366,7 +421,8 @@ INSERT INTO `sys_dept` VALUES (1779758022420660225, '000000', 177973646981758976
 INSERT INTO `sys_dept` VALUES (1779758085389746177, '000000', 1779736469817589762, '0,100,1779736001456439298,1779736469817589762', '教务处', 0, NULL, NULL, NULL, '0', '0', 100, 1, '2024-04-15 14:26:09', 1, '2024-04-15 14:26:09');
 INSERT INTO `sys_dept` VALUES (1779759717414404097, '000000', 1779739777512833026, '0,100,1779736136575942657,1779739777512833026', '2020级', 0, NULL, NULL, NULL, '0', '0', 100, 1, '2024-04-15 14:32:38', 1, '2024-04-15 14:32:38');
 INSERT INTO `sys_dept` VALUES (1779759833139445761, '000000', 1779759717414404097, '0,100,1779736136575942657,1779739777512833026,1779759717414404097', '计算机科学与技术', 0, NULL, NULL, NULL, '0', '0', 100, 1, '2024-04-15 14:33:05', 1, '2024-04-15 14:33:05');
-INSERT INTO `sys_dept` VALUES (1779760160337100802, '000000', 1779759833139445761, '0,100,1779736136575942657,1779739777512833026,1779759717414404097,1779759833139445761', '2020级计算机科学与技术02班', 0, NULL, NULL, NULL, '0', '0', 100, 1, '2024-04-15 14:34:23', 1, '2024-04-15 14:34:23');
+INSERT INTO `sys_dept` VALUES (1779760160337100802, '000000', 1779759833139445761, '0,100,1779736136575942657,1779739777512833026,1779759717414404097,1779759833139445761', '2020级计算机科学与技术02班', 1, NULL, NULL, NULL, '0', '0', 100, 1, '2024-04-15 14:34:23', 1, '2024-05-29 09:00:24');
+INSERT INTO `sys_dept` VALUES (1795621147950690306, '000000', 1779759833139445761, '0,100,1779736136575942657,1779739777512833026,1779759717414404097,1779759833139445761', '2020级计算机科学与技术01班', 0, NULL, NULL, NULL, '0', '0', 100, 1, '2024-05-29 09:00:17', 1, '2024-05-29 09:00:17');
 
 -- ----------------------------
 -- Table structure for sys_dict_data
@@ -486,13 +542,13 @@ INSERT INTO `sys_dict_data` VALUES (1794668230380859393, '000000', 0, '在校学
 INSERT INTO `sys_dict_data` VALUES (1794668339705393153, '000000', 0, '已毕业博士', 'graduated_d', 'sys_post_type', NULL, 'default', 'N', 100, 1, '2024-05-26 17:54:10', 1, '2024-05-26 17:54:10', '');
 INSERT INTO `sys_dict_data` VALUES (1794668433271926785, '000000', 0, '已毕业硕士', 'graduated_m', 'sys_post_type', NULL, 'default', 'N', 100, 1, '2024-05-26 17:54:32', 1, '2024-05-26 17:54:32', '');
 INSERT INTO `sys_dict_data` VALUES (1794668502943510530, '000000', 0, '已毕业学士', 'graduated_u', 'sys_post_type', NULL, 'default', 'N', 100, 1, '2024-05-26 17:54:49', 1, '2024-05-26 17:54:49', '');
-INSERT INTO `sys_dict_data` VALUES (1794702164829392898, '000000', 0, '学校总管', 'boss', 'sys_role_type', NULL, 'default', 'N', 100, 1, '2024-05-26 20:08:35', 1, '2024-05-28 22:43:36', '');
-INSERT INTO `sys_dict_data` VALUES (1794702556489306113, '000000', 0, '部门主管', 'director', 'sys_role_type', NULL, 'default', 'N', 100, 1, '2024-05-26 20:10:08', 1, '2024-05-28 22:43:41', '');
-INSERT INTO `sys_dict_data` VALUES (1794704292658532354, '000000', 0, '行政人员', 'administrator', 'sys_role_type', NULL, 'default', 'N', 100, 1, '2024-05-26 20:17:02', 1, '2024-05-28 22:43:44', '');
-INSERT INTO `sys_dict_data` VALUES (1794704628827803649, '000000', 0, '任课教师', 'teacher', 'sys_role_type', NULL, 'default', 'N', 100, 1, '2024-05-26 20:18:22', 1, '2024-05-28 22:43:48', '');
-INSERT INTO `sys_dict_data` VALUES (1794704927164452866, '000000', 0, '辅导员', 'instructor', 'sys_role_type', NULL, 'default', 'N', 100, 1, '2024-05-26 20:19:33', 1, '2024-05-28 22:43:52', '');
-INSERT INTO `sys_dict_data` VALUES (1794705033326481409, '000000', 0, '研究生', 'postgraduate', 'sys_role_type', NULL, 'default', 'N', 100, 1, '2024-05-26 20:19:59', 1, '2024-05-28 15:43:44', '');
-INSERT INTO `sys_dict_data` VALUES (1794714187667599361, '000000', 0, '本科生', 'undergraduate', 'sys_role_type', NULL, 'default', 'N', 100, 1, '2024-05-26 20:56:21', 1, '2024-05-28 15:42:33', '');
+INSERT INTO `sys_dict_data` VALUES (1794702164829392898, '000000', 0, '学校总管', 'boss', 'sys_role_type', NULL, 'default', 'N', 100, 1, '2024-05-26 20:08:35', 1, '2024-05-30 15:11:07', '');
+INSERT INTO `sys_dict_data` VALUES (1794702556489306113, '000000', 0, '部门主管', 'director', 'sys_role_type', NULL, 'default', 'N', 100, 1, '2024-05-26 20:10:08', 1, '2024-05-30 15:11:47', '');
+INSERT INTO `sys_dict_data` VALUES (1794704292658532354, '000000', 0, '行政人员', 'administrator', 'sys_role_type', NULL, 'default', 'N', 100, 1, '2024-05-26 20:17:02', 1, '2024-05-30 15:12:15', '');
+INSERT INTO `sys_dict_data` VALUES (1794704628827803649, '000000', 0, '任课教师', 'teacher', 'sys_role_type', NULL, 'default', 'N', 100, 1, '2024-05-26 20:18:22', 1, '2024-05-30 15:12:27', '');
+INSERT INTO `sys_dict_data` VALUES (1794704927164452866, '000000', 0, '辅导员', 'instructor', 'sys_role_type', NULL, 'default', 'N', 100, 1, '2024-05-26 20:19:33', 1, '2024-05-29 01:50:52', '');
+INSERT INTO `sys_dict_data` VALUES (1794705033326481409, '000000', 0, '研究生', 'postgraduate', 'sys_role_type', NULL, 'default', 'N', 100, 1, '2024-05-26 20:19:59', 1, '2024-05-30 15:12:43', '');
+INSERT INTO `sys_dict_data` VALUES (1794714187667599361, '000000', 0, '本科生', 'undergraduate', 'sys_role_type', NULL, 'default', 'N', 100, 1, '2024-05-26 20:56:21', 1, '2024-05-30 15:12:56', '');
 
 -- ----------------------------
 -- Table structure for sys_dict_type
@@ -697,6 +753,40 @@ INSERT INTO `sys_logininfor` VALUES (1795451372763070466, '000000', 'admin', 'pc
 INSERT INTO `sys_logininfor` VALUES (1795463820933992449, '000000', 'admin', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016', '0', '登录成功', '2024-05-28 22:35:08');
 INSERT INTO `sys_logininfor` VALUES (1795475657254199298, '000000', 'admin', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016', '0', '登录成功', '2024-05-28 23:22:10');
 INSERT INTO `sys_logininfor` VALUES (1795488119525433345, '000000', 'admin', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016', '0', '退出成功', '2024-05-29 00:11:41');
+INSERT INTO `sys_logininfor` VALUES (1795500943731548162, '440965', 'antony', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'MSEdge', 'Windows 10 or Windows Server 2016', '0', '登录成功', '2024-05-29 01:02:38');
+INSERT INTO `sys_logininfor` VALUES (1795501930072465409, '000000', 'admin', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016', '1', '验证码错误', '2024-05-29 01:06:34');
+INSERT INTO `sys_logininfor` VALUES (1795501948821004290, '000000', 'admin', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016', '0', '登录成功', '2024-05-29 01:06:38');
+INSERT INTO `sys_logininfor` VALUES (1795509849102966785, '000000', 'admin', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016', '0', '退出成功', '2024-05-29 01:38:02');
+INSERT INTO `sys_logininfor` VALUES (1795512580324679681, '000000', 'admin', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016', '0', '登录成功', '2024-05-29 01:48:53');
+INSERT INTO `sys_logininfor` VALUES (1795619909439827969, '000000', 'admin', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016', '0', '登录成功', '2024-05-29 08:55:22');
+INSERT INTO `sys_logininfor` VALUES (1795639945307074561, '000000', 'admin', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016', '0', '登录成功', '2024-05-29 10:14:59');
+INSERT INTO `sys_logininfor` VALUES (1795648667605512193, '000000', 'admin', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016', '0', '退出成功', '2024-05-29 10:49:39');
+INSERT INTO `sys_logininfor` VALUES (1795648773922729986, '000000', 'zs0001', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016', '0', '登录成功', '2024-05-29 10:50:04');
+INSERT INTO `sys_logininfor` VALUES (1795649606601125889, '000000', 'zs0001', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016', '0', '退出成功', '2024-05-29 10:53:22');
+INSERT INTO `sys_logininfor` VALUES (1795649659084451842, '000000', 'admin', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016', '0', '登录成功', '2024-05-29 10:53:35');
+INSERT INTO `sys_logininfor` VALUES (1795650019077369857, '000000', 'zs0001', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'MSEdge', 'Windows 10 or Windows Server 2016', '0', '登录成功', '2024-05-29 10:55:01');
+INSERT INTO `sys_logininfor` VALUES (1795652845346205697, '000000', 'zs0001', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'MSEdge', 'Windows 10 or Windows Server 2016', '0', '退出成功', '2024-05-29 11:06:15');
+INSERT INTO `sys_logininfor` VALUES (1795652919354699778, '000000', 'wls0001', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'MSEdge', 'Windows 10 or Windows Server 2016', '0', '登录成功', '2024-05-29 11:06:32');
+INSERT INTO `sys_logininfor` VALUES (1795655457395159042, '000000', 'wls0001', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'MSEdge', 'Windows 10 or Windows Server 2016', '0', '退出成功', '2024-05-29 11:16:37');
+INSERT INTO `sys_logininfor` VALUES (1795655602895564802, '000000', 'zs0001', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'MSEdge', 'Windows 10 or Windows Server 2016', '0', '登录成功', '2024-05-29 11:17:12');
+INSERT INTO `sys_logininfor` VALUES (1795668590805364738, '000000', 'admin', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016', '1', '验证码已失效', '2024-05-29 12:08:49');
+INSERT INTO `sys_logininfor` VALUES (1795668613387497474, '000000', 'admin', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016', '0', '登录成功', '2024-05-29 12:08:54');
+INSERT INTO `sys_logininfor` VALUES (1795671103088603137, '000000', 'admin', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016', '0', '退出成功', '2024-05-29 12:18:48');
+INSERT INTO `sys_logininfor` VALUES (1795671141642645506, '000000', 'admin', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016', '1', '密码输入错误1次', '2024-05-29 12:18:57');
+INSERT INTO `sys_logininfor` VALUES (1795671944323379202, '000000', 'admin', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016', '1', '验证码已失效', '2024-05-29 12:22:08');
+INSERT INTO `sys_logininfor` VALUES (1795671962082062337, '000000', 'admin', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016', '0', '登录成功', '2024-05-29 12:22:12');
+INSERT INTO `sys_logininfor` VALUES (1795672164641779713, '000000', 'admin', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016', '0', '退出成功', '2024-05-29 12:23:01');
+INSERT INTO `sys_logininfor` VALUES (1795672507085729794, '000000', 'admin', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016', '0', '登录成功', '2024-05-29 12:24:22');
+INSERT INTO `sys_logininfor` VALUES (1795675861186752514, '000000', 'admin', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016', '0', '退出成功', '2024-05-29 12:37:42');
+INSERT INTO `sys_logininfor` VALUES (1795675909685489665, '000000', 'wls0001', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016', '0', '登录成功', '2024-05-29 12:37:54');
+INSERT INTO `sys_logininfor` VALUES (1795825571889307649, '000000', 'admin', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016', '0', '登录成功', '2024-05-29 22:32:36');
+INSERT INTO `sys_logininfor` VALUES (1795831800418164737, '000000', 'admin', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016', '0', '退出成功', '2024-05-29 22:57:21');
+INSERT INTO `sys_logininfor` VALUES (1795831841979523073, '000000', 'wls0001', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016', '0', '登录成功', '2024-05-29 22:57:31');
+INSERT INTO `sys_logininfor` VALUES (1795832313742254082, '000000', 'wls0001', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016', '0', '退出成功', '2024-05-29 22:59:23');
+INSERT INTO `sys_logininfor` VALUES (1795832341495963650, '000000', 'admin', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016', '0', '登录成功', '2024-05-29 22:59:30');
+INSERT INTO `sys_logininfor` VALUES (1795832363394424834, '000000', 'admin', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016', '0', '退出成功', '2024-05-29 22:59:35');
+INSERT INTO `sys_logininfor` VALUES (1796057167972188162, '000000', 'admin', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016', '0', '登录成功', '2024-05-30 13:52:53');
+INSERT INTO `sys_logininfor` VALUES (1796074923857678338, '000000', 'admin', 'pc', 'pc', '0:0:0:0:0:0:0:1', '内网IP', 'Chrome', 'Windows 10 or Windows Server 2016', '0', '登录成功', '2024-05-30 15:03:26');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -869,6 +959,34 @@ INSERT INTO `sys_menu` VALUES (1795466703314227202, '成果管理', 179546427867
 INSERT INTO `sys_menu` VALUES (1795466703314227203, '成果查询', 1795466703314227202, 1, '#', '', NULL, 1, 0, 'F', '0', '0', 'business:achievement:query', '#', 100, 1, '2024-05-27 12:26:28', 1, '2024-05-28 18:58:43', '');
 INSERT INTO `sys_menu` VALUES (1795466703314227206, '成果删除', 1795466703314227202, 2, '#', '', NULL, 1, 0, 'F', '0', '0', 'business:achievement:remove', '#', 100, 1, '2024-05-27 12:26:28', 1, '2024-05-28 18:59:02', '');
 INSERT INTO `sys_menu` VALUES (1795466703314227207, '成果导出', 1795466703314227202, 3, '#', '', NULL, 1, 0, 'F', '0', '0', 'business:achievement:export', '#', 100, 1, '2024-05-27 12:26:28', 1, '2024-05-28 18:59:06', '');
+INSERT INTO `sys_menu` VALUES (1795503756557639682, '在校竞赛', 1780855110512525313, 2, 'myCompetition', 'business/myCompetition/index', NULL, 1, 0, 'C', '0', '0', 'business:myCompetition:list', 'star', 100, 1, '2024-05-29 01:13:49', 1, '2024-05-29 01:13:49', '');
+INSERT INTO `sys_menu` VALUES (1795503756557639683, '竞赛查询', 1795503756557639682, 1, '#', '', NULL, 1, 0, 'F', '0', '0', 'business:myCompetition:query', '#', 100, 1, '2024-05-27 12:26:28', 1, '2024-05-28 18:58:43', '');
+INSERT INTO `sys_menu` VALUES (1795503756557639684, '竞赛新增', 1795503756557639682, 2, '#', '', NULL, 1, 0, 'F', '0', '0', 'business:myCompetition:add', '#', 100, 1, '2024-05-27 12:26:28', 1, '2024-05-28 18:58:49', '');
+INSERT INTO `sys_menu` VALUES (1795503756557639685, '竞赛修改', 1795503756557639682, 3, '#', '', NULL, 1, 0, 'F', '0', '0', 'business:myCompetition:edit', '#', 100, 1, '2024-05-27 12:26:28', 1, '2024-05-28 18:58:57', '');
+INSERT INTO `sys_menu` VALUES (1795503756557639686, '竞赛删除', 1795503756557639682, 4, '#', '', NULL, 1, 0, 'F', '0', '0', 'business:myCompetition:remove', '#', 100, 1, '2024-05-27 12:26:28', 1, '2024-05-28 18:59:02', '');
+INSERT INTO `sys_menu` VALUES (1795503756557639687, '竞赛导出', 1795503756557639682, 5, '#', '', NULL, 1, 0, 'F', '0', '0', 'business:myCompetition:export', '#', 100, 1, '2024-05-27 12:26:28', 1, '2024-05-28 18:59:06', '');
+INSERT INTO `sys_menu` VALUES (1795504085940527106, '在校荣誉', 1780855110512525313, 3, 'myHonor', 'business/myHonor/index', NULL, 1, 0, 'C', '0', '0', 'business:myHonor:list', 'star', 100, 1, '2024-05-29 01:15:08', 1, '2024-05-29 01:15:08', '');
+INSERT INTO `sys_menu` VALUES (1795504085940527107, '荣誉查询', 1795504085940527106, 1, '#', '', NULL, 1, 0, 'F', '0', '0', 'business:myHonor:query', '#', 100, 1, '2024-05-27 12:26:28', 1, '2024-05-28 18:58:43', '');
+INSERT INTO `sys_menu` VALUES (1795504085940527108, '荣誉新增', 1795504085940527106, 2, '#', '', NULL, 1, 0, 'F', '0', '0', 'business:myHonor:add', '#', 100, 1, '2024-05-27 12:26:28', 1, '2024-05-28 18:58:49', '');
+INSERT INTO `sys_menu` VALUES (1795504085940527109, '荣誉修改', 1795504085940527106, 3, '#', '', NULL, 1, 0, 'F', '0', '0', 'business:myHonor:edit', '#', 100, 1, '2024-05-27 12:26:28', 1, '2024-05-28 18:58:57', '');
+INSERT INTO `sys_menu` VALUES (1795504085940527110, '荣誉删除', 1795504085940527106, 4, '#', '', NULL, 1, 0, 'F', '0', '0', 'business:myHonor:remove', '#', 100, 1, '2024-05-27 12:26:28', 1, '2024-05-28 18:59:02', '');
+INSERT INTO `sys_menu` VALUES (1795504085940527111, '荣誉导出', 1795504085940527106, 5, '#', '', NULL, 1, 0, 'F', '0', '0', 'business:myHonor:export', '#', 100, 1, '2024-05-27 12:26:28', 1, '2024-05-28 18:59:06', '');
+INSERT INTO `sys_menu` VALUES (1795504547213303810, '学生竞赛', 1795264493488902145, 2, 'stuCompetition', 'business/stuCompetition/index', NULL, 1, 0, 'C', '0', '0', 'business:stuCompetition:list', 'logininfor', 100, 1, '2024-05-29 01:16:58', 1, '2024-05-29 01:16:58', '');
+INSERT INTO `sys_menu` VALUES (1795504547213303811, '竞赛查询', 1795504547213303810, 1, '#', '', '', 1, 0, 'F', '0', '0', 'business:stuCompetition:query', '#', 100, 1, '2024-05-27 12:26:28', 1, '2024-05-28 18:58:43', '');
+INSERT INTO `sys_menu` VALUES (1795504547213303812, '竞赛修改', 1795504547213303810, 2, '#', '', '', 1, 0, 'F', '0', '0', 'business:stuCompetition:edit', '#', 100, 1, '2024-05-27 12:26:28', 1, '2024-05-28 22:43:05', '');
+INSERT INTO `sys_menu` VALUES (1795504547213303813, '竞赛导出', 1795504547213303810, 3, '#', '', '', 1, 0, 'F', '0', '0', 'business:stuCompetition:export', '#', 100, 1, '2024-05-27 12:26:28', 1, '2024-05-28 22:43:12', '');
+INSERT INTO `sys_menu` VALUES (1795504800515710978, '学生荣誉', 1795264493488902145, 3, 'stuHonor', 'business/stuHonor/index', NULL, 1, 0, 'C', '0', '0', 'business:stuHonor:list', 'logininfor', 100, 1, '2024-05-29 01:17:58', 1, '2024-05-29 01:17:58', '');
+INSERT INTO `sys_menu` VALUES (1795504800515710979, '荣誉查询', 1795504800515710978, 1, '#', '', '', 1, 0, 'F', '0', '0', 'business:stuHonor:query', '#', 100, 1, '2024-05-27 12:26:28', 1, '2024-05-28 18:58:43', '');
+INSERT INTO `sys_menu` VALUES (1795504800515710980, '荣誉修改', 1795504800515710978, 2, '#', '', '', 1, 0, 'F', '0', '0', 'business:stuHonor:edit', '#', 100, 1, '2024-05-27 12:26:28', 1, '2024-05-28 22:43:05', '');
+INSERT INTO `sys_menu` VALUES (1795504800515710981, '荣誉导出', 1795504800515710978, 3, '#', '', '', 1, 0, 'F', '0', '0', 'business:stuHonor:export', '#', 100, 1, '2024-05-27 12:26:28', 1, '2024-05-28 22:43:12', '');
+INSERT INTO `sys_menu` VALUES (1795505177659138049, '竞赛管理', 1795464278679359489, 2, 'competition', 'business/competition/index', NULL, 1, 0, 'C', '0', '0', 'business.competition.list', 'list', 100, 1, '2024-05-29 01:19:28', 1, '2024-05-29 01:19:28', '');
+INSERT INTO `sys_menu` VALUES (1795505177659138050, '竞赛查询', 1795505177659138049, 1, '#', '', NULL, 1, 0, 'F', '0', '0', 'business:competition:query', '#', 100, 1, '2024-05-27 12:26:28', 1, '2024-05-28 18:58:43', '');
+INSERT INTO `sys_menu` VALUES (1795505177659138051, '竞赛删除', 1795505177659138049, 2, '#', '', NULL, 1, 0, 'F', '0', '0', 'business:competition:remove', '#', 100, 1, '2024-05-27 12:26:28', 1, '2024-05-28 18:59:02', '');
+INSERT INTO `sys_menu` VALUES (1795505177659138052, '竞赛导出', 1795505177659138049, 3, '#', '', NULL, 1, 0, 'F', '0', '0', 'business:competition:export', '#', 100, 1, '2024-05-27 12:26:28', 1, '2024-05-28 18:59:06', '');
+INSERT INTO `sys_menu` VALUES (1795505406588444673, '荣誉管理', 1795464278679359489, 3, 'honor', 'business/honor/index', NULL, 1, 0, 'C', '0', '0', 'business.honor.list', 'list', 100, 1, '2024-05-29 01:20:22', 1, '2024-05-29 01:20:22', '');
+INSERT INTO `sys_menu` VALUES (1795505406588444674, '荣誉查询', 1795505406588444673, 1, '#', '', NULL, 1, 0, 'F', '0', '0', 'business:honor:query', '#', 100, 1, '2024-05-27 12:26:28', 1, '2024-05-28 18:58:43', '');
+INSERT INTO `sys_menu` VALUES (1795505406588444675, '荣誉删除', 1795505406588444673, 2, '#', '', NULL, 1, 0, 'F', '0', '0', 'business:honor:remove', '#', 100, 1, '2024-05-27 12:26:28', 1, '2024-05-28 18:59:02', '');
+INSERT INTO `sys_menu` VALUES (1795505406588444676, '荣誉导出', 1795505406588444673, 3, '#', '', NULL, 1, 0, 'F', '0', '0', 'business:honor:export', '#', 100, 1, '2024-05-27 12:26:28', 1, '2024-05-28 18:59:06', '');
 
 -- ----------------------------
 -- Table structure for sys_notice
@@ -1386,6 +1504,46 @@ INSERT INTO `sys_oper_log` VALUES (1795466019453931522, '000000', '角色管理'
 INSERT INTO `sys_oper_log` VALUES (1795466703377141762, '000000', '菜单管理', 1, 'org.dromara.system.controller.system.SysMenuController.add()', 'POST', 1, 'admin', '哈尔滨商业大学', '/menu', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"menuId\":null,\"parentId\":\"1795464278679359489\",\"menuName\":\"成果管理\",\"orderNum\":1,\"path\":\"achievement\",\"component\":\"business/achievement/index\",\"queryParam\":null,\"isFrame\":\"1\",\"isCache\":\"0\",\"menuType\":\"C\",\"visible\":\"0\",\"status\":\"0\",\"perms\":\"business.achievement.list\",\"icon\":\"list\",\"remark\":null}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2024-05-28 22:46:35', 13);
 INSERT INTO `sys_oper_log` VALUES (1795487273362350081, '000000', '在校成果管理', 5, 'top.sharehome.business.controller.AchievementController.export()', 'POST', 1, 'admin', '哈尔滨商业大学', '/achievement/export', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"achievementId\":null,\"achievementTypeId\":null,\"achievementName\":null,\"achievementStudentId\":null,\"achievementStudentDeptId\":null,\"achievementTeacherId\":null,\"achievementOtherStudentIds\":null,\"achievementOtherTeacherIds\":null,\"achievementEvidenceUrl\":null,\"achievementFeedback\":null,\"status\":null,\"remark\":null}', '', 0, '', '2024-05-29 00:08:19', 8131);
 INSERT INTO `sys_oper_log` VALUES (1795487738661658626, '000000', '在校成果管理', 3, 'top.sharehome.business.controller.AchievementController.remove()', 'DELETE', 1, 'admin', '哈尔滨商业大学', '/achievement/1795401814217506817', '0:0:0:0:0:0:0:1', '', '{}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2024-05-29 00:10:10', 107);
+INSERT INTO `sys_oper_log` VALUES (1795503757526523905, '000000', '菜单管理', 1, 'org.dromara.system.controller.system.SysMenuController.add()', 'POST', 1, 'admin', '哈尔滨商业大学', '/menu', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"menuId\":null,\"parentId\":\"1780855110512525313\",\"menuName\":\"在校竞赛\",\"orderNum\":2,\"path\":\"myCompetition\",\"component\":\"business/myCompetition/index\",\"queryParam\":null,\"isFrame\":\"1\",\"isCache\":\"0\",\"menuType\":\"C\",\"visible\":\"0\",\"status\":\"0\",\"perms\":\"business:myCompetition:list\",\"icon\":\"star\",\"remark\":null}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2024-05-29 01:13:49', 86);
+INSERT INTO `sys_oper_log` VALUES (1795504086007635970, '000000', '菜单管理', 1, 'org.dromara.system.controller.system.SysMenuController.add()', 'POST', 1, 'admin', '哈尔滨商业大学', '/menu', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"menuId\":null,\"parentId\":\"1780855110512525313\",\"menuName\":\"在校荣誉\",\"orderNum\":3,\"path\":\"myHonor\",\"component\":\"business/mymyHonor/index\",\"queryParam\":null,\"isFrame\":\"1\",\"isCache\":\"0\",\"menuType\":\"C\",\"visible\":\"0\",\"status\":\"0\",\"perms\":\"business:mymyHonor:list\",\"icon\":\"star\",\"remark\":null}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2024-05-29 01:15:08', 19);
+INSERT INTO `sys_oper_log` VALUES (1795504547280412673, '000000', '菜单管理', 1, 'org.dromara.system.controller.system.SysMenuController.add()', 'POST', 1, 'admin', '哈尔滨商业大学', '/menu', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"menuId\":null,\"parentId\":\"1795264493488902145\",\"menuName\":\"学生竞赛\",\"orderNum\":2,\"path\":\"stuCompetition\",\"component\":\"business/stuCompetition/index\",\"queryParam\":null,\"isFrame\":\"1\",\"isCache\":\"0\",\"menuType\":\"C\",\"visible\":\"0\",\"status\":\"0\",\"perms\":\"business:stuCompetition:list\",\"icon\":\"logininfor\",\"remark\":null}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2024-05-29 01:16:58', 17);
+INSERT INTO `sys_oper_log` VALUES (1795504800578625537, '000000', '菜单管理', 1, 'org.dromara.system.controller.system.SysMenuController.add()', 'POST', 1, 'admin', '哈尔滨商业大学', '/menu', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"menuId\":null,\"parentId\":\"1795264493488902145\",\"menuName\":\"学生荣誉\",\"orderNum\":3,\"path\":\"stuHonor\",\"component\":\"business/stuHonor/index\",\"queryParam\":null,\"isFrame\":\"1\",\"isCache\":\"0\",\"menuType\":\"C\",\"visible\":\"0\",\"status\":\"0\",\"perms\":\"business:stuHonor:list\",\"icon\":\"logininfor\",\"remark\":null}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2024-05-29 01:17:58', 22);
+INSERT INTO `sys_oper_log` VALUES (1795505177705275393, '000000', '菜单管理', 1, 'org.dromara.system.controller.system.SysMenuController.add()', 'POST', 1, 'admin', '哈尔滨商业大学', '/menu', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"menuId\":null,\"parentId\":\"1795464278679359489\",\"menuName\":\"竞赛管理\",\"orderNum\":2,\"path\":\"competition\",\"component\":\"business/competition/index\",\"queryParam\":null,\"isFrame\":\"1\",\"isCache\":\"0\",\"menuType\":\"C\",\"visible\":\"0\",\"status\":\"0\",\"perms\":\"business.competition.list\",\"icon\":\"list\",\"remark\":null}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2024-05-29 01:19:28', 18);
+INSERT INTO `sys_oper_log` VALUES (1795505406642970625, '000000', '菜单管理', 1, 'org.dromara.system.controller.system.SysMenuController.add()', 'POST', 1, 'admin', '哈尔滨商业大学', '/menu', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"menuId\":null,\"parentId\":\"1795464278679359489\",\"menuName\":\"荣誉管理\",\"orderNum\":3,\"path\":\"honor\",\"component\":\"business/honor/index\",\"queryParam\":null,\"isFrame\":\"1\",\"isCache\":\"0\",\"menuType\":\"C\",\"visible\":\"0\",\"status\":\"0\",\"perms\":\"business.honor.list\",\"icon\":\"list\",\"remark\":null}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2024-05-29 01:20:22', 25);
+INSERT INTO `sys_oper_log` VALUES (1795512802052366337, '000000', '角色管理', 2, 'org.dromara.system.controller.system.SysRoleController.edit()', 'PUT', 1, 'admin', '哈尔滨商业大学', '/role', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":\"2024-05-26 20:08:35\",\"updateBy\":null,\"updateTime\":null,\"roleId\":\"1794702165018136578\",\"roleName\":\"学校总管\",\"roleKey\":\"boss\",\"roleSort\":2,\"dataScope\":\"1\",\"menuCheckStrictly\":true,\"deptCheckStrictly\":true,\"status\":\"0\",\"remark\":\"\",\"menuIds\":[1,100,1001,1002,1003,1004,1005,1006,1007,101,1008,1009,1010,1011,1012,103,1017,1018,1019,1020,104,1021,1022,1023,1024,1025,\"1779866489017868290\",\"1779866489017868291\",\"1779866489017868292\",\"1779866489017868293\",\"1779866489017868294\",\"1779866489017868295\",\"1779872681727369217\",\"1779872681727369218\",\"1779872681727369219\",\"1779872681727369220\",\"1779872681727369221\",\"1779872681727369222\",\"1779874085883879426\",\"1779874085883879427\",\"1779874085883879428\",\"1779874085883879429\",\"1779874085883879430\",\"1779874085883879431\",107,1036,1037,1038,1039,\"1795464278679359489\",\"1795466703314227202\",\"1795466703314227203\",\"1795466703314227206\",\"1795466703314227207\",\"1795505177659138049\",\"1795505406588444673\",\"1795264493488902145\",\"1795408898128592898\",\"1795408898128592899\",\"1795408898128592901\",\"1795408898128592903\",\"1795504547213303810\",\"1795504800515710978\"],\"deptIds\":[],\"superAdmin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2024-05-29 01:49:46', 283);
+INSERT INTO `sys_oper_log` VALUES (1795512927923429378, '000000', '角色管理', 2, 'org.dromara.system.controller.system.SysRoleController.edit()', 'PUT', 1, 'admin', '哈尔滨商业大学', '/role', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":\"2024-05-26 20:10:08\",\"updateBy\":null,\"updateTime\":null,\"roleId\":\"1794702556669661186\",\"roleName\":\"部门主管\",\"roleKey\":\"director\",\"roleSort\":3,\"dataScope\":\"1\",\"menuCheckStrictly\":true,\"deptCheckStrictly\":true,\"status\":\"0\",\"remark\":\"\",\"menuIds\":[1,101,103,104,\"1779866489017868290\",\"1779872681727369217\",\"1779874085883879426\",100,1001,1002,1003,1004,1005,1006,1007,1008,1012,1017,1020,1021,1025,\"1779866489017868291\",\"1779872681727369218\",\"1779874085883879427\",\"1795464278679359489\",\"1795466703314227202\",\"1795466703314227203\",\"1795466703314227206\",\"1795466703314227207\",\"1795505177659138049\",\"1795505406588444673\",\"1795264493488902145\",\"1795408898128592898\",\"1795408898128592899\",\"1795408898128592901\",\"1795408898128592903\",\"1795504547213303810\",\"1795504800515710978\"],\"deptIds\":[],\"superAdmin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2024-05-29 01:50:16', 177);
+INSERT INTO `sys_oper_log` VALUES (1795513008235962370, '000000', '角色管理', 2, 'org.dromara.system.controller.system.SysRoleController.edit()', 'PUT', 1, 'admin', '哈尔滨商业大学', '/role', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":\"2024-05-26 20:17:02\",\"updateBy\":null,\"updateTime\":null,\"roleId\":\"1794704292872441857\",\"roleName\":\"行政人员\",\"roleKey\":\"administrator\",\"roleSort\":4,\"dataScope\":\"1\",\"menuCheckStrictly\":true,\"deptCheckStrictly\":true,\"status\":\"0\",\"remark\":\"\",\"menuIds\":[1,100,101,103,104,\"1779866489017868290\",\"1779872681727369217\",\"1779874085883879426\",1001,1008,1017,1021,\"1779866489017868291\",\"1779872681727369218\",\"1779874085883879427\",\"1795264493488902145\",\"1795408898128592898\",\"1795408898128592899\",\"1795408898128592901\",\"1795408898128592903\",\"1795504547213303810\",\"1795504800515710978\"],\"deptIds\":[],\"superAdmin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2024-05-29 01:50:35', 171);
+INSERT INTO `sys_oper_log` VALUES (1795513056172662785, '000000', '角色管理', 2, 'org.dromara.system.controller.system.SysRoleController.edit()', 'PUT', 1, 'admin', '哈尔滨商业大学', '/role', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":\"2024-05-26 20:18:22\",\"updateBy\":null,\"updateTime\":null,\"roleId\":\"1794704629008158721\",\"roleName\":\"任课教师\",\"roleKey\":\"teacher\",\"roleSort\":5,\"dataScope\":\"1\",\"menuCheckStrictly\":true,\"deptCheckStrictly\":true,\"status\":\"0\",\"remark\":\"\",\"menuIds\":[1,100,101,103,104,\"1779866489017868290\",\"1779872681727369217\",\"1779874085883879426\",1001,1008,1017,1021,\"1779866489017868291\",\"1779872681727369218\",\"1779874085883879427\",\"1795264493488902145\",\"1795408898128592898\",\"1795408898128592899\",\"1795408898128592901\",\"1795408898128592903\",\"1795504547213303810\",\"1795504800515710978\"],\"deptIds\":[],\"superAdmin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2024-05-29 01:50:46', 205);
+INSERT INTO `sys_oper_log` VALUES (1795513080487043074, '000000', '角色管理', 2, 'org.dromara.system.controller.system.SysRoleController.edit()', 'PUT', 1, 'admin', '哈尔滨商业大学', '/role', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":\"2024-05-26 20:19:33\",\"updateBy\":null,\"updateTime\":null,\"roleId\":\"1794704927302864898\",\"roleName\":\"辅导员\",\"roleKey\":\"instructor\",\"roleSort\":6,\"dataScope\":\"1\",\"menuCheckStrictly\":true,\"deptCheckStrictly\":true,\"status\":\"0\",\"remark\":\"\",\"menuIds\":[1,100,\"1779866489017868290\",\"1779872681727369217\",\"1779874085883879426\",1001,1005,\"1779866489017868291\",\"1779872681727369218\",\"1779874085883879427\",\"1795264493488902145\",\"1795408898128592898\",\"1795408898128592899\",\"1795408898128592901\",\"1795408898128592903\",\"1795504547213303810\",\"1795504800515710978\"],\"deptIds\":[],\"superAdmin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2024-05-29 01:50:52', 161);
+INSERT INTO `sys_oper_log` VALUES (1795513534210072578, '000000', '在校成果管理', 3, 'top.sharehome.business.controller.AchievementController.remove()', 'DELETE', 1, 'admin', '哈尔滨商业大学', '/achievement/1795103436057284610,1795269191591706625,1795272308781662209,1795365590463303681,1795392251250524162,1795401814217506817,1795415740376334337,1795424435688620033', '0:0:0:0:0:0:0:1', '', '{}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2024-05-29 01:52:40', 44);
+INSERT INTO `sys_oper_log` VALUES (1795513739126988802, '000000', '用户管理', 3, 'org.dromara.system.controller.system.SysUserController.remove()', 'DELETE', 1, 'admin', '哈尔滨商业大学', '/user/1778704704135090177,1795267655155257346,1795267781160538113,1795346948350754817', '0:0:0:0:0:0:0:1', '', '{}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2024-05-29 01:53:29', 141);
+INSERT INTO `sys_oper_log` VALUES (1795513809519992833, '000000', '用户管理', 3, 'org.dromara.system.controller.system.SysUserController.remove()', 'DELETE', 1, 'admin', '哈尔滨商业大学', '/user/1778704505606098945,1795347195890188289,1795348860601057281', '0:0:0:0:0:0:0:1', '', '{}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2024-05-29 01:53:46', 91);
+INSERT INTO `sys_oper_log` VALUES (1795513828750876673, '000000', '用户管理', 2, 'org.dromara.system.controller.system.SysUserController.changeStatus()', 'PUT', 1, 'admin', '哈尔滨商业大学', '/user/changeStatus', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"userId\":1,\"deptId\":null,\"userName\":null,\"nickName\":null,\"userType\":null,\"email\":null,\"phonenumber\":null,\"sex\":null,\"status\":\"1\",\"remark\":null,\"roleIds\":null,\"postIds\":null,\"roleId\":null,\"superAdmin\":true}', '', 1, '不允许操作超级管理员用户', '2024-05-29 01:53:50', 4);
+INSERT INTO `sys_oper_log` VALUES (1795621148487561218, '000000', '部门管理', 1, 'org.dromara.system.controller.system.SysDeptController.add()', 'POST', 1, 'admin', '哈尔滨商业大学', '/dept', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"deptId\":null,\"parentId\":\"1779759833139445761\",\"deptName\":\"2020级计算机科学与技术01班\",\"orderNum\":0,\"leader\":null,\"phone\":null,\"email\":null,\"status\":\"0\"}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2024-05-29 09:00:17', 58);
+INSERT INTO `sys_oper_log` VALUES (1795621174693572609, '000000', '部门管理', 2, 'org.dromara.system.controller.system.SysDeptController.edit()', 'PUT', 1, 'admin', '哈尔滨商业大学', '/dept', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":\"2024-04-15 14:34:23\",\"updateBy\":null,\"updateTime\":null,\"deptId\":\"1779760160337100802\",\"parentId\":\"1779759833139445761\",\"deptName\":\"2020级计算机科学与技术02班\",\"orderNum\":1,\"leader\":null,\"phone\":null,\"email\":null,\"status\":\"0\"}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2024-05-29 09:00:24', 42);
+INSERT INTO `sys_oper_log` VALUES (1795646245164265473, '000000', '用户管理', 6, 'org.dromara.system.controller.system.SysUserController.importData()', 'POST', 1, 'admin', '哈尔滨商业大学', '/user/importData', '0:0:0:0:0:0:0:1', '', 'false', '', 1, '很抱歉，导入失败！共 1 条数据格式不正确，错误如下：<br/>1、账号 null 导入失败：Cannot invoke \"org.dromara.system.domain.vo.SysRoleVo.getRoleId()\" because \"roleVo\" is null', '2024-05-29 10:40:01', 276);
+INSERT INTO `sys_oper_log` VALUES (1795646360503431169, '000000', '用户管理', 6, 'org.dromara.system.controller.system.SysUserController.importData()', 'POST', 1, 'admin', '哈尔滨商业大学', '/user/importData', '0:0:0:0:0:0:0:1', '', 'false', '{\"code\":200,\"msg\":\"恭喜您，数据已全部导入成功！共 3 条，数据如下：<br/>1、账号 zs0001 导入成功<br/>2、账号 ls0002 导入成功<br/>3、账号 ww0003 导入成功\",\"data\":null}', 0, '', '2024-05-29 10:40:28', 605);
+INSERT INTO `sys_oper_log` VALUES (1795646419307573250, '000000', '用户管理', 6, 'org.dromara.system.controller.system.SysUserController.importData()', 'POST', 1, 'admin', '哈尔滨商业大学', '/user/importData', '0:0:0:0:0:0:0:1', '', 'false', '{\"code\":200,\"msg\":\"恭喜您，数据已全部导入成功！共 3 条，数据如下：<br/>1、账号 jl0004 导入成功<br/>2、账号 yq0005 导入成功<br/>3、账号 bb0006 导入成功\",\"data\":null}', 0, '', '2024-05-29 10:40:43', 464);
+INSERT INTO `sys_oper_log` VALUES (1795647420026564610, '000000', '用户管理', 1, 'org.dromara.system.controller.system.SysUserController.add()', 'POST', 1, 'admin', '哈尔滨商业大学', '/user', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"userId\":\"1795647419825238018\",\"deptId\":\"1779738476230017025\",\"userName\":\"wls0001\",\"nickName\":\"王老师\",\"userType\":null,\"email\":null,\"phonenumber\":\"18100000001\",\"sex\":\"0\",\"status\":\"0\",\"remark\":\"\",\"roleIds\":[\"1794704629008158721\"],\"postIds\":[\"1794666868569993217\"],\"roleId\":null,\"superAdmin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2024-05-29 10:44:41', 132);
+INSERT INTO `sys_oper_log` VALUES (1795647615112032257, '000000', '用户管理', 1, 'org.dromara.system.controller.system.SysUserController.add()', 'POST', 1, 'admin', '哈尔滨商业大学', '/user', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"userId\":\"1795647614944260098\",\"deptId\":\"1779738476230017025\",\"userName\":\"wls0002\",\"nickName\":\"伍老师\",\"userType\":null,\"email\":null,\"phonenumber\":\"18100000002\",\"sex\":\"0\",\"status\":\"0\",\"remark\":\"\",\"roleIds\":[\"1794704629008158721\"],\"postIds\":[\"1794666868569993217\"],\"roleId\":null,\"superAdmin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2024-05-29 10:45:28', 123);
+INSERT INTO `sys_oper_log` VALUES (1795649138130923521, '000000', '佐证材料', 2, 'top.sharehome.business.controller.AchievementController.file()', 'POST', 1, 'zs0001', '2020级计算机科学与技术01班', '/achievement/my/file', '0:0:0:0:0:0:0:1', '', '', '{\"code\":200,\"msg\":\"http://127.0.0.1:9000/student-achievement-saas2/2024/05/29/131b5dd44d9d43aa9164b5da6b8c8e22.zip\",\"data\":null}', 0, '', '2024-05-29 10:51:31', 2223);
+INSERT INTO `sys_oper_log` VALUES (1795649756409081858, '000000', '角色管理', 2, 'org.dromara.system.controller.system.SysRoleController.edit()', 'PUT', 1, 'admin', '哈尔滨商业大学', '/role', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":\"2024-05-26 20:19:59\",\"updateBy\":null,\"updateTime\":null,\"roleId\":\"1794705033464893442\",\"roleName\":\"研究生\",\"roleKey\":\"postgraduate\",\"roleSort\":7,\"dataScope\":\"1\",\"menuCheckStrictly\":true,\"deptCheckStrictly\":true,\"status\":\"0\",\"remark\":\"\",\"menuIds\":[1,100,\"1779866489017868290\",\"1779872681727369217\",\"1779874085883879426\",1001,\"1779866489017868291\",\"1779872681727369218\",\"1779874085883879427\",\"1780855110512525313\",\"1794947335915511810\",\"1794947335915511811\",\"1794947335915511812\",\"1794947335915511813\",\"1794947335915511814\",\"1794947335915511815\",\"1795503756557639682\",\"1795504085940527106\"],\"deptIds\":[],\"superAdmin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2024-05-29 10:53:58', 123);
+INSERT INTO `sys_oper_log` VALUES (1795649780794765314, '000000', '角色管理', 2, 'org.dromara.system.controller.system.SysRoleController.edit()', 'PUT', 1, 'admin', '哈尔滨商业大学', '/role', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":\"2024-05-26 20:22:53\",\"updateBy\":null,\"updateTime\":null,\"roleId\":\"1794705765412884482\",\"roleName\":\"本科生\",\"roleKey\":\"undergraduate\",\"roleSort\":8,\"dataScope\":\"1\",\"menuCheckStrictly\":true,\"deptCheckStrictly\":true,\"status\":\"0\",\"remark\":\"\",\"menuIds\":[1,100,\"1779866489017868290\",\"1779872681727369217\",\"1779874085883879426\",1001,\"1779866489017868291\",\"1779872681727369218\",\"1779874085883879427\",\"1780855110512525313\",\"1794947335915511810\",\"1794947335915511811\",\"1794947335915511812\",\"1794947335915511813\",\"1794947335915511814\",\"1794947335915511815\",\"1795503756557639682\",\"1795504085940527106\"],\"deptIds\":[],\"superAdmin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2024-05-29 10:54:04', 107);
+INSERT INTO `sys_oper_log` VALUES (1795650237458001921, '000000', '佐证材料', 2, 'top.sharehome.business.controller.AchievementController.file()', 'POST', 1, 'zs0001', '2020级计算机科学与技术01班', '/achievement/my/file', '0:0:0:0:0:0:0:1', '', '', '{\"code\":200,\"msg\":\"http://127.0.0.1:9000/student-achievement-saas2/2024/05/29/f9ab0dfd1eb14c08949442102d58db10.zip\",\"data\":null}', 0, '', '2024-05-29 10:55:53', 48);
+INSERT INTO `sys_oper_log` VALUES (1795650498788306945, '000000', '在校成果管理', 1, 'top.sharehome.business.controller.AchievementController.add()', 'POST', 1, 'zs0001', '2020级计算机科学与技术01班', '/achievement/my', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"achievementId\":null,\"achievementTypeId\":\"1780827338343714817\",\"achievementName\":\"基于XXX的系统设计与实现\",\"achievementStudentId\":null,\"achievementStudentDeptId\":null,\"achievementTeacherId\":\"1795647419825238018\",\"achievementOtherStudentIds\":\"202051000003\",\"achievementOtherTeacherIds\":\"1795647614944260098\",\"achievementEvidenceUrl\":\"http://127.0.0.1:9000/student-achievement-saas2/2024/05/29/f9ab0dfd1eb14c08949442102d58db10.zip\",\"achievementFeedback\":null,\"status\":null,\"remark\":\"这是基于XXX的系统设计与实现学术论文的相关信息，请老师进行审核！\"}', '', 1, '该数据已经审核完成，无法重复修改', '2024-05-29 10:56:55', 15);
+INSERT INTO `sys_oper_log` VALUES (1795651209185964033, '000000', '在校成果管理', 1, 'top.sharehome.business.controller.AchievementController.add()', 'POST', 1, 'zs0001', '2020级计算机科学与技术01班', '/achievement/my', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"achievementId\":null,\"achievementTypeId\":\"1780827338343714817\",\"achievementName\":\"基于XXX的系统设计与实现\",\"achievementStudentId\":null,\"achievementStudentDeptId\":null,\"achievementTeacherId\":\"1795647419825238018\",\"achievementOtherStudentIds\":\"202051000003\",\"achievementOtherTeacherIds\":\"1795647614944260098\",\"achievementEvidenceUrl\":\"http://127.0.0.1:9000/student-achievement-saas2/2024/05/29/f9ab0dfd1eb14c08949442102d58db10.zip\",\"achievementFeedback\":null,\"status\":null,\"remark\":\"这是基于XXX的系统设计与实现学术论文的相关信息，请王老师进行审核！\"}', '', 1, '该数据已经审核完成，无法重复修改', '2024-05-29 10:59:45', 19734);
+INSERT INTO `sys_oper_log` VALUES (1795652068007456769, '000000', '在校成果管理', 1, 'top.sharehome.business.controller.AchievementController.add()', 'POST', 1, 'zs0001', '2020级计算机科学与技术01班', '/achievement/my', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"achievementId\":\"1795652064844861442\",\"achievementTypeId\":\"1780827338343714817\",\"achievementName\":\"基于XXX的系统设计与实现\",\"achievementStudentId\":null,\"achievementStudentDeptId\":null,\"achievementTeacherId\":\"1795647419825238018\",\"achievementOtherStudentIds\":\"202051000003\",\"achievementOtherTeacherIds\":\"1795647614944260098\",\"achievementEvidenceUrl\":\"http://127.0.0.1:9000/student-achievement-saas2/2024/05/29/f9ab0dfd1eb14c08949442102d58db10.zip\",\"achievementFeedback\":null,\"status\":null,\"remark\":\"这是基于XXX的系统设计与实现学术论文的相关信息，请王老师进行审核！\"}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2024-05-29 11:03:09', 1579);
+INSERT INTO `sys_oper_log` VALUES (1795654065762840578, '000000', '在校成果管理', 2, 'top.sharehome.business.controller.AchievementController.stuEdit()', 'PUT', 1, 'wls0001', '计算机与信息工程学院', '/achievement/stu', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":\"2024-05-29 11:03:09\",\"updateBy\":null,\"updateTime\":null,\"achievementId\":\"1795652064844861442\",\"achievementTypeId\":\"1780827338343714817\",\"achievementName\":\"基于XXX的系统设计与实现\",\"achievementStudentId\":202051000000,\"achievementStudentDeptId\":\"1795621147950690306\",\"achievementTeacherId\":\"1795647419825238018\",\"achievementOtherStudentIds\":\"202051000003\",\"achievementOtherTeacherIds\":\"1795647614944260098\",\"achievementEvidenceUrl\":\"http://127.0.0.1:9000/student-achievement-saas2/2024/05/29/f9ab0dfd1eb14c08949442102d58db10.zip\",\"achievementFeedback\":\"信息正确，审核通过！\",\"status\":\"1\",\"remark\":\"这是基于XXX的系统设计与实现学术论文的相关信息，请王老师进行审核！\"}', '', 1, '该数据已经审核完成，无法重复修改', '2024-05-29 11:11:06', 31);
+INSERT INTO `sys_oper_log` VALUES (1795654297573634049, '000000', '在校成果管理', 2, 'top.sharehome.business.controller.AchievementController.stuEdit()', 'PUT', 1, 'wls0001', '计算机与信息工程学院', '/achievement/stu', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":\"2024-05-29 11:03:09\",\"updateBy\":null,\"updateTime\":null,\"achievementId\":\"1795652064844861442\",\"achievementTypeId\":\"1780827338343714817\",\"achievementName\":\"基于XXX的系统设计与实现\",\"achievementStudentId\":202051000000,\"achievementStudentDeptId\":\"1795621147950690306\",\"achievementTeacherId\":\"1795647419825238018\",\"achievementOtherStudentIds\":\"202051000003\",\"achievementOtherTeacherIds\":\"1795647614944260098\",\"achievementEvidenceUrl\":\"http://127.0.0.1:9000/student-achievement-saas2/2024/05/29/f9ab0dfd1eb14c08949442102d58db10.zip\",\"achievementFeedback\":\"信息正确，审核通过！\",\"status\":\"1\",\"remark\":\"这是基于XXX的系统设计与实现学术论文的相关信息，请王老师进行审核！\"}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2024-05-29 11:12:01', 97);
+INSERT INTO `sys_oper_log` VALUES (1795654388535504898, '000000', '在校成果管理', 2, 'top.sharehome.business.controller.AchievementController.stuEdit()', 'PUT', 1, 'wls0001', '计算机与信息工程学院', '/achievement/stu', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":\"2024-05-29 11:03:09\",\"updateBy\":null,\"updateTime\":null,\"achievementId\":\"1795652064844861442\",\"achievementTypeId\":\"1780827338343714817\",\"achievementName\":\"基于XXX的系统设计与实现\",\"achievementStudentId\":202051000000,\"achievementStudentDeptId\":\"1795621147950690306\",\"achievementTeacherId\":\"1795647419825238018\",\"achievementOtherStudentIds\":\"202051000003\",\"achievementOtherTeacherIds\":\"1795647614944260098\",\"achievementEvidenceUrl\":\"http://127.0.0.1:9000/student-achievement-saas2/2024/05/29/f9ab0dfd1eb14c08949442102d58db10.zip\",\"achievementFeedback\":\"信息正确，审核通过！\",\"status\":\"2\",\"remark\":\"这是基于XXX的系统设计与实现学术论文的相关信息，请王老师进行审核！\"}', '', 1, '该数据已经审核完成，无法重复修改', '2024-05-29 11:12:23', 29);
+INSERT INTO `sys_oper_log` VALUES (1795655931460562946, '000000', '在校成果管理', 5, 'top.sharehome.business.controller.AchievementController.myExport()', 'POST', 1, 'zs0001', '2020级计算机科学与技术01班', '/achievement/my/export', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"achievementId\":null,\"achievementTypeId\":null,\"achievementName\":null,\"achievementStudentId\":null,\"achievementStudentDeptId\":null,\"achievementTeacherId\":null,\"achievementOtherStudentIds\":null,\"achievementOtherTeacherIds\":null,\"achievementEvidenceUrl\":null,\"achievementFeedback\":null,\"status\":null,\"remark\":null}', '', 0, '', '2024-05-29 11:18:30', 4557);
+INSERT INTO `sys_oper_log` VALUES (1796064049449320449, '000000', '在校竞赛管理', 5, 'top.sharehome.business.controller.CompetitionController.myExport()', 'POST', 1, 'admin', '哈尔滨商业大学', '/competition/my/export', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":null,\"updateBy\":null,\"updateTime\":null,\"competitionId\":null,\"competitionTypeId\":\"1780833625475387394\",\"competitionName\":null,\"competitionStudentId\":null,\"competitionStudentDeptId\":null,\"competitionTeacherId\":null,\"competitionOtherStudentIds\":null,\"competitionOtherTeacherIds\":null,\"competitionEvidenceUrl\":null,\"competitionFeedback\":null,\"status\":null,\"remark\":null}', '', 0, '', '2024-05-30 14:20:13', 3039);
+INSERT INTO `sys_oper_log` VALUES (1796076859738689538, '000000', '角色管理', 2, 'org.dromara.system.controller.system.SysRoleController.edit()', 'PUT', 1, 'admin', '哈尔滨商业大学', '/role', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":\"2024-05-26 20:08:35\",\"updateBy\":null,\"updateTime\":null,\"roleId\":\"1794702165018136578\",\"roleName\":\"学校总管\",\"roleKey\":\"boss\",\"roleSort\":2,\"dataScope\":\"1\",\"menuCheckStrictly\":true,\"deptCheckStrictly\":true,\"status\":\"0\",\"remark\":\"\",\"menuIds\":[1,2,100,1001,1002,1003,1004,1005,1006,1007,101,1008,1009,1010,1011,1012,103,1017,1018,1019,1020,104,1021,1022,1023,1024,1025,\"1779866489017868290\",\"1779866489017868291\",\"1779866489017868292\",\"1779866489017868293\",\"1779866489017868294\",\"1779866489017868295\",\"1779872681727369217\",\"1779872681727369218\",\"1779872681727369219\",\"1779872681727369220\",\"1779872681727369221\",\"1779872681727369222\",\"1779874085883879426\",\"1779874085883879427\",\"1779874085883879428\",\"1779874085883879429\",\"1779874085883879430\",\"1779874085883879431\",107,1036,1037,1038,1039,\"1795464278679359489\",\"1795466703314227202\",\"1795466703314227203\",\"1795466703314227206\",\"1795466703314227207\",\"1795505177659138049\",\"1795505177659138050\",\"1795505177659138051\",\"1795505177659138052\",\"1795505406588444673\",\"1795505406588444674\",\"1795505406588444675\",\"1795505406588444676\",\"1795264493488902145\",\"1795408898128592898\",\"1795408898128592899\",\"1795408898128592901\",\"1795408898128592903\",\"1795504547213303810\",\"1795504547213303811\",\"1795504547213303812\",\"1795504547213303813\",\"1795504800515710978\",\"1795504800515710979\",\"1795504800515710980\",\"1795504800515710981\",109,1046,1047,1048],\"deptIds\":[],\"superAdmin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2024-05-30 15:11:08', 380);
+INSERT INTO `sys_oper_log` VALUES (1796077027607318529, '000000', '角色管理', 2, 'org.dromara.system.controller.system.SysRoleController.edit()', 'PUT', 1, 'admin', '哈尔滨商业大学', '/role', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":\"2024-05-26 20:10:08\",\"updateBy\":null,\"updateTime\":null,\"roleId\":\"1794702556669661186\",\"roleName\":\"部门主管\",\"roleKey\":\"director\",\"roleSort\":3,\"dataScope\":\"1\",\"menuCheckStrictly\":true,\"deptCheckStrictly\":true,\"status\":\"0\",\"remark\":\"\",\"menuIds\":[1,101,103,104,\"1779866489017868290\",\"1779872681727369217\",\"1779874085883879426\",2,100,1001,1002,1003,1004,1005,1006,1007,1008,1012,1017,1020,1021,1025,\"1779866489017868291\",\"1779872681727369218\",\"1779874085883879427\",\"1795464278679359489\",\"1795466703314227202\",\"1795466703314227203\",\"1795466703314227206\",\"1795466703314227207\",\"1795505177659138049\",\"1795505177659138050\",\"1795505177659138051\",\"1795505177659138052\",\"1795505406588444673\",\"1795505406588444674\",\"1795505406588444675\",\"1795505406588444676\",\"1795264493488902145\",\"1795408898128592898\",\"1795408898128592899\",\"1795408898128592901\",\"1795408898128592903\",\"1795504547213303810\",\"1795504547213303811\",\"1795504547213303812\",\"1795504547213303813\",\"1795504800515710978\",\"1795504800515710979\",\"1795504800515710980\",\"1795504800515710981\",109,1046,1047,1048],\"deptIds\":[],\"superAdmin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2024-05-30 15:11:48', 198);
+INSERT INTO `sys_oper_log` VALUES (1796077142485110785, '000000', '角色管理', 2, 'org.dromara.system.controller.system.SysRoleController.edit()', 'PUT', 1, 'admin', '哈尔滨商业大学', '/role', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":\"2024-05-26 20:17:02\",\"updateBy\":null,\"updateTime\":null,\"roleId\":\"1794704292872441857\",\"roleName\":\"行政人员\",\"roleKey\":\"administrator\",\"roleSort\":4,\"dataScope\":\"1\",\"menuCheckStrictly\":true,\"deptCheckStrictly\":true,\"status\":\"0\",\"remark\":\"\",\"menuIds\":[1,100,101,103,104,\"1779866489017868290\",\"1779872681727369217\",\"1779874085883879426\",2,1001,1008,1017,1021,\"1779866489017868291\",\"1779872681727369218\",\"1779874085883879427\",\"1795264493488902145\",\"1795408898128592898\",\"1795408898128592899\",\"1795408898128592901\",\"1795408898128592903\",\"1795504547213303810\",\"1795504547213303811\",\"1795504547213303812\",\"1795504547213303813\",\"1795504800515710978\",\"1795504800515710979\",\"1795504800515710980\",\"1795504800515710981\",109,1046,1047,1048],\"deptIds\":[],\"superAdmin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2024-05-30 15:12:15', 184);
+INSERT INTO `sys_oper_log` VALUES (1796077191784960001, '000000', '角色管理', 2, 'org.dromara.system.controller.system.SysRoleController.edit()', 'PUT', 1, 'admin', '哈尔滨商业大学', '/role', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":\"2024-05-26 20:18:22\",\"updateBy\":null,\"updateTime\":null,\"roleId\":\"1794704629008158721\",\"roleName\":\"任课教师\",\"roleKey\":\"teacher\",\"roleSort\":5,\"dataScope\":\"1\",\"menuCheckStrictly\":true,\"deptCheckStrictly\":true,\"status\":\"0\",\"remark\":\"\",\"menuIds\":[1,100,101,103,104,\"1779866489017868290\",\"1779872681727369217\",\"1779874085883879426\",1001,1008,1017,1021,\"1779866489017868291\",\"1779872681727369218\",\"1779874085883879427\",\"1795264493488902145\",\"1795408898128592898\",\"1795408898128592899\",\"1795408898128592901\",\"1795408898128592903\",\"1795504547213303810\",\"1795504547213303811\",\"1795504547213303812\",\"1795504547213303813\",\"1795504800515710978\",\"1795504800515710979\",\"1795504800515710980\",\"1795504800515710981\"],\"deptIds\":[],\"superAdmin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2024-05-30 15:12:27', 210);
+INSERT INTO `sys_oper_log` VALUES (1796077259103539201, '000000', '角色管理', 2, 'org.dromara.system.controller.system.SysRoleController.edit()', 'PUT', 1, 'admin', '哈尔滨商业大学', '/role', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":\"2024-05-26 20:19:59\",\"updateBy\":null,\"updateTime\":null,\"roleId\":\"1794705033464893442\",\"roleName\":\"研究生\",\"roleKey\":\"postgraduate\",\"roleSort\":7,\"dataScope\":\"1\",\"menuCheckStrictly\":true,\"deptCheckStrictly\":true,\"status\":\"0\",\"remark\":\"\",\"menuIds\":[1,100,\"1779866489017868290\",\"1779872681727369217\",\"1779874085883879426\",1001,\"1779866489017868291\",\"1779872681727369218\",\"1779874085883879427\",\"1780855110512525313\",\"1794947335915511810\",\"1794947335915511811\",\"1794947335915511812\",\"1794947335915511813\",\"1794947335915511814\",\"1794947335915511815\",\"1795503756557639682\",\"1795503756557639683\",\"1795503756557639684\",\"1795503756557639685\",\"1795503756557639686\",\"1795503756557639687\",\"1795504085940527106\",\"1795504085940527107\",\"1795504085940527108\",\"1795504085940527109\",\"1795504085940527110\",\"1795504085940527111\"],\"deptIds\":[],\"superAdmin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2024-05-30 15:12:43', 174);
+INSERT INTO `sys_oper_log` VALUES (1796077314623541250, '000000', '角色管理', 2, 'org.dromara.system.controller.system.SysRoleController.edit()', 'PUT', 1, 'admin', '哈尔滨商业大学', '/role', '0:0:0:0:0:0:0:1', '', '{\"createDept\":null,\"createBy\":null,\"createTime\":\"2024-05-26 20:22:53\",\"updateBy\":null,\"updateTime\":null,\"roleId\":\"1794705765412884482\",\"roleName\":\"本科生\",\"roleKey\":\"undergraduate\",\"roleSort\":8,\"dataScope\":\"1\",\"menuCheckStrictly\":true,\"deptCheckStrictly\":true,\"status\":\"0\",\"remark\":\"\",\"menuIds\":[1,100,\"1779866489017868290\",\"1779872681727369217\",\"1779874085883879426\",1001,\"1779866489017868291\",\"1779872681727369218\",\"1779874085883879427\",\"1780855110512525313\",\"1794947335915511810\",\"1794947335915511811\",\"1794947335915511812\",\"1794947335915511813\",\"1794947335915511814\",\"1794947335915511815\",\"1795503756557639682\",\"1795503756557639683\",\"1795503756557639684\",\"1795503756557639685\",\"1795503756557639686\",\"1795503756557639687\",\"1795504085940527106\",\"1795504085940527107\",\"1795504085940527108\",\"1795504085940527109\",\"1795504085940527110\",\"1795504085940527111\"],\"deptIds\":[],\"superAdmin\":false}', '{\"code\":200,\"msg\":\"操作成功\",\"data\":null}', 0, '', '2024-05-30 15:12:56', 180);
 
 -- ----------------------------
 -- Table structure for sys_oss
@@ -1425,6 +1583,8 @@ INSERT INTO `sys_oss` VALUES (1795415734684729346, '000000', '2024/05/28/d74d5b5
 INSERT INTO `sys_oss` VALUES (1795424425643327490, '000000', '2024/05/28/8c8637d098cb46988d4d07dd20cb1ae8.docx', '基于云原生的学生在校经历管理SaaS系统设计与实现.docx', '.docx', 'http://127.0.0.1:9000/student-achievement-saas2/2024/05/28/8c8637d098cb46988d4d07dd20cb1ae8.docx', 100, '2024-05-28 19:58:35', 1, '2024-05-28 19:58:35', 1, 'minio');
 INSERT INTO `sys_oss` VALUES (1795449468301590529, '000000', '2024/05/28/6e3be01c5ae143ababe94a1b3c27b2b8.docx', '基于云原生的学生在校经历管理SaaS系统设计与实现.docx', '.docx', 'http://127.0.0.1:9000/student-achievement-saas2/2024/05/28/6e3be01c5ae143ababe94a1b3c27b2b8.docx', 100, '2024-05-28 21:38:06', 1, '2024-05-28 21:38:06', 1, 'minio');
 INSERT INTO `sys_oss` VALUES (1795450551639982081, '000000', '2024/05/28/fb42f58c5fbe4c7d82e264aadc18f2f5.xlsx', 'achievement_1716903427840.xlsx', '.xlsx', 'http://127.0.0.1:9000/student-achievement-saas2/2024/05/28/fb42f58c5fbe4c7d82e264aadc18f2f5.xlsx', 1779760160337100802, '2024-05-28 21:42:24', 1795267655155257346, '2024-05-28 21:42:24', 1795267655155257346, 'minio');
+INSERT INTO `sys_oss` VALUES (1795649136746725377, '000000', '2024/05/29/131b5dd44d9d43aa9164b5da6b8c8e22.zip', '材料.zip', '.zip', 'http://127.0.0.1:9000/student-achievement-saas2/2024/05/29/131b5dd44d9d43aa9164b5da6b8c8e22.zip', 1795621147950690306, '2024-05-29 10:51:30', 202051000000, '2024-05-29 10:51:30', 202051000000, 'minio');
+INSERT INTO `sys_oss` VALUES (1795650237323706370, '000000', '2024/05/29/f9ab0dfd1eb14c08949442102d58db10.zip', '材料.zip', '.zip', 'http://127.0.0.1:9000/student-achievement-saas2/2024/05/29/f9ab0dfd1eb14c08949442102d58db10.zip', 1795621147950690306, '2024-05-29 10:55:53', 202051000000, '2024-05-29 10:55:53', 202051000000, 'minio');
 
 -- ----------------------------
 -- Table structure for sys_oss_config
@@ -1526,13 +1686,13 @@ CREATE TABLE `sys_role`  (
 -- ----------------------------
 INSERT INTO `sys_role` VALUES (1, '000000', '超级管理员', 'superadmin', 1, '1', 1, 1, '0', '0', 100, 1, '2024-04-11 15:26:39', NULL, NULL, '超级管理员');
 INSERT INTO `sys_role` VALUES (1778327369024094211, '440965', '管理员', 'admin', 1, '1', 1, 1, '0', '0', 100, 1, '2024-04-11 15:40:59', 1, '2024-04-11 15:40:59', NULL);
-INSERT INTO `sys_role` VALUES (1794702165018136578, '000000', '学校总管', 'boss', 2, '1', 1, 1, '0', '0', 100, 1, '2024-05-26 20:08:35', 1, '2024-05-28 22:43:36', '');
-INSERT INTO `sys_role` VALUES (1794702556669661186, '000000', '部门主管', 'director', 3, '1', 1, 1, '0', '0', 100, 1, '2024-05-26 20:10:08', 1, '2024-05-28 22:43:41', '');
-INSERT INTO `sys_role` VALUES (1794704292872441857, '000000', '行政人员', 'administrator', 4, '1', 1, 1, '0', '0', 100, 1, '2024-05-26 20:17:02', 1, '2024-05-28 22:43:44', '');
-INSERT INTO `sys_role` VALUES (1794704629008158721, '000000', '任课教师', 'teacher', 5, '1', 1, 1, '0', '0', 100, 1, '2024-05-26 20:18:22', 1, '2024-05-28 22:43:48', '');
-INSERT INTO `sys_role` VALUES (1794704927302864898, '000000', '辅导员', 'instructor', 6, '1', 1, 1, '0', '0', 100, 1, '2024-05-26 20:19:33', 1, '2024-05-28 22:43:52', '');
-INSERT INTO `sys_role` VALUES (1794705033464893442, '000000', '研究生', 'postgraduate', 7, '1', 1, 1, '0', '0', 100, 1, '2024-05-26 20:19:59', 1, '2024-05-28 15:43:44', '');
-INSERT INTO `sys_role` VALUES (1794705765412884482, '000000', '本科生', 'undergraduate', 8, '1', 1, 1, '0', '0', 100, 1, '2024-05-26 20:22:53', 1, '2024-05-28 15:42:33', '');
+INSERT INTO `sys_role` VALUES (1794702165018136578, '000000', '学校总管', 'boss', 2, '1', 1, 1, '0', '0', 100, 1, '2024-05-26 20:08:35', 1, '2024-05-30 15:11:07', '');
+INSERT INTO `sys_role` VALUES (1794702556669661186, '000000', '部门主管', 'director', 3, '1', 1, 1, '0', '0', 100, 1, '2024-05-26 20:10:08', 1, '2024-05-30 15:11:47', '');
+INSERT INTO `sys_role` VALUES (1794704292872441857, '000000', '行政人员', 'administrator', 4, '1', 1, 1, '0', '0', 100, 1, '2024-05-26 20:17:02', 1, '2024-05-30 15:12:15', '');
+INSERT INTO `sys_role` VALUES (1794704629008158721, '000000', '任课教师', 'teacher', 5, '1', 1, 1, '0', '0', 100, 1, '2024-05-26 20:18:22', 1, '2024-05-30 15:12:27', '');
+INSERT INTO `sys_role` VALUES (1794704927302864898, '000000', '辅导员', 'instructor', 6, '1', 1, 1, '0', '0', 100, 1, '2024-05-26 20:19:33', 1, '2024-05-29 01:50:52', '');
+INSERT INTO `sys_role` VALUES (1794705033464893442, '000000', '研究生', 'postgraduate', 7, '1', 1, 1, '0', '0', 100, 1, '2024-05-26 20:19:59', 1, '2024-05-30 15:12:43', '');
+INSERT INTO `sys_role` VALUES (1794705765412884482, '000000', '本科生', 'undergraduate', 8, '1', 1, 1, '0', '0', 100, 1, '2024-05-26 20:22:53', 1, '2024-05-30 15:12:56', '');
 
 -- ----------------------------
 -- Table structure for sys_role_dept
@@ -1712,11 +1872,13 @@ INSERT INTO `sys_role_menu` VALUES (1778708320031985665, 1020);
 INSERT INTO `sys_role_menu` VALUES (1778708320031985665, 1021);
 INSERT INTO `sys_role_menu` VALUES (1778708320031985665, 1025);
 INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1);
+INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 2);
 INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 100);
 INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 101);
 INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 103);
 INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 104);
 INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 107);
+INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 109);
 INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1001);
 INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1002);
 INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1003);
@@ -1742,6 +1904,9 @@ INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1036);
 INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1037);
 INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1038);
 INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1039);
+INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1046);
+INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1047);
+INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1048);
 INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1779866489017868290);
 INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1779866489017868291);
 INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1779866489017868292);
@@ -1765,11 +1930,34 @@ INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1795408898128592898);
 INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1795408898128592899);
 INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1795408898128592901);
 INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1795408898128592903);
+INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1795464278679359489);
+INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1795466703314227202);
+INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1795466703314227203);
+INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1795466703314227206);
+INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1795466703314227207);
+INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1795504547213303810);
+INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1795504547213303811);
+INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1795504547213303812);
+INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1795504547213303813);
+INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1795504800515710978);
+INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1795504800515710979);
+INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1795504800515710980);
+INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1795504800515710981);
+INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1795505177659138049);
+INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1795505177659138050);
+INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1795505177659138051);
+INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1795505177659138052);
+INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1795505406588444673);
+INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1795505406588444674);
+INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1795505406588444675);
+INSERT INTO `sys_role_menu` VALUES (1794702165018136578, 1795505406588444676);
 INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1);
+INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 2);
 INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 100);
 INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 101);
 INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 103);
 INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 104);
+INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 109);
 INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1001);
 INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1002);
 INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1003);
@@ -1783,6 +1971,9 @@ INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1017);
 INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1020);
 INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1021);
 INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1025);
+INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1046);
+INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1047);
+INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1048);
 INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1779866489017868290);
 INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1779866489017868291);
 INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1779872681727369217);
@@ -1794,15 +1985,41 @@ INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1795408898128592898);
 INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1795408898128592899);
 INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1795408898128592901);
 INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1795408898128592903);
+INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1795464278679359489);
+INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1795466703314227202);
+INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1795466703314227203);
+INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1795466703314227206);
+INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1795466703314227207);
+INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1795504547213303810);
+INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1795504547213303811);
+INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1795504547213303812);
+INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1795504547213303813);
+INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1795504800515710978);
+INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1795504800515710979);
+INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1795504800515710980);
+INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1795504800515710981);
+INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1795505177659138049);
+INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1795505177659138050);
+INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1795505177659138051);
+INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1795505177659138052);
+INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1795505406588444673);
+INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1795505406588444674);
+INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1795505406588444675);
+INSERT INTO `sys_role_menu` VALUES (1794702556669661186, 1795505406588444676);
 INSERT INTO `sys_role_menu` VALUES (1794704292872441857, 1);
+INSERT INTO `sys_role_menu` VALUES (1794704292872441857, 2);
 INSERT INTO `sys_role_menu` VALUES (1794704292872441857, 100);
 INSERT INTO `sys_role_menu` VALUES (1794704292872441857, 101);
 INSERT INTO `sys_role_menu` VALUES (1794704292872441857, 103);
 INSERT INTO `sys_role_menu` VALUES (1794704292872441857, 104);
+INSERT INTO `sys_role_menu` VALUES (1794704292872441857, 109);
 INSERT INTO `sys_role_menu` VALUES (1794704292872441857, 1001);
 INSERT INTO `sys_role_menu` VALUES (1794704292872441857, 1008);
 INSERT INTO `sys_role_menu` VALUES (1794704292872441857, 1017);
 INSERT INTO `sys_role_menu` VALUES (1794704292872441857, 1021);
+INSERT INTO `sys_role_menu` VALUES (1794704292872441857, 1046);
+INSERT INTO `sys_role_menu` VALUES (1794704292872441857, 1047);
+INSERT INTO `sys_role_menu` VALUES (1794704292872441857, 1048);
 INSERT INTO `sys_role_menu` VALUES (1794704292872441857, 1779866489017868290);
 INSERT INTO `sys_role_menu` VALUES (1794704292872441857, 1779866489017868291);
 INSERT INTO `sys_role_menu` VALUES (1794704292872441857, 1779872681727369217);
@@ -1814,6 +2031,14 @@ INSERT INTO `sys_role_menu` VALUES (1794704292872441857, 1795408898128592898);
 INSERT INTO `sys_role_menu` VALUES (1794704292872441857, 1795408898128592899);
 INSERT INTO `sys_role_menu` VALUES (1794704292872441857, 1795408898128592901);
 INSERT INTO `sys_role_menu` VALUES (1794704292872441857, 1795408898128592903);
+INSERT INTO `sys_role_menu` VALUES (1794704292872441857, 1795504547213303810);
+INSERT INTO `sys_role_menu` VALUES (1794704292872441857, 1795504547213303811);
+INSERT INTO `sys_role_menu` VALUES (1794704292872441857, 1795504547213303812);
+INSERT INTO `sys_role_menu` VALUES (1794704292872441857, 1795504547213303813);
+INSERT INTO `sys_role_menu` VALUES (1794704292872441857, 1795504800515710978);
+INSERT INTO `sys_role_menu` VALUES (1794704292872441857, 1795504800515710979);
+INSERT INTO `sys_role_menu` VALUES (1794704292872441857, 1795504800515710980);
+INSERT INTO `sys_role_menu` VALUES (1794704292872441857, 1795504800515710981);
 INSERT INTO `sys_role_menu` VALUES (1794704629008158721, 1);
 INSERT INTO `sys_role_menu` VALUES (1794704629008158721, 100);
 INSERT INTO `sys_role_menu` VALUES (1794704629008158721, 101);
@@ -1834,6 +2059,14 @@ INSERT INTO `sys_role_menu` VALUES (1794704629008158721, 1795408898128592898);
 INSERT INTO `sys_role_menu` VALUES (1794704629008158721, 1795408898128592899);
 INSERT INTO `sys_role_menu` VALUES (1794704629008158721, 1795408898128592901);
 INSERT INTO `sys_role_menu` VALUES (1794704629008158721, 1795408898128592903);
+INSERT INTO `sys_role_menu` VALUES (1794704629008158721, 1795504547213303810);
+INSERT INTO `sys_role_menu` VALUES (1794704629008158721, 1795504547213303811);
+INSERT INTO `sys_role_menu` VALUES (1794704629008158721, 1795504547213303812);
+INSERT INTO `sys_role_menu` VALUES (1794704629008158721, 1795504547213303813);
+INSERT INTO `sys_role_menu` VALUES (1794704629008158721, 1795504800515710978);
+INSERT INTO `sys_role_menu` VALUES (1794704629008158721, 1795504800515710979);
+INSERT INTO `sys_role_menu` VALUES (1794704629008158721, 1795504800515710980);
+INSERT INTO `sys_role_menu` VALUES (1794704629008158721, 1795504800515710981);
 INSERT INTO `sys_role_menu` VALUES (1794704927302864898, 1);
 INSERT INTO `sys_role_menu` VALUES (1794704927302864898, 100);
 INSERT INTO `sys_role_menu` VALUES (1794704927302864898, 1001);
@@ -1849,6 +2082,8 @@ INSERT INTO `sys_role_menu` VALUES (1794704927302864898, 1795408898128592898);
 INSERT INTO `sys_role_menu` VALUES (1794704927302864898, 1795408898128592899);
 INSERT INTO `sys_role_menu` VALUES (1794704927302864898, 1795408898128592901);
 INSERT INTO `sys_role_menu` VALUES (1794704927302864898, 1795408898128592903);
+INSERT INTO `sys_role_menu` VALUES (1794704927302864898, 1795504547213303810);
+INSERT INTO `sys_role_menu` VALUES (1794704927302864898, 1795504800515710978);
 INSERT INTO `sys_role_menu` VALUES (1794705033464893442, 1);
 INSERT INTO `sys_role_menu` VALUES (1794705033464893442, 100);
 INSERT INTO `sys_role_menu` VALUES (1794705033464893442, 1001);
@@ -1865,6 +2100,18 @@ INSERT INTO `sys_role_menu` VALUES (1794705033464893442, 1794947335915511812);
 INSERT INTO `sys_role_menu` VALUES (1794705033464893442, 1794947335915511813);
 INSERT INTO `sys_role_menu` VALUES (1794705033464893442, 1794947335915511814);
 INSERT INTO `sys_role_menu` VALUES (1794705033464893442, 1794947335915511815);
+INSERT INTO `sys_role_menu` VALUES (1794705033464893442, 1795503756557639682);
+INSERT INTO `sys_role_menu` VALUES (1794705033464893442, 1795503756557639683);
+INSERT INTO `sys_role_menu` VALUES (1794705033464893442, 1795503756557639684);
+INSERT INTO `sys_role_menu` VALUES (1794705033464893442, 1795503756557639685);
+INSERT INTO `sys_role_menu` VALUES (1794705033464893442, 1795503756557639686);
+INSERT INTO `sys_role_menu` VALUES (1794705033464893442, 1795503756557639687);
+INSERT INTO `sys_role_menu` VALUES (1794705033464893442, 1795504085940527106);
+INSERT INTO `sys_role_menu` VALUES (1794705033464893442, 1795504085940527107);
+INSERT INTO `sys_role_menu` VALUES (1794705033464893442, 1795504085940527108);
+INSERT INTO `sys_role_menu` VALUES (1794705033464893442, 1795504085940527109);
+INSERT INTO `sys_role_menu` VALUES (1794705033464893442, 1795504085940527110);
+INSERT INTO `sys_role_menu` VALUES (1794705033464893442, 1795504085940527111);
 INSERT INTO `sys_role_menu` VALUES (1794705765412884482, 1);
 INSERT INTO `sys_role_menu` VALUES (1794705765412884482, 100);
 INSERT INTO `sys_role_menu` VALUES (1794705765412884482, 1001);
@@ -1881,6 +2128,18 @@ INSERT INTO `sys_role_menu` VALUES (1794705765412884482, 1794947335915511812);
 INSERT INTO `sys_role_menu` VALUES (1794705765412884482, 1794947335915511813);
 INSERT INTO `sys_role_menu` VALUES (1794705765412884482, 1794947335915511814);
 INSERT INTO `sys_role_menu` VALUES (1794705765412884482, 1794947335915511815);
+INSERT INTO `sys_role_menu` VALUES (1794705765412884482, 1795503756557639682);
+INSERT INTO `sys_role_menu` VALUES (1794705765412884482, 1795503756557639683);
+INSERT INTO `sys_role_menu` VALUES (1794705765412884482, 1795503756557639684);
+INSERT INTO `sys_role_menu` VALUES (1794705765412884482, 1795503756557639685);
+INSERT INTO `sys_role_menu` VALUES (1794705765412884482, 1795503756557639686);
+INSERT INTO `sys_role_menu` VALUES (1794705765412884482, 1795503756557639687);
+INSERT INTO `sys_role_menu` VALUES (1794705765412884482, 1795504085940527106);
+INSERT INTO `sys_role_menu` VALUES (1794705765412884482, 1795504085940527107);
+INSERT INTO `sys_role_menu` VALUES (1794705765412884482, 1795504085940527108);
+INSERT INTO `sys_role_menu` VALUES (1794705765412884482, 1795504085940527109);
+INSERT INTO `sys_role_menu` VALUES (1794705765412884482, 1795504085940527110);
+INSERT INTO `sys_role_menu` VALUES (1794705765412884482, 1795504085940527111);
 
 -- ----------------------------
 -- Table structure for sys_social
@@ -2014,16 +2273,16 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, '000000', 100, 'admin', '超级管理员', 'sys_user', '1234567890@qq.com', '19876543210', '0', NULL, '$2a$10$rUU2oeiYVhFJ.Nkbfeywsel61TT5gxL7MKYUcd6O38ADtbeNmlJGa', '0', '0', '0:0:0:0:0:0:0:1', '2024-05-28 23:22:10', 100, 1, '2024-04-11 15:26:39', 1, '2024-05-28 23:22:10', '管理员');
-INSERT INTO `sys_user` VALUES (1778327369355444226, '440965', 1778327369087008770, 'antony', '超级管理员', 'sys_user', '1911111111@qq.com', '17388888888', '0', NULL, '$2a$10$j1F3Z0TXMBpg6EiZMhrqLe8hEg1Kw0KQMPLqYUvw3h5FaMJ90NQSq', '0', '0', '0:0:0:0:0:0:0:1', '2024-05-15 23:42:15', 100, 1, '2024-04-11 15:40:59', 1778327369355444226, '2024-05-15 23:42:15', NULL);
-INSERT INTO `sys_user` VALUES (1778704505606098945, '000000', 1779738476230017025, 'gx9066', '高祥', 'sys_user', '', '13933339066', '0', NULL, '$2a$10$fdn/.NgAgZFphQoIDpMf/eukUr4nGp1T8fwTQeL4xBRwx1BHnMTZe', '0', '0', '0:0:0:0:0:0:0:1', '2024-05-28 21:40:50', 100, 1, '2024-04-12 16:39:36', 1778704505606098945, '2024-05-28 21:40:50', '');
-INSERT INTO `sys_user` VALUES (1778704704135090177, '000000', 1779760160337100802, 'wcc1985', '伍程成', 'sys_user', '1911261716@qq.com', '17380271985', '0', NULL, '$2a$10$1l0bJjRVDXPQbJnCTGbzfu0zj4ACT1eLnlzQ97HcBhmL5D/PeH4ha', '0', '0', '0:0:0:0:0:0:0:1', '2024-05-28 18:35:42', 100, 1, '2024-04-12 16:40:23', 1778704704135090177, '2024-05-28 18:35:42', '');
-INSERT INTO `sys_user` VALUES (1795267655155257346, '000000', 1779760160337100802, 'zs1985', '张三', 'sys_user', '', '17180271985', '0', NULL, '$2a$10$635T8pYqGZzC5F0sNGRwMOWFaiYZ9B9jXsNENOQXhIknpwFqEQRvS', '0', '0', '0:0:0:0:0:0:0:1', '2024-05-28 21:42:07', 100, 1, '2024-05-28 09:35:38', 1795267655155257346, '2024-05-28 21:42:07', '');
-INSERT INTO `sys_user` VALUES (1795267781160538113, '000000', 1779760160337100802, 'ls1985', '李四', 'sys_user', '', '17080271985', '0', NULL, '$2a$10$ZMZ6emqLOAfdXuace5oy..OMTK4eg/PNTVrNibP6O9oqInLFgdt/.', '0', '0', '0:0:0:0:0:0:0:1', '2024-05-28 15:42:59', 100, 1, '2024-05-28 09:36:08', 1795267781160538113, '2024-05-28 15:42:59', '');
-INSERT INTO `sys_user` VALUES (1795346850354561025, '000000', 1779760160337100802, 'ww', '王五', 'sys_user', '', '16980271985', '0', NULL, '$2a$10$3W8v5SMd3wqxbz8NTfyyV.xQcmX3/PhK0jNIlhdfiwhCls9zvxGwe', '0', '2', '', NULL, 100, 1, '2024-05-28 14:50:11', 1, '2024-05-28 14:50:11', '');
-INSERT INTO `sys_user` VALUES (1795346948350754817, '000000', 1779760160337100802, 'ww1985', '王五', 'sys_user', '', '16980271985', '0', NULL, '$2a$10$4P0CSqZgGb.Sy0bnL4htU.G3PoKt/GKdgyXx78Nro3r.dZ2KTReji', '0', '0', '', NULL, 100, 1, '2024-05-28 14:50:43', 1, '2024-05-28 14:50:43', '');
-INSERT INTO `sys_user` VALUES (1795347195890188289, '000000', 1779738476230017025, 'jyn1111', '金一宁', 'sys_user', '', '15600001111', '0', NULL, '$2a$10$Q7fOtFmOtHm9CV1AdqBOf.DqeGIW7l0PCuHD4G.BBldFu/YMd304.', '0', '0', '0:0:0:0:0:0:0:1', '2024-05-28 21:41:14', 100, 1, '2024-05-28 14:51:42', 1795347195890188289, '2024-05-28 21:41:14', '');
-INSERT INTO `sys_user` VALUES (1795348860601057281, '000000', 1779738476230017025, 'wl1985', '王六', 'sys_user', '', '16880271985', '0', NULL, '$2a$10$O9vKKHEzf9NmF8TZjfWOEeYZfFnJ.xf2DQg2YrZ4cX/fu3QdmxJsO', '0', '0', '', NULL, 100, 1, '2024-05-28 14:58:19', 1, '2024-05-28 14:58:19', '');
+INSERT INTO `sys_user` VALUES (1, '000000', 100, 'admin', '超级管理员', 'sys_user', '1234567890@qq.com', '19876543210', '0', NULL, '$2a$10$rUU2oeiYVhFJ.Nkbfeywsel61TT5gxL7MKYUcd6O38ADtbeNmlJGa', '0', '0', '0:0:0:0:0:0:0:1', '2024-05-30 15:03:26', 100, 1, '2024-04-11 15:26:39', 1, '2024-05-30 15:03:26', '管理员');
+INSERT INTO `sys_user` VALUES (202051000000, '000000', 1795621147950690306, 'zs0001', '张三', 'sys_user', '100@qq.com', '13100000001', '1', NULL, '$2a$10$8uBVlGfL7gmu4IDuOIQALOOLJ.EHDVNaywsuMXec/dlhRKoHtFPkO', '0', '0', '0:0:0:0:0:0:0:1', '2024-05-29 11:17:12', 100, 1, '2024-05-29 10:40:28', 202051000000, '2024-05-29 11:17:12', NULL);
+INSERT INTO `sys_user` VALUES (202051000001, '000000', 1795621147950690306, 'ls0002', '李四', 'sys_user', '101@qq.com', '13100000002', '0', NULL, '$2a$10$nDjb/B/Ij/8k9m4aMLSCr.A1OqS/L8EwhKheFs18Uqwadr3ti0qHK', '0', '0', '', NULL, 100, 1, '2024-05-29 10:40:28', 1, '2024-05-29 10:40:28', NULL);
+INSERT INTO `sys_user` VALUES (202051000002, '000000', 1795621147950690306, 'ww0003', '王五', 'sys_user', '102@qq.com', '13100000003', '1', NULL, '$2a$10$gAAyp8L8wDz3l8RffdLSDettJIw.FJIVRQ1pbKwBhkJMIrcuNpQBG', '0', '0', '', NULL, 100, 1, '2024-05-29 10:40:28', 1, '2024-05-29 10:40:28', NULL);
+INSERT INTO `sys_user` VALUES (202051000003, '000000', 1779760160337100802, 'jl0004', '甲六', 'sys_user', '103@qq.com', '13100000004', '0', NULL, '$2a$10$CQQBnavM4cwmfPurcrZXdOXi5c70JrNrkj443rQYn854/5S71plHm', '0', '0', '', NULL, 100, 1, '2024-05-29 10:40:42', 1, '2024-05-29 10:40:42', NULL);
+INSERT INTO `sys_user` VALUES (202051000004, '000000', 1779760160337100802, 'yq0005', '乙七', 'sys_user', '104@qq.com', '13100000005', '1', NULL, '$2a$10$9xFEYfaIhPPAtwp8BIVuj.EMT6Jxv94SVffJ7ur2rPIKDzOCEBOeO', '0', '0', '', NULL, 100, 1, '2024-05-29 10:40:42', 1, '2024-05-29 10:40:42', NULL);
+INSERT INTO `sys_user` VALUES (202051000005, '000000', 1779760160337100802, 'bb0006', '丙八', 'sys_user', '105@qq.com', '13100000006', '0', NULL, '$2a$10$80S3vOKS7nU1iT0Rnphpse3aSlvmLVnpZ5LCdRXUrCUaaiRxj1tkG', '0', '0', '', NULL, 100, 1, '2024-05-29 10:40:42', 1, '2024-05-29 10:40:42', NULL);
+INSERT INTO `sys_user` VALUES (1778327369355444226, '440965', 1778327369087008770, 'antony', '超级管理员', 'sys_user', '1911111111@qq.com', '17388888888', '0', NULL, '$2a$10$j1F3Z0TXMBpg6EiZMhrqLe8hEg1Kw0KQMPLqYUvw3h5FaMJ90NQSq', '0', '0', '0:0:0:0:0:0:0:1', '2024-05-29 01:02:38', 100, 1, '2024-04-11 15:40:59', 1778327369355444226, '2024-05-29 01:02:38', NULL);
+INSERT INTO `sys_user` VALUES (1795647419825238018, '000000', 1779738476230017025, 'wls0001', '王老师', 'sys_user', '', '18100000001', '0', NULL, '$2a$10$6NwZ3CoWUArZNosWtXL2pOSIPLz3QjKGtnh8MHoornKT.IDluF2w6', '0', '0', '0:0:0:0:0:0:0:1', '2024-05-29 22:57:31', 100, 1, '2024-05-29 10:44:41', 1795647419825238018, '2024-05-29 22:57:31', '');
+INSERT INTO `sys_user` VALUES (1795647614944260098, '000000', 1779738476230017025, 'wls0002', '伍老师', 'sys_user', '', '18100000002', '0', NULL, '$2a$10$EonJ95nezPYoBDmnFBCx1.4mDLAD3Wblf0eSXFbTvasrTVA4/2Ybm', '0', '0', '', NULL, 100, 1, '2024-05-29 10:45:28', 1, '2024-05-29 10:45:28', '');
 
 -- ----------------------------
 -- Table structure for sys_user_post
@@ -2039,13 +2298,14 @@ CREATE TABLE `sys_user_post`  (
 -- Records of sys_user_post
 -- ----------------------------
 INSERT INTO `sys_user_post` VALUES (1, 1);
-INSERT INTO `sys_user_post` VALUES (1778704505606098945, 1794667779900026881);
-INSERT INTO `sys_user_post` VALUES (1778704704135090177, 1794668230527660034);
-INSERT INTO `sys_user_post` VALUES (1795267655155257346, 1794668230527660034);
-INSERT INTO `sys_user_post` VALUES (1795267781160538113, 1794668230527660034);
-INSERT INTO `sys_user_post` VALUES (1795346948350754817, 1794668230527660034);
-INSERT INTO `sys_user_post` VALUES (1795347195890188289, 1794666868569993217);
-INSERT INTO `sys_user_post` VALUES (1795348860601057281, 1794667878818492418);
+INSERT INTO `sys_user_post` VALUES (202051000000, 1794668230527660034);
+INSERT INTO `sys_user_post` VALUES (202051000001, 1794668230527660034);
+INSERT INTO `sys_user_post` VALUES (202051000002, 1794668230527660034);
+INSERT INTO `sys_user_post` VALUES (202051000003, 1794668230527660034);
+INSERT INTO `sys_user_post` VALUES (202051000004, 1794668230527660034);
+INSERT INTO `sys_user_post` VALUES (202051000005, 1794668230527660034);
+INSERT INTO `sys_user_post` VALUES (1795647419825238018, 1794666868569993217);
+INSERT INTO `sys_user_post` VALUES (1795647614944260098, 1794666868569993217);
 
 -- ----------------------------
 -- Table structure for sys_user_role
@@ -2061,14 +2321,15 @@ CREATE TABLE `sys_user_role`  (
 -- Records of sys_user_role
 -- ----------------------------
 INSERT INTO `sys_user_role` VALUES (1, 1);
+INSERT INTO `sys_user_role` VALUES (202051000000, 1794705765412884482);
+INSERT INTO `sys_user_role` VALUES (202051000001, 1794705765412884482);
+INSERT INTO `sys_user_role` VALUES (202051000002, 1794705765412884482);
+INSERT INTO `sys_user_role` VALUES (202051000003, 1794705765412884482);
+INSERT INTO `sys_user_role` VALUES (202051000004, 1794705765412884482);
+INSERT INTO `sys_user_role` VALUES (202051000005, 1794705765412884482);
 INSERT INTO `sys_user_role` VALUES (1778327369355444226, 1778327369024094211);
-INSERT INTO `sys_user_role` VALUES (1778704505606098945, 1794704629008158721);
-INSERT INTO `sys_user_role` VALUES (1778704704135090177, 1794705765412884482);
-INSERT INTO `sys_user_role` VALUES (1795267655155257346, 1794705765412884482);
-INSERT INTO `sys_user_role` VALUES (1795267781160538113, 1794705765412884482);
-INSERT INTO `sys_user_role` VALUES (1795346948350754817, 1794705765412884482);
-INSERT INTO `sys_user_role` VALUES (1795347195890188289, 1794704629008158721);
-INSERT INTO `sys_user_role` VALUES (1795348860601057281, 1794704629008158721);
+INSERT INTO `sys_user_role` VALUES (1795647419825238018, 1794704629008158721);
+INSERT INTO `sys_user_role` VALUES (1795647614944260098, 1794704629008158721);
 
 -- ----------------------------
 -- Table structure for undo_log

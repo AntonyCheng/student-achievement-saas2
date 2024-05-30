@@ -23,7 +23,7 @@ public class RemoteAchievementTypeServiceImpl implements RemoteAchievementTypeSe
      * 根据ID获取成果类型服务
      *
      * @param achievementTypeId 成果类型id
-     * @return 客户端对象
+     * @return 成果类型
      */
     @Override
     public String queryAchievementTypeNameById(Long achievementTypeId) {

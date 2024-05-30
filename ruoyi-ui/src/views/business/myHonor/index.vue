@@ -3,17 +3,17 @@
     <transition :enter-active-class="proxy?.animate.searchAnimate.enter" :leave-active-class="proxy?.animate.searchAnimate.leave">
       <div class="search" v-show="showSearch">
         <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
-          <el-form-item label="成果类型" prop="achievementTypeId">
-            <el-select v-model="queryParams.achievementTypeId" placeholder="请选择成果类型" clearable>
-              <el-option v-for="dict in types" :key="dict.achievementTypeId" :label="dict.achievementTypeName" :value="dict.achievementTypeId" />
+          <el-form-item label="荣誉类型" prop="honorTypeId">
+            <el-select v-model="queryParams.honorTypeId" placeholder="请选择荣誉类型" clearable>
+              <el-option v-for="dict in types" :key="dict.honorTypeId" :label="dict.honorTypeName" :value="dict.honorTypeId" />
             </el-select>
           </el-form-item>
-          <el-form-item label="成果名称" prop="achievementName">
-            <el-input v-model="queryParams.achievementName" placeholder="请输入成果名称" clearable style="width: 240px" @keyup.enter="handleQuery" />
+          <el-form-item label="荣誉名称" prop="honorName">
+            <el-input v-model="queryParams.honorName" placeholder="请输入荣誉名称" clearable style="width: 240px" @keyup.enter="handleQuery" />
           </el-form-item>
-          <el-form-item label="指导老师" prop="achievementTeacherId">
+          <el-form-item label="指导老师" prop="honorTeacherId">
             <el-select
-              v-model="queryParams.achievementTeacherId"
+              v-model="queryParams.honorTeacherId"
               clearable
               filterable
               remote
@@ -32,9 +32,9 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="其他成员" prop="achievementOtherStudentIds">
+          <el-form-item label="其他成员" prop="honorOtherStudentIds">
             <el-select
-              v-model="queryParams.achievementOtherStudentIds"
+              v-model="queryParams.honorOtherStudentIds"
               clearable
               multiple
               filterable
@@ -55,9 +55,9 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="其他老师" prop="achievementOtherTeacherIds">
+          <el-form-item label="其他老师" prop="honorOtherTeacherIds">
             <el-select
-              v-model="queryParams.achievementOtherTeacherIds"
+              v-model="queryParams.honorOtherTeacherIds"
               clearable
               multiple
               filterable
@@ -78,8 +78,8 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="成果状态" prop="status">
-            <el-select v-model="queryParams.status" placeholder="请选择成果状态" clearable>
+          <el-form-item label="荣誉状态" prop="status">
+            <el-select v-model="queryParams.status" placeholder="请选择荣誉状态" clearable>
               <el-option v-for="dict in business_experience_type" :key="dict.value" :label="dict.label" :value="dict.value" />
             </el-select>
           </el-form-item>
@@ -95,48 +95,48 @@
       <template #header>
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
-            <el-button type="primary" plain icon="Plus" @click="handleAdd" v-hasPermi="['business:myAchievement:add']"> 新增 </el-button>
+            <el-button type="primary" plain icon="Plus" @click="handleAdd" v-hasPermi="['business:myHonor:add']"> 新增 </el-button>
           </el-col>
           <el-col :span="1.5">
-            <el-button type="success" plain icon="Edit" :disabled="single" @click="handleUpdate()" v-hasPermi="['business:myAchievement:edit']"
+            <el-button type="success" plain icon="Edit" :disabled="single" @click="handleUpdate()" v-hasPermi="['business:myHonor:edit']"
               >修改
             </el-button>
           </el-col>
           <el-col :span="1.5">
-            <el-button type="danger" plain icon="Delete" :disabled="multiple" @click="handleDelete()" v-hasPermi="['business:myAchievement:remove']"
+            <el-button type="danger" plain icon="Delete" :disabled="multiple" @click="handleDelete()" v-hasPermi="['business:myHonor:remove']"
               >删除
             </el-button>
           </el-col>
           <el-col :span="1.5">
-            <el-button type="warning" plain icon="Download" @click="handleExport" v-hasPermi="['business:myAchievement:export']">导出 </el-button>
+            <el-button type="warning" plain icon="Download" @click="handleExport" v-hasPermi="['business:myHonor:export']">导出 </el-button>
           </el-col>
           <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
         </el-row>
       </template>
 
-      <el-table v-loading="loading" :data="achievementList" @selection-change="handleSelectionChange">
+      <el-table v-loading="loading" :data="honorList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
-        <el-table-column label="成果id" align="center" prop="achievementId" v-if="false" />
-        <el-table-column label="成果类型id" align="center" prop="achievementTypeId" v-if="false" />
-        <el-table-column label="成果类型" align="center" prop="achievementTypeName" />
-        <el-table-column label="成果名称" align="center" prop="achievementName" />
-        <el-table-column label="第一作者id" align="center" prop="achievementStudentId" v-if="false" />
-        <el-table-column label="第一作者" align="center" prop="achievementStudentName" />
-        <el-table-column label="所属部门id" align="center" prop="achievementStudentDeptId" v-if="false" />
-        <el-table-column label="所属部门" align="center" prop="achievementStudentDeptName" />
-        <el-table-column label="指导老师id" align="center" prop="achievementTeacherId" v-if="false" />
-        <el-table-column label="指导老师" align="center" prop="achievementTeacherName" />
-        <el-table-column label="其他成员id" align="center" prop="achievementOtherStudentIds" v-if="false" />
-        <el-table-column label="其他成员" align="center" prop="achievementOtherStudentNames" />
-        <el-table-column label="其他老师id" align="center" prop="achievementOtherTeacherIds" v-if="false" />
-        <el-table-column label="其他老师" align="center" prop="achievementOtherTeacherNames" />
-        <el-table-column label="佐证材料" align="center" prop="achievementEvidenceUrl">
+        <el-table-column label="荣誉id" align="center" prop="honorId" v-if="false" />
+        <el-table-column label="荣誉类型id" align="center" prop="honorTypeId" v-if="false" />
+        <el-table-column label="荣誉类型" align="center" prop="honorTypeName" />
+        <el-table-column label="荣誉名称" align="center" prop="honorName" />
+        <el-table-column label="第一作者id" align="center" prop="honorStudentId" v-if="false" />
+        <el-table-column label="第一作者" align="center" prop="honorStudentName" />
+        <el-table-column label="所属部门id" align="center" prop="honorStudentDeptId" v-if="false" />
+        <el-table-column label="所属部门" align="center" prop="honorStudentDeptName" />
+        <el-table-column label="指导老师id" align="center" prop="honorTeacherId" v-if="false" />
+        <el-table-column label="指导老师" align="center" prop="honorTeacherName" />
+        <el-table-column label="其他成员id" align="center" prop="honorOtherStudentIds" v-if="false" />
+        <el-table-column label="其他成员" align="center" prop="honorOtherStudentNames" />
+        <el-table-column label="其他老师id" align="center" prop="honorOtherTeacherIds" v-if="false" />
+        <el-table-column label="其他老师" align="center" prop="honorOtherTeacherNames" />
+        <el-table-column label="佐证材料" align="center" prop="honorEvidenceUrl">
           <template #default="scope">
-            <el-button type="primary" link @click="download(scope.row.achievementEvidenceUrl);">点我下载</el-button>
+            <el-button type="primary" link @click="download(scope.row.honorEvidenceUrl);">点我下载</el-button>
           </template>
         </el-table-column>
-        <el-table-column label="审核反馈" align="center" prop="achievementFeedback" />
-        <el-table-column label="成果状态" align="center" prop="status">
+        <el-table-column label="审核反馈" align="center" prop="honorFeedback" />
+        <el-table-column label="荣誉状态" align="center" prop="status">
           <template #default="scope">
             <dict-tag :options="business_experience_type" :value="scope.row.status" />
           </template>
@@ -149,10 +149,10 @@
         <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
           <template #default="scope">
             <el-tooltip content="修改" placement="top">
-              <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['business:myAchievement:edit']"></el-button>
+              <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['business:myHonor:edit']"></el-button>
             </el-tooltip>
             <el-tooltip content="删除" placement="top">
-              <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['business:myAchievement:remove']"></el-button>
+              <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['business:myHonor:remove']"></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
@@ -160,20 +160,20 @@
 
       <pagination v-show="total>0" :total="total" v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize" @pagination="getList" />
     </el-card>
-    <!-- 添加或修改在校成果管理对话框 -->
+    <!-- 添加或修改在校荣誉管理对话框 -->
     <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
-      <el-form ref="achievementFormRef" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="成果类型" prop="achievementTypeId">
-          <el-select v-model="form.achievementTypeId" placeholder="请选择成果类型" clearable style="width: 100%;">
-            <el-option v-for="dict in types" :key="dict.achievementTypeId" :label="dict.achievementTypeName" :value="dict.achievementTypeId" />
+      <el-form ref="honorFormRef" :model="form" :rules="rules" label-width="80px">
+        <el-form-item label="荣誉类型" prop="honorTypeId">
+          <el-select v-model="form.honorTypeId" placeholder="请选择荣誉类型" clearable style="width: 100%;">
+            <el-option v-for="dict in types" :key="dict.honorTypeId" :label="dict.honorTypeName" :value="dict.honorTypeId" />
           </el-select>
         </el-form-item>
-        <el-form-item label="成果名称" prop="achievementName">
-          <el-input v-model="form.achievementName" placeholder="请输入内容" />
+        <el-form-item label="荣誉名称" prop="honorName">
+          <el-input v-model="form.honorName" placeholder="请输入内容" />
         </el-form-item>
-        <el-form-item label="指导老师" prop="achievementTeacherId">
+        <el-form-item label="指导老师" prop="honorTeacherId">
           <el-select
-            v-model="form.achievementTeacherId"
+            v-model="form.honorTeacherId"
             clearable
             filterable
             remote
@@ -192,9 +192,9 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="其他成员" prop="achievementOtherStudentIds">
+        <el-form-item label="其他成员" prop="honorOtherStudentIds">
           <el-select
-            v-model="form.achievementOtherStudentIds"
+            v-model="form.honorOtherStudentIds"
             clearable
             multiple
             filterable
@@ -215,9 +215,9 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="其他老师" prop="achievementOtherTeacherIds">
+        <el-form-item label="其他老师" prop="honorOtherTeacherIds">
           <el-select
-            v-model="form.achievementOtherTeacherIds"
+            v-model="form.honorOtherTeacherIds"
             clearable
             multiple
             filterable
@@ -238,7 +238,7 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="佐证材料" prop="achievementEvidenceUrl">
+        <el-form-item label="佐证材料" prop="honorEvidenceUrl">
           <el-upload
             ref="upload"
             :http-request="handleUploadFile"
@@ -272,18 +272,18 @@
   </div>
 </template>
 
-<script setup name="Achievement" lang="ts">
+<script setup name="Honor" lang="ts">
 import {
-  listAchievement,
-  getAchievement,
-  delAchievement,
-  addAchievement,
-  updateAchievement,
+  listHonor,
+  getHonor,
+  delHonor,
+  addHonor,
+  updateHonor,
   uploadFile
-} from '@/api/business/myAchievement';
-import {AchievementVO, AchievementQuery, AchievementForm} from '@/api/business/myAchievement/types';
-import {listAchievementAvailable} from "@/api/base/achievement";
-import {AchievementVO as AchievementTypeVO} from "@/api/base/achievement/types";
+} from '@/api/business/myHonor';
+import {HonorVO, HonorQuery, HonorForm} from '@/api/business/myHonor/types';
+import {listHonorAvailable} from "@/api/base/honor";
+import {HonorVO as HonorTypeVO} from "@/api/base/honor/types";
 import {UserByNickName} from "@/api/system/user/types";
 import {listByNickName} from "@/api/system/user";
 import {
@@ -297,7 +297,7 @@ import {
 const {proxy} = getCurrentInstance() as ComponentInternalInstance;
 const {business_experience_type} = toRefs<any>(proxy?.useDict('business_experience_type'));
 
-const achievementList = ref<AchievementVO[]>([]);
+const honorList = ref<HonorVO[]>([]);
 const buttonLoading = ref(false);
 const loading = ref(true);
 const showSearch = ref(true);
@@ -305,7 +305,7 @@ const ids = ref<Array<string | number>>([]);
 const single = ref(true);
 const multiple = ref(true);
 const total = ref(0);
-const types = ref<AchievementTypeVO[]>([]);
+const types = ref<HonorTypeVO[]>([]);
 const members = ref<UserByNickName[]>([]);
 const teacher = ref<UserByNickName[]>([]);
 const teachers = ref<UserByNickName[]>([]);
@@ -315,60 +315,60 @@ const teachersAddEdit = ref<UserByNickName[]>([]);
 const fileList = ref<UploadUserFile[]>([])
 
 const queryFormRef = ref<ElFormInstance>();
-const achievementFormRef = ref<ElFormInstance>();
+const honorFormRef = ref<ElFormInstance>();
 
 const dialog = reactive<DialogOption>({
   visible: false,
   title: ''
 });
 
-const initFormData: AchievementForm = {
-  achievementId: undefined,
-  achievementTypeId: undefined,
-  achievementTypeName: undefined,
-  achievementName: undefined,
-  achievementStudentId: undefined,
-  achievementStudentName: undefined,
-  achievementStudentDeptId: undefined,
-  achievementStudentDeptName: undefined,
-  achievementTeacherId: undefined,
-  achievementTeacherName: undefined,
-  achievementOtherStudentIds: undefined,
-  achievementOtherStudentNames: undefined,
-  achievementOtherTeacherIds: undefined,
-  achievementOtherTeacherNames: undefined,
-  achievementEvidenceUrl: undefined,
+const initFormData: HonorForm = {
+  honorId: undefined,
+  honorTypeId: undefined,
+  honorTypeName: undefined,
+  honorName: undefined,
+  honorStudentId: undefined,
+  honorStudentName: undefined,
+  honorStudentDeptId: undefined,
+  honorStudentDeptName: undefined,
+  honorTeacherId: undefined,
+  honorTeacherName: undefined,
+  honorOtherStudentIds: undefined,
+  honorOtherStudentNames: undefined,
+  honorOtherTeacherIds: undefined,
+  honorOtherTeacherNames: undefined,
+  honorEvidenceUrl: undefined,
   remark: undefined
 }
-const data = reactive<PageData<AchievementForm, AchievementQuery>>({
+const data = reactive<PageData<HonorForm, HonorQuery>>({
   form: {...initFormData},
   queryParams: {
     pageNum: 1,
     pageSize: 10,
-    achievementTypeId: undefined,
-    achievementName: undefined,
-    achievementStudentId: undefined,
-    achievementStudentDeptId: undefined,
-    achievementTeacherId: undefined,
-    achievementOtherStudentIds: undefined,
-    achievementOtherTeacherIds: undefined,
+    honorTypeId: undefined,
+    honorName: undefined,
+    honorStudentId: undefined,
+    honorStudentDeptId: undefined,
+    honorTeacherId: undefined,
+    honorOtherStudentIds: undefined,
+    honorOtherTeacherIds: undefined,
     status: undefined,
     params: {}
   },
   rules: {
-    achievementId: [
-      {required: true, message: "成果id不能为空", trigger: "blur"}
+    honorId: [
+      {required: true, message: "荣誉id不能为空", trigger: "blur"}
     ],
-    achievementTypeId: [
-      {required: true, message: "成果类型不能为空", trigger: "blur"}
+    honorTypeId: [
+      {required: true, message: "荣誉类型不能为空", trigger: "blur"}
     ],
-    achievementName: [
-      {required: true, message: "成果名称不能为空", trigger: "blur"}
+    honorName: [
+      {required: true, message: "荣誉名称不能为空", trigger: "blur"}
     ],
-    achievementTeacherId: [
+    honorTeacherId: [
       {required: true, message: "第一指导老师不能为空", trigger: "blur"}
     ],
-    achievementEvidenceUrl: [
+    honorEvidenceUrl: [
       {required: true, message: "佐证材料不能为空", trigger: "blur"}
     ],
   }
@@ -376,25 +376,25 @@ const data = reactive<PageData<AchievementForm, AchievementQuery>>({
 
 const {queryParams, form, rules} = toRefs(data);
 
-/** 查询在校成果管理列表 */
+/** 查询在校荣誉管理列表 */
 const getList = async () => {
   loading.value = true;
   const data = JSON.parse(JSON.stringify(queryParams.value))
-  if (Array.isArray(data.achievementOtherStudentIds) && data.achievementOtherStudentIds.length != 0) {
-    data.achievementOtherStudentIds = data.achievementOtherStudentIds.join(",")
+  if (Array.isArray(data.honorOtherStudentIds) && data.honorOtherStudentIds.length != 0) {
+    data.honorOtherStudentIds = data.honorOtherStudentIds.join(",")
   }
-  if (Array.isArray(data.achievementOtherTeacherIds) && data.achievementOtherTeacherIds.length != 0) {
-    data.achievementOtherTeacherIds = data.achievementOtherTeacherIds.join(",")
+  if (Array.isArray(data.honorOtherTeacherIds) && data.honorOtherTeacherIds.length != 0) {
+    data.honorOtherTeacherIds = data.honorOtherTeacherIds.join(",")
   }
-  const res = await listAchievement(data);
-  achievementList.value = res.rows;
+  const res = await listHonor(data);
+  honorList.value = res.rows;
   total.value = res.total;
   loading.value = false;
 }
 
-/** 查询成果类型 */
+/** 查询荣誉类型 */
 const getTypeList = async () => {
-  const res = await listAchievementAvailable();
+  const res = await listHonorAvailable();
   types.value = res.data;
 }
 
@@ -427,7 +427,7 @@ const cancel = () => {
 /** 表单重置 */
 const reset = () => {
   form.value = {...initFormData};
-  achievementFormRef.value?.resetFields();
+  honorFormRef.value?.resetFields();
 }
 
 /** 搜索按钮操作 */
@@ -443,8 +443,8 @@ const resetQuery = () => {
 }
 
 /** 多选框选中数据 */
-const handleSelectionChange = (selection: AchievementVO[]) => {
-  ids.value = selection.map(item => item.achievementId);
+const handleSelectionChange = (selection: HonorVO[]) => {
+  ids.value = selection.map(item => item.honorId);
   single.value = selection.length != 1;
   multiple.value = !selection.length;
 }
@@ -452,7 +452,7 @@ const handleSelectionChange = (selection: AchievementVO[]) => {
 /** 新增按钮操作 */
 const handleAdd = () => {
   dialog.visible = true;
-  dialog.title = "添加在校成果管理";
+  dialog.title = "添加在校荣誉管理";
   fileList.value = []
   nextTick(() => {
     reset();
@@ -460,19 +460,19 @@ const handleAdd = () => {
 }
 
 /** 修改按钮操作 */
-const handleUpdate = (row?: AchievementVO) => {
+const handleUpdate = (row?: HonorVO) => {
   loading.value = true
   dialog.visible = true;
-  dialog.title = "修改在校成果管理";
+  dialog.title = "修改在校荣誉管理";
   fileList.value = []
   nextTick(async () => {
     reset();
-    const _achievementId = row?.achievementId || ids.value[0]
-    const res = await getAchievement(_achievementId);
-    res.data.achievementOtherTeacherIds = '';
-    res.data.achievementOtherStudentIds = '';
-    res.data.achievementTeacherId = '';
-    res.data.achievementEvidenceUrl = '';
+    const _honorId = row?.honorId || ids.value[0]
+    const res = await getHonor(_honorId);
+    res.data.honorOtherTeacherIds = '';
+    res.data.honorOtherStudentIds = '';
+    res.data.honorTeacherId = '';
+    res.data.honorEvidenceUrl = '';
     loading.value = false;
     Object.assign(form.value, res.data);
   });
@@ -480,20 +480,20 @@ const handleUpdate = (row?: AchievementVO) => {
 
 /** 提交按钮 */
 const submitForm = () => {
-  achievementFormRef.value?.validate(async (valid: boolean) => {
+  honorFormRef.value?.validate(async (valid: boolean) => {
     if (valid) {
       buttonLoading.value = true;
       const data = JSON.parse(JSON.stringify(form.value))
-      if (Array.isArray(data.achievementOtherStudentIds) && data.achievementOtherStudentIds.length != 0) {
-        data.achievementOtherStudentIds = data.achievementOtherStudentIds.join(",")
+      if (Array.isArray(data.honorOtherStudentIds) && data.honorOtherStudentIds.length != 0) {
+        data.honorOtherStudentIds = data.honorOtherStudentIds.join(",")
       }
-      if (Array.isArray(data.achievementOtherTeacherIds) && data.achievementOtherTeacherIds.length != 0) {
-        data.achievementOtherTeacherIds = data.achievementOtherTeacherIds.join(",")
+      if (Array.isArray(data.honorOtherTeacherIds) && data.honorOtherTeacherIds.length != 0) {
+        data.honorOtherTeacherIds = data.honorOtherTeacherIds.join(",")
       }
-      if (form.value.achievementId) {
-        await updateAchievement(data).finally(() => buttonLoading.value = false);
+      if (form.value.honorId) {
+        await updateHonor(data).finally(() => buttonLoading.value = false);
       } else {
-        await addAchievement(data).finally(() => buttonLoading.value = false);
+        await addHonor(data).finally(() => buttonLoading.value = false);
       }
       proxy?.$modal.msgSuccess("修改成功");
       dialog.visible = false;
@@ -503,19 +503,19 @@ const submitForm = () => {
 }
 
 /** 删除按钮操作 */
-const handleDelete = async (row?: AchievementVO) => {
-  const _achievementIds = row?.achievementId || ids.value;
-  await proxy?.$modal.confirm('是否确认删除在校成果管理编号为"' + _achievementIds + '"的数据项？').finally(() => loading.value = false);
-  await delAchievement(_achievementIds);
+const handleDelete = async (row?: HonorVO) => {
+  const _honorIds = row?.honorId || ids.value;
+  await proxy?.$modal.confirm('是否确认删除在校荣誉管理编号为"' + _honorIds + '"的数据项？').finally(() => loading.value = false);
+  await delHonor(_honorIds);
   proxy?.$modal.msgSuccess("删除成功");
   await getList();
 }
 
 /** 导出按钮操作 */
 const handleExport = () => {
-  proxy?.download('business/achievement/my/export', {
+  proxy?.download('business/honor/my/export', {
     ...queryParams.value
-  }, `achievement_${new Date().getTime()}.xlsx`)
+  }, `honor_${new Date().getTime()}.xlsx`)
 }
 
 /** 上传操作 */
@@ -523,7 +523,7 @@ const handleUploadFile = async (options: UploadRequestOptions) => {
   const formData = new FormData()
   formData.append("file", options.file, options.filename);
   const url = await uploadFile(formData)
-  form.value.achievementEvidenceUrl = url.msg
+  form.value.honorEvidenceUrl = url.msg
 }
 
 /** 上传预处理 */
