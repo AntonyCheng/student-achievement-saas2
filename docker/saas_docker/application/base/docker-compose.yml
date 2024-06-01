@@ -1,0 +1,134 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:8.0.31
+    container_name: mysql
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+      # root 密码
+      MYSQL_ROOT_PASSWORD: 123456
+      # 初始化数据库
+      MYSQL_DATABASE: ry-cloud
+    ports:
+      - "3306:3306"
+    volumes:
+      # 数据挂载
+      - ./data/mysql/data/:/var/lib/mysql/
+      # 配置挂载
+      - ./data/mysql/conf/:/etc/mysql/conf.d/
+    command:
+      # 将mysql8.0默认密码策略 修改为 原先 策略 (mysql8.0对其默认策略做了更改 会导致密码无法匹配)
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_general_ci
+      --explicit_defaults_for_timestamp=true
+      --lower_case_table_names=1
+      --skip-name-resolve
+    privileged: true
+    networks:
+      saas_net:
+        ipv4_address: 177.177.177.101
+        
+  redis:
+    image: redis:6.2.7
+    container_name: redis
+    ports:
+      - "6379:6379"
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+    volumes:
+      # 配置文件
+      - ./data/redis/conf:/redis/config
+      # 数据文件
+      - ./data/redis/data/:/redis/data/
+    command: "redis-server /redis/config/redis.conf"
+    privileged: true
+    networks:
+      saas_net:
+        ipv4_address: 177.177.177.102
+
+  minio:
+    image: minio/minio:RELEASE.2023-03-24T21-41-23Z
+    container_name: minio
+    ports:
+      # api 端口
+      - "9000:9000"
+      # 控制台端口
+      - "9090:9090"
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+      # 管理后台用户名
+      MINIO_ROOT_USER: minioadmin
+      # 管理后台密码，最小8个字符
+      MINIO_ROOT_PASSWORD: minioadmin
+      # https需要指定域名
+      #MINIO_SERVER_URL: "https://xxx.com:9000"
+      #MINIO_BROWSER_REDIRECT_URL: "https://xxx.com:9090"
+      # 开启压缩 on 开启 off 关闭
+      MINIO_COMPRESS: "off"
+      # 扩展名 .pdf,.doc 为空 所有类型均压缩
+      MINIO_COMPRESS_EXTENSIONS: ""
+      # mime 类型 application/pdf 为空 所有类型均压缩
+      MINIO_COMPRESS_MIME_TYPES: ""
+    volumes:
+      # 映射当前目录下的data目录至容器内/data目录
+      - ./data/minio/data:/data
+      # 映射配置目录
+      - ./data/minio/config:/root/.minio/
+    command: server --address ':9000' --console-address ':9090' /data  # 指定容器中的目录 /data
+    privileged: true
+    networks:
+      saas_net:
+        ipv4_address: 177.177.177.103
+        
+  nacos:
+    image: antony/nacos:2.1.2
+    container_name: nacos
+    ports:
+      - "8848:8848"
+      - "9848:9848"
+      - "9849:9849"
+    environment:
+      TZ: Asia/Shanghai
+      JAVA_OPTS: "-Xms256m -Xmx512m"
+    volumes:
+      # 日志目录 注意集群模式下 日志目录不能一致 需要区分例如 nacos1 nacos2
+      - ./data/nacos/logs/:/root/nacos/logs
+      # 集群配置文件 集群所有nacos都必须使用此文件
+      - ./data/nacos/conf/cluster.conf:/root/nacos/conf/cluster.conf
+    networks:
+      saas_net:
+        ipv4_address: 177.177.177.104
+
+  seata-server:
+    image: antony/seata:2.1.2
+    container_name: seata
+    ports:
+      - "7091:7091"
+      - "8091:8091"
+    environment:
+      TZ: Asia/Shanghai
+      # 注意 此处ip如果是外网使用 要改为外网ip
+      # SEATA_IP: 127.0.0.1
+      SEATA_PORT: 8091
+    volumes:
+      - ./data/ruoyi-seata-server/logs/:/ruoyi/seata-server/logs
+      # skywalking 探针
+      - ./data/skywalking/agent/:/ruoyi/skywalking/agent
+    privileged: true
+    networks:
+      saas_net:
+        ipv4_address: 177.177.177.105
+
+networks:
+  saas_net:
+    driver: bridge
+    name: saas_net
+    ipam:
+      config:
+        - subnet: 177.177.177.0/24
+          gateway: 177.177.177.1

@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  nginx-web:
+    image: nginx:1.22.1
+    container_name: nginx-web
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      # 证书映射
+      - ./data/nginx/cert:/etc/nginx/cert
+      # 配置文件映射
+      - ./data/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+      # 页面目录
+      - ./data/nginx/html:/usr/share/nginx/html
+      # 日志目录
+      - ./data/nginx/log:/var/log/nginx
+    privileged: true
+    networks:
+      saas_net:
+        ipv4_address: 177.177.177.121
+
+networks:
+  saas_net:
+    external: true

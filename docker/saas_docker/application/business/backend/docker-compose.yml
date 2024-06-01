@@ -1,0 +1,114 @@
+version: '3'
+
+services:
+  ruoyi-auth:
+    image: antony/auth:2.1.2
+    container_name: auth
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+    ports:
+      - "9210:9210"
+    volumes:
+      # 配置文件
+      - ./data/ruoyi-auth/logs/:/ruoyi/auth/logs
+      # skywalking 探针
+      - ./data/skywalking/agent/:/ruoyi/skywalking/agent
+    privileged: true
+    networks:
+      saas_net:
+        ipv4_address: 177.177.177.111
+        
+  ruoyi-resource:
+    image: antony/resource:2.1.2
+    container_name: resource
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+    ports:
+      - "9204:9204"
+    volumes:
+      # 配置文件
+      - ./data/ruoyi-resource/logs/:/ruoyi/resource/logs
+      # skywalking 探针
+      - ./data/skywalking/agent/:/ruoyi/skywalking/agent
+    privileged: true
+    networks:
+      saas_net:
+        ipv4_address: 177.177.177.112
+    
+  ruoyi-gateway:
+    image: antony/gateway:2.1.2
+    container_name: gateway
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+    ports:
+      - "8080:8080"
+    volumes:
+      # 配置文件
+      - ./data/ruoyi-gateway/logs/:/ruoyi/gateway/logs
+      # skywalking 探针
+      - ./data/skywalking/agent/:/ruoyi/skywalking/agent
+    privileged: true
+    networks:
+      saas_net:
+        ipv4_address: 177.177.177.113
+
+  ruoyi-system:
+    image: antony/system:2.1.2
+    container_name: system
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+    ports:
+      - "9201:9201"
+    volumes:
+      # 配置文件
+      - ./data/ruoyi-system/logs/:/ruoyi/system/logs
+      # skywalking 探针
+      - ./data/skywalking/agent/:/ruoyi/skywalking/agent
+    privileged: true
+    networks:
+      saas_net:
+        ipv4_address: 177.177.177.114
+        
+  antony-base:
+    image: antony/base:2.1.2
+    container_name: base
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+    ports:
+      - "10001:10001"
+    volumes:
+      # 配置文件
+      - ./data/antony-base/logs/:/antony/base/logs
+      # skywalking 探针
+      - ./data/skywalking/agent/:/ruoyi/skywalking/agent
+    privileged: true
+    networks:
+      saas_net:
+        ipv4_address: 177.177.177.115
+        
+  antony-business:
+    image: antony/business:2.1.2
+    container_name: business
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+    ports:
+      - "10002:10002"
+    volumes:
+      # 配置文件
+      - ./data/antony-business/logs/:/antony/business/logs
+      # skywalking 探针
+      - ./data/skywalking/agent/:/ruoyi/skywalking/agent
+    privileged: true
+    networks:
+      saas_net:
+        ipv4_address: 177.177.177.116
+
+networks:
+  saas_net:
+    external: true
